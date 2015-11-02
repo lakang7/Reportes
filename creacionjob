@@ -1,0 +1,31 @@
+cuentas.Id 
+cuentas.Codigo 
+cuentas.Nombre 
+cuentas.NomIdioma 
+cuentas.Tipo 
+
+ejercicios.Id 
+ejercicios.Ejercicio 
+ejercicios.TipoPer 
+ejercicios.FecIniEje 
+ejercicios.FecFinEje 
+
+saldos.Id 
+saldos.IdCuenta 
+saldos.Ejercicio 
+saldos.Tipo 
+saldos.SaldoIni 
+saldos.Importes1 
+
+movimientos.Id 
+movimientos.IdCuenta 
+movimientos.Ejercicio 
+movimientos.Periodo 
+movimientos.NumMovto 
+movimientos.Importe 
+movimientos.Concepto 
+movimientos.Fecha 
+movimientos.TipoMovto 
+
+"yyyy-MM-dd HH:mm:ss.SSS"
+"yyyy-MM-dd HH:mm:ss"
