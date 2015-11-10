@@ -14,6 +14,10 @@
     $razonesporca=array();
     $valoresporra=array();
     
+    $sqlEmpresa="select * from empresa where idempresa='".$buscaempresa."'";
+    $resutlEmpresa=mysql_query($sqlEmpresa,$con) or die(mysql_error());
+    $Empresa=mysql_fetch_assoc($resutlEmpresa);
+    
     $sqlCategoria="select * from categoriarazon;";
     $resutlCategoria=mysql_query($sqlCategoria,$con) or die(mysql_error());
     $cont=0;
@@ -32,7 +36,8 @@
     }
     
     $sqlRazones = "select * from razonfinanciera order by idrazonfinanciera;";
-    $resutlRazones=mysql_query($sqlRazones,$con) or die(mysql_error());    
+    $resutlRazones=mysql_query($sqlRazones,$con) or die(mysql_error());   
+    $numeroRazones=mysql_num_rows($resutlRazones);
     while ($razon=mysql_fetch_assoc($resutlRazones)) {
         $conttotal=0;
         
@@ -179,10 +184,8 @@
      
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('Nicola Asuni');
-    $pdf->SetTitle('TCPDF Example 012');
-    $pdf->SetSubject('TCPDF Tutorial');
-    $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+    $pdf->SetAuthor('Gaag Desarrollo Empresarial');
+    $pdf->SetTitle('Resumen de Indicadores Financieras');
 
     // disable header and footer
     $pdf->setPrintHeader(false);
@@ -195,7 +198,7 @@
     $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
     // set auto page breaks
-    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+    $pdf->SetAutoPageBreak(TRUE, 0);
 
     // set image scale factor
     $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -206,10 +209,84 @@
         $pdf->setLanguageArray($l);
     }
     
-    $pdf->SetFont('Helvetica', '', 8);
-    $pdf->AddPage();
-
+    $meses=array();
+    
+    $meses[0]="Enero";
+    $meses[1]="Febrero";
+    $meses[2]="Marzo";
+    $meses[3]="Abril";
+    $meses[4]="Mayo";
+    $meses[5]="Junio";
+    $meses[6]="Julio";
+    $meses[7]="Agosto";
+    $meses[8]="Septiembre";
+    $meses[9]="Octubre";
+    $meses[10]="Noviembre";
+    $meses[11]="Diciembre";
+    
+    $me[0]="Ene";
+    $me[1]="Feb";
+    $me[2]="Mar";
+    $me[3]="Abr";
+    $me[4]="May";
+    $me[5]="Jun";
+    $me[6]="Jul";
+    $me[7]="Ago";
+    $me[8]="Sep";
+    $me[9]="Oct";
+    $me[10]="Nov";
+    $me[11]="Dic";
+    
+    
+    
+    $pdf->AddPage('P', 'A4'); 
     $style1 = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => '10,10', 'color' => array(50, 128, 100));    
+    $pdf->Image('recursos/logo300px.jpg', 65, 100, 75, 32, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+    $pdf->Line(30, 140, 180, 140);
+    $pdf->SetFont('Helvetica', '', 16);
+    $pdf->Text(30, 143, 'Resumen de Indicadores Financieros');
+    $pdf->Line(30, 153, 180, 153);
+    
+    $pdf->SetFont('Helvetica', '', 8);    
+    $pdf->SetTextColor(126,130,109);
+    $pdf->Text(30, 160, 'Preparado por');    
+    $pdf->SetFont('Helvetica', '', 12);        
+    $pdf->SetTextColor(0,0,0);
+    $pdf->Text(30, 165, 'GAAG Desarrollo Empresarial');
+    
+    $pdf->SetFont('Helvetica', '', 8);    
+    $pdf->SetTextColor(126,130,109);
+    $pdf->Text(30, 174, 'Para');    
+    $pdf->SetFont('Helvetica', '', 12);        
+    $pdf->SetTextColor(0,0,0);
+    $pdf->Text(30, 179,$Empresa["nombre"]);    
+    
+    $pdf->SetFont('Helvetica', '', 8);
+    $pdf->SetTextColor(126,130,109);    
+    $pdf->Text(30, 189, 'Periodo en Revisión');    
+    $pdf->SetFont('Helvetica', '', 12);
+    $pdf->SetTextColor(0,0,0);    
+    $pdf->Text(30, 194,$meses[($buscames-1)].' '.$buscaano);    
+    
+    
+    $pdf->SetFont('Helvetica', '', 8);
+    $pdf->SetTextColor(126,130,109);    
+    $pdf->Text(30, 203, 'Creado el');     
+    $pdf->SetFont('Helvetica', '', 9);
+    $pdf->SetTextColor(0,0,0);  
+    $dia=date("d");
+    $mes=date("m");
+    $ano=date("Y");
+    $pdf->Text(30, 208,$dia." de ".$meses[($mes-1)]." de ".$ano);
+    
+    $pdf->SetFont('Helvetica', '', 8);
+    $pdf->AddPage('P', 'A4');
+    
+    $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+    $pdf->Line(10, 25, 200, 25);
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');
+    $pdf->SetFont('Helvetica', '', 8);
     $pdf->SetLineStyle(array('width' => 0.1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(224,224,224)));      
     
     $pdf->Circle(105,135,55.9);
@@ -326,10 +403,124 @@
         }
         for($k=0;$k<$separacion;$k++){
             $angulo++;
+        }        
+    }
+    
+    $porcentaje=(($cuentaOK*100)/($cuentaOK+$cuentaFA));
+    $angcalcula=(($porcentaje*360)/100);
+    
+    $pdf->SetFont('Helvetica', 'B', 16);
+    $pdf->Text(92,105,$me[($buscames-1)].' '.$buscaano);    
+    
+    $pdf->SetFont('Helvetica', '', 20);
+    $pdf->Text(97,131,round($porcentaje,0)."%");
+    
+    $pdf->SetFont('Helvetica', '', 20);    
+    $pdf->Text(65,131,round($cuentaOK,0));
+    $pdf->Text(138,131,round($cuentaFA,0));
+    
+    $pdf->SetFont('Helvetica', '', 7);
+    $pdf->Text(60,140,"BUEN ESTADO");
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(66,144,"O");
+    $pdf->SetFont('Helvetica', '', 7);    
+    $pdf->Text(128,140,"ESTADO DE ALERTA");
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(139,144,"X");    
+    
+    $pdf->SetFont('Helvetica', '', 9);
+    $pdf->Text(82,160,$numeroRazones." Indicadores (".($numeroRazones-($cuentaOK+$cuentaFA))." n/a resultados)");
+    
+    $pdf->SetFont('Helvetica', '', 8);
+    $pdf->SetLineStyle(array('color' => array(125, 190, 17)));
+    $pdf->Circle(105,135,18,0,$angcalcula);
+    $pdf->Circle(105,135,18.1,0,$angcalcula);
+    $pdf->Circle(105,135,18.2,0,$angcalcula);
+    $pdf->Circle(105,135,18.3,0,$angcalcula);
+    $pdf->Circle(105,135,18.4,0,$angcalcula);
+    $pdf->Circle(105,135,18.5,0,$angcalcula);
+    $pdf->Circle(105,135,18.6,0,$angcalcula);
+    $pdf->Circle(105,135,18.7,0,$angcalcula);
+    $pdf->Circle(105,135,18.8,0,$angcalcula);
+    $pdf->Circle(105,135,18.9,0,$angcalcula);
+    $pdf->Circle(105,135,19,0,$angcalcula);
+    
+    $pdf->SetLineStyle(array('color' => array(208, 0, 10)));
+    $pdf->Circle(105,135,18,$angcalcula,360);
+    $pdf->Circle(105,135,18.1,$angcalcula,360);
+    $pdf->Circle(105,135,18.2,$angcalcula,360);
+    $pdf->Circle(105,135,18.3,$angcalcula,360);
+    $pdf->Circle(105,135,18.4,$angcalcula,360);
+    $pdf->Circle(105,135,18.5,$angcalcula,360);
+    $pdf->Circle(105,135,18.6,$angcalcula,360);
+    $pdf->Circle(105,135,18.7,$angcalcula,360);
+    $pdf->Circle(105,135,18.8,$angcalcula,360);
+    $pdf->Circle(105,135,18.9,$angcalcula,360);
+    $pdf->Circle(105,135,19,$angcalcula,360);
+    
+    
+    $pdf->SetFont('Helvetica', '', 7);
+    $pdf->SetTextColor(126,130,109);
+    $pdf->Text(10,277,"Creado por GAAG Desarrollo Empresarial");
+    $pdf->SetTextColor(0,0,0);
+    $pdf->Text(10,280,$Empresa["nombre"]." | ".$me[($buscames-1)].' '.$buscaano); 
+    $pdf->Text(185,280,"Página 02");
+    
+    $pdf->AddPage('P', 'A4');    
+    $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+    $pdf->SetLineStyle(array('color' => array(0,0,0)));
+    $pdf->Line(10, 25, 200, 25);
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');
+    $pdf->SetFont('Helvetica', '', 8);
+    
+    
+    $posiciony=34;
+    $pdf->SetLineStyle(array('color' => array(148,148,148)));
+    $pdf->Line(10, $posiciony, 200, $posiciony);
+    $pdf->Text(100, 36, 'Resultado');
+    $pdf->Text(120, 36, 'Objetivo');
+    $posiciony+=7;
+    $letras=array();    
+    $letras[0]="A";
+    $letras[1]="B";
+    $letras[2]="C";
+    $letras[3]="D";
+    $letras[4]="E";
+    $letras[5]="F";
+    $letras[6]="G";
+    
+    for($i=0;$i<$cont;$i++){
+        $sqlCat="select * from categoriarazon where idcategoriarazon='".$categoriasID[$i]."'";
+        $resutlCat=mysql_query($sqlCat,$con) or die(mysql_error());
+        $Cat = mysql_fetch_assoc($resutlCat);        
+        //echo $letras[$i]." ".$Cat["nombre"]."</br>";
+        
+        $pdf->SetFillColor(244, 244, 244);
+        $pdf->Line(10, $posiciony, 200, $posiciony);
+        $pdf->Rect(10, $posiciony, 190, 7,'F');     
+        $pdf->Text(10,$posiciony+2,$letras[$i].". ".$Cat["nombre"]);
+        $posiciony+=7;
+        $pdf->Line(10, $posiciony, 200, $posiciony);
+        $lisaux = explode("-",$razonesporca[$i]);
+        $lisval = explode(";",$valoresporra[$i]);
+        for($j=0;$j<(count($lisaux)-1);$j++){
+            $sqlRaz="select * from razonfinanciera where idrazonfinanciera='".$lisaux[$j]."'";
+            $resutlRaz=mysql_query($sqlRaz,$con) or die(mysql_error());
+            $Raz = mysql_fetch_assoc($resutlRaz);   
+            $pdf->Line(10, $posiciony, 200, $posiciony);
+            $pdf->Text(10,$posiciony+2,$Raz["nombre"]);
+            $posiciony+=7;
+            
+            //echo $Raz["nombre"]." ".$lisval[$j]."</br>";
         }
+    }    
+    
         
-    }               
-        
+   
+
+    $pdf->Line(10, $posiciony, 200, $posiciony);
+    
     $pdf->Output('example_012.pdf', 'I');       
     
 ?>        
