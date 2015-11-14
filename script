@@ -25,10 +25,10 @@ insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(1,"Raz�
 insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(1,"Razón de capital de trabajo a activos","En esta razón nos muestra los recursos con los que cuanta realmente la empresa para poder operar.");
 
 insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(2,"Rotación de cobros","Indica cuántas veces, en promedio, se recaudan las cuentas por cobrar durante cierto periodo.");
-insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(2,"Días de recuperación de cobros","Es el número promedio de días requeridos para convertir las cuentas por cobrar en efectivo. También provee información acerca de las políticas crediticias de la empresa.");
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(2,"Meses de recuperación de cobros","Es el número promedio de días requeridos para convertir las cuentas por cobrar en efectivo. También provee información acerca de las políticas crediticias de la empresa.");
 insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(2,"Rotación de inventarios","Proporciona información con relación a la eficiencia de la empresa en la administración y ventas de sus inventarios. Generalmente una alta rotación de los inventarios es muestra de un manejo eficiente de los mismos.");
 insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(2,"Días de Rotación de inventarios","Proporciona información con relación a la eficiencia de la empresa en la administración y ventas de sus inventarios. Generalmente una alta rotación de los inventarios es muestra de un manejo eficiente de los mismos.");
-insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(2,"Rotación de activos fijos","Estas razones se utilizan para medir la efectividad de la administración para generar ventas a partir de las inversiones en los activos. Cuando la rotación de los activos es alta, generalmente se debe a que la inversión requerida para generar ventas es pequeña, y por lo tanto la empresa es más rentable.");
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(4,"Muestra el porcentaje real pagado de impuestos anuales.");
 insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(2,"Rotación de activos totales","Estas razones se utilizan para medir la efectividad de la administración para generar ventas a partir de las inversiones en los activos. Cuando la rotación de los activos es alta, generalmente se debe a que la inversión requerida para generar ventas es pequeña, y por lo tanto la empresa es más rentable.");
 
 insert into razonfinanciera (idcategoriarazon,nombre,descripcion) values(3,"Razón de deuda total","Esta razón nos identifica como esta siendo financiada la empresa por terceros.");
@@ -73,7 +73,7 @@ insert into clave (nombre) values("Activo Fijo");
 insert into clave (nombre) values("Otros Ingresos");
 insert into clave (nombre) values("Descuentos en Compras");
 insert into clave (nombre) values("Gastos de Administracion");
-insert into clave (nombre) values("Utilidad Neta 01");
+insert into clave (nombre) values("Utilidad Neta");
 insert into clave (nombre) values("Utilidad Neta 02");
 
 CREATE TABLE empresa (
@@ -105,18 +105,17 @@ insert into asociaclave (idempresa,idclave,codigo,indice) values(1,2,"0000100",1
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,3,"0000210",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,4,"0000200",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,7,"_CAPITAL",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(1,8,"5010000",2);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,9,"1020000",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(1,10,"4000000",3);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,10,"4000000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,13,"1030000",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(1,15,"5010000",2);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,15,"5010000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,19,"7010003",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,20,"1230000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,21,"0000120",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,22,"7050000",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(1,23,"5020000",2);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(1,24,"6010000",2);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(1,25,"_UTILIDAD",2);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,23,"5020000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,24,"6010000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,25,"_UTILIDAD",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,26,"_UTILIDAD",3);
 
 CREATE TABLE calculo(
@@ -160,8 +159,12 @@ insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(5
 insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(5,2,1,13,4);
 
 /*Días de recuperación de cobros*/
-insert into calculo (idrazonfinanciera,posicion,tipo,valorconstante,operacion) values(6,1,2,365,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(6,2,1,14,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,valorconstante,operacion) values(6,1,2,12,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis,operacion) values(6,2,3,1,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(6,3,1,10,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(6,4,1,13,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(6,5,3,2);
+
 
 /*Rotación de inventarios*/
 insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(7,1,1,15,1);
@@ -228,25 +231,16 @@ insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(1
 insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(16,2,1,7,4);
 
 /*Margen de utilidad*/
-insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(17,1,3,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(17,2,1,26,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(17,3,1,25,2);
-insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(17,4,3,2);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(17,5,1,10,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(17,1,1,25,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(17,2,1,10,4);
 
 /*Rendimientos en activos (ROA)*/
-insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(18,1,3,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(18,2,1,26,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(18,3,1,25,2);
-insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(18,4,3,2);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(18,5,1,2,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(18,1,1,25,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(18,2,1,2,4);
 
 /*Rendimiento en capital contable (ROE)*/
-insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(19,1,3,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(19,2,1,26,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(19,3,1,25,2);
-insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(19,4,3,2);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(19,5,1,7,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(19,1,1,25,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(19,2,1,7,4);
 
 
 CREATE TABLE ejercicio (

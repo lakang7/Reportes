@@ -58,7 +58,7 @@
                     }
                 }                     
             }
-            
+            $conttotal=0;
             if($conttotal==0){
                // echo $razon["idrazonfinanciera"]." - ".$razon["nombre"]."</br>";
                 
@@ -72,46 +72,52 @@
                         $sqlcuenta="select * from cuenta where codigo='".$auxasocia["codigo"]."' and idempresa='".$buscaempresa."'";
                         $resultcuenta=mysql_query($sqlcuenta,$con) or die(mysql_error());
                         $cuenta=mysql_fetch_assoc($resultcuenta);
+                        $numberelements=mysql_num_rows($resultcuenta);
                         $sqlvalor="select * from saldo where tipo='".$auxasocia["indice"]."' and ejercicio='".$buscaejercicio."' and idempresa='".$buscaempresa."' and idcuenta='".$cuenta["idcuenta"]."' ";
                         $resultvalor=mysql_query($sqlvalor,$con) or die(mysql_error());
                         $valor=mysql_fetch_assoc($resultvalor);
                         $val="";
+
                         if($buscames==1){
-                            $val=$valor["importes1"];
+                            $val="(".$valor["importes1"].")";
                         }
                         if($buscames==2){
-                            $val=$valor["importes2"];
+                            $val="(".$valor["importes2"].")";
                         }
                         if($buscames==3){
-                            $val=$valor["importes3"];
+                            $val="(".$valor["importes3"].")";
                         }
                         if($buscames==4){
-                            $val=$valor["importes4"];
+                            $val="(".$valor["importes4"].")";
                         }
                         if($buscames==5){
-                            $val=$valor["importes5"];
+                            $val="(".$valor["importes5"].")";
                         }
                         if($buscames==6){
-                            $val=$valor["importes6"];
+                            $val="(".$valor["importes6"].")";
                         }
                         if($buscames==7){
-                            $val=$valor["importes7"];
+                            $val="(".$valor["importes7"].")";
                         }
                         if($buscames==8){
-                            $val=$valor["importes8"];
+                            $val="(".$valor["importes8"].")";
                         }
                         if($buscames==9){
-                            $val=$valor["importes9"];
+                            $val="(".$valor["importes9"].")";
                         }
                         if($buscames==10){
-                            $val=$valor["importes10"];
+                            $val="(".$valor["importes10"].")";
                         }
                         if($buscames==11){
-                            $val=$valor["importes11"];
+                            $val="(".$valor["importes11"].")";
                         }
                         if($buscames==12){
-                            $val=$valor["importes12"];
-                        }                    
+                            $val="(".$valor["importes12"].")";
+                        }  
+                        
+                        if($numberelements==0){
+                            $val=1;
+                        }                        
                         
                         if($calculo["operacion"]==1){
                             $matematica=$matematica."+".$val;
@@ -154,7 +160,7 @@
                         }                                        
                     }                
                 }
-                
+                //echo $matematica."</br>";
                 eval("\$var = $matematica;");
                 //echo $matematica."</br>";
                 //echo round($var,2)."</br></br>";            
@@ -240,7 +246,7 @@
                 }
             }                     
         }
-
+        $conttotal=0;
         if($conttotal==0){
 
             $matematica="";
@@ -253,46 +259,51 @@
                     $sqlcuenta="select * from cuenta where codigo='".$auxasocia["codigo"]."' and idempresa='".$buscaempresa."'";
                     $resultcuenta=mysql_query($sqlcuenta,$con) or die(mysql_error());
                     $cuenta=mysql_fetch_assoc($resultcuenta);
+                    $numberelements=mysql_num_rows($resultcuenta);
                     $sqlvalor="select * from saldo where tipo='".$auxasocia["indice"]."' and ejercicio='".$buscaejercicio."' and idempresa='".$buscaempresa."' and idcuenta='".$cuenta["idcuenta"]."' ";
                     $resultvalor=mysql_query($sqlvalor,$con) or die(mysql_error());
                     $valor=mysql_fetch_assoc($resultvalor);
                     $val="";
-                    if($buscames==1){
-                        $val=$valor["importes1"];
-                    }
-                    if($buscames==2){
-                        $val=$valor["importes2"];
-                    }
-                    if($buscames==3){
-                        $val=$valor["importes3"];
-                    }
-                    if($buscames==4){
-                        $val=$valor["importes4"];
-                    }
-                    if($buscames==5){
-                        $val=$valor["importes5"];
-                    }
-                    if($buscames==6){
-                        $val=$valor["importes6"];
-                    }
-                    if($buscames==7){
-                        $val=$valor["importes7"];
-                    }
-                    if($buscames==8){
-                        $val=$valor["importes8"];
-                    }
-                    if($buscames==9){
-                        $val=$valor["importes9"];
-                    }
-                    if($buscames==10){
-                        $val=$valor["importes10"];
-                    }
-                    if($buscames==11){
-                        $val=$valor["importes11"];
-                    }
-                    if($buscames==12){
-                        $val=$valor["importes12"];
-                    }                    
+                        if($buscames==1){
+                            $val="(".$valor["importes1"].")";
+                        }
+                        if($buscames==2){
+                            $val="(".$valor["importes2"].")";
+                        }
+                        if($buscames==3){
+                            $val="(".$valor["importes3"].")";
+                        }
+                        if($buscames==4){
+                            $val="(".$valor["importes4"].")";
+                        }
+                        if($buscames==5){
+                            $val="(".$valor["importes5"].")";
+                        }
+                        if($buscames==6){
+                            $val="(".$valor["importes6"].")";
+                        }
+                        if($buscames==7){
+                            $val="(".$valor["importes7"].")";
+                        }
+                        if($buscames==8){
+                            $val="(".$valor["importes8"].")";
+                        }
+                        if($buscames==9){
+                            $val="(".$valor["importes9"].")";
+                        }
+                        if($buscames==10){
+                            $val="(".$valor["importes10"].")";
+                        }
+                        if($buscames==11){
+                            $val="(".$valor["importes11"].")";
+                        }
+                        if($buscames==12){
+                            $val="(".$valor["importes12"].")";
+                        } 
+                        
+                    if($numberelements==0){
+                        $val=1;
+                    }                        
                     
                     if($calculo["operacion"]==1){
                         $matematica=$matematica."+".$val;
@@ -679,7 +690,7 @@
     $posiciony=34;
     $pdf->SetLineStyle(array('color' => array(148,148,148)));
     $pdf->Line(10, $posiciony, 200, $posiciony);
-    $pdf->Text(115, 36, 'Resultado');
+    $pdf->Text(110, 36, 'Resultado');
     
     $pdf->Text(137, 36, 'Objetivo');
     $pdf->Text(159, 36, 'Estado');
@@ -716,14 +727,14 @@
             $Raz = mysql_fetch_assoc($resutlRaz);   
             $pdf->Line(10, $posiciony, 200, $posiciony);
             $pdf->Text(10,$posiciony+2,$Raz["nombre"]);
-            $pdf->Text(120,$posiciony+2,$lisval[$j]);
+            $pdf->Text(113,$posiciony+2,$lisval[$j]);
             $pdf->Text(140,$posiciony+2,">= 1");
-            $pdf->Text(184,$posiciony+2,$liscom[$j]);
+            $pdf->Text(180,$posiciony+2,$liscom[$j]);
             if($lisval[$j]>=$liscom[$j]){
-                $pdf->Polygon(array(115,$posiciony+5,118,$posiciony+5,116.5,$posiciony+3), 'F', array($style1), array(125, 190, 17));
+                $pdf->Polygon(array(110,$posiciony+5,113,$posiciony+5,111.5,$posiciony+3), 'F', array($style1), array(125, 190, 17));
                 
             }else{
-                $pdf->Polygon(array(115,$posiciony+2,118,$posiciony+2,116.5,$posiciony+4), 'F', array($style1), array(208, 0, 10));
+                $pdf->Polygon(array(110,$posiciony+2,113,$posiciony+2,111.5,$posiciony+4), 'F', array($style1), array(208, 0, 10));
             }
             
             if($lisval[$j]>=1){
@@ -738,12 +749,9 @@
             
             $posiciony+=7;            
         }
-    }        
+    }            
     
-    /*$pdf->SetFillColor(244, 244, 244);
-    $pdf->Circle(10, 10, 2, 0, 360, 'F',array('color'=>array(208, 0, 10)));*/
-    
-    $pdf->Text(116, 43,$me[($buscames-1)].' '.$buscaano);
+    $pdf->Text(110, 43,$me[($buscames-1)].' '.$buscaano);
     $pdf->Text(178, 43,'vs '.$me[($comparames-1)].' '.$comparaano);
     $pdf->Line(10, $posiciony, 200, $posiciony);
     $pdf->Line(133, 34, 133,$posiciony);

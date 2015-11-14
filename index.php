@@ -94,41 +94,41 @@ and open the template in the editor.
                         $valor=mysql_fetch_assoc($resultvalor);
                         $val="";
                         if($buscames==1){
-                            $val=$valor["importes1"];
+                            $val="(".$valor["importes1"].")";
                         }
                         if($buscames==2){
-                            $val=$valor["importes2"];
+                            $val="(".$valor["importes2"].")";
                         }
                         if($buscames==3){
-                            $val=$valor["importes3"];
+                            $val="(".$valor["importes3"].")";
                         }
                         if($buscames==4){
-                            $val=$valor["importes4"];
+                            $val="(".$valor["importes4"].")";
                         }
                         if($buscames==5){
-                            $val=$valor["importes5"];
+                            $val="(".$valor["importes5"].")";
                         }
                         if($buscames==6){
-                            $val=$valor["importes6"];
+                            $val="(".$valor["importes6"].")";
                         }
                         if($buscames==7){
-                            $val=$valor["importes7"];
+                            $val="(".$valor["importes7"].")";
                         }
                         if($buscames==8){
-                            $val=$valor["importes8"];
+                            $val="(".$valor["importes8"].")";
                         }
                         if($buscames==9){
-                            $val=$valor["importes9"];
+                            $val="(".$valor["importes9"].")";
                         }
                         if($buscames==10){
-                            $val=$valor["importes10"];
+                            $val="(".$valor["importes10"].")";
                         }
                         if($buscames==11){
-                            $val=$valor["importes11"];
+                            $val="(".$valor["importes11"].")";
                         }
                         if($buscames==12){
-                            $val=$valor["importes12"];
-                        }                    
+                            $val="(".$valor["importes12"].")";
+                        }                   
                         
                         if($calculo["operacion"]==1){
                             $matematica=$matematica."+".$val;
@@ -269,7 +269,7 @@ and open the template in the editor.
                 }
             }                     
         }
-
+        $conttotal=0;
         if($conttotal==0){
             echo $razon["idrazonfinanciera"]." - ".$razon["nombre"]."</br>";
 
@@ -280,49 +280,56 @@ and open the template in the editor.
                     $sqlAsocia = "select * from asociaclave where idempresa='".$buscaempresa."' and idclave='".$calculo["idclave"]."' ";
                     $resultAsocia=mysql_query($sqlAsocia,$con) or die(mysql_error());
                     $auxasocia=mysql_fetch_assoc($resultAsocia);
-                    $sqlcuenta="select * from cuenta where codigo='".$auxasocia["codigo"]."' and idempresa='".$buscaempresa."'";
+                    $sqlcuenta="select * from cuenta where codigo='".$auxasocia["codigo"]."' and idempresa='".$buscaempresa."'";;
                     $resultcuenta=mysql_query($sqlcuenta,$con) or die(mysql_error());
                     $cuenta=mysql_fetch_assoc($resultcuenta);
+                    $numberelements=mysql_num_rows($resultcuenta);                    
                     $sqlvalor="select * from saldo where tipo='".$auxasocia["indice"]."' and ejercicio='".$buscaejercicio."' and idempresa='".$buscaempresa."' and idcuenta='".$cuenta["idcuenta"]."' ";
                     $resultvalor=mysql_query($sqlvalor,$con) or die(mysql_error());
                     $valor=mysql_fetch_assoc($resultvalor);
                     $val="";
+                    
+                    
                     if($buscames==1){
-                        $val=$valor["importes1"];
+                        $val="(".$valor["importes1"].")";
                     }
                     if($buscames==2){
-                        $val=$valor["importes2"];
+                        $val="(".$valor["importes2"].")";
                     }
                     if($buscames==3){
-                        $val=$valor["importes3"];
+                        $val="(".$valor["importes3"].")";
                     }
                     if($buscames==4){
-                        $val=$valor["importes4"];
+                        $val="(".$valor["importes4"].")";
                     }
                     if($buscames==5){
-                        $val=$valor["importes5"];
+                        $val="(".$valor["importes5"].")";
                     }
                     if($buscames==6){
-                        $val=$valor["importes6"];
+                        $val="(".$valor["importes6"].")";
                     }
                     if($buscames==7){
-                        $val=$valor["importes7"];
+                        $val="(".$valor["importes7"].")";
                     }
                     if($buscames==8){
-                        $val=$valor["importes8"];
+                        $val="(".$valor["importes8"].")";
                     }
                     if($buscames==9){
-                        $val=$valor["importes9"];
+                        $val="(".$valor["importes9"].")";
                     }
                     if($buscames==10){
-                        $val=$valor["importes10"];
+                        $val="(".$valor["importes10"].")";
                     }
                     if($buscames==11){
-                        $val=$valor["importes11"];
+                        $val="(".$valor["importes11"].")";
                     }
                     if($buscames==12){
-                        $val=$valor["importes12"];
-                    }                    
+                        $val="(".$valor["importes12"].")";
+                    }        
+                    
+                    if($numberelements==0){
+                        $val=1;
+                    }
                     
                     if($calculo["operacion"]==1){
                         $matematica=$matematica."+".$val;
@@ -377,7 +384,6 @@ and open the template in the editor.
                     $valoresporra[$i]=$valoresporra[$i].round($var,2).";";
                 }
             }            
-
             
         }
 
@@ -478,11 +484,53 @@ and open the template in the editor.
     }   
     
     echo "</br>----------------------------------------</br>";
-    function grafica($conexion,$bempresa,$bcuenta,$bano,$bmes){
+    function consultacuenta($conexion,$bempresa,$bcuenta,$bano,$bmes){
+        $con=$conexion;
+        $sqlEje="select * from ejercicio where idempresa='".$bempresa."' and ejercicio='".$bano."'";
+        $resultEje=mysql_query($sqlEje,$con) or die(mysql_error());
+        $Eje = mysql_fetch_assoc($resultEje); 
         
+        $sqlCue="select * from cuenta where idempresa='".$bempresa."' and codigo='".$bcuenta."' ";
+        $resutlCue=mysql_query($sqlCue,$con) or die(mysql_error());
+        $Cuenta = mysql_fetch_assoc($resutlCue); 
+        
+        $sqlSal="select * from saldo where idempresa='".$bempresa."' and ejercicio ='".$Eje["idejercicio"]."' and idcuenta='".$Cuenta["idcuenta"]."' and tipo=3";
+        $resutlSal=mysql_query($sqlSal,$con) or die(mysql_error());
+        $Saldo = mysql_fetch_assoc($resutlSal);
+        
+        $meses = array();
+        $meses[0] = $Saldo["importes1"];
+        $meses[1] = $Saldo["importes2"];
+        $meses[2] = $Saldo["importes3"];
+        $meses[3] = $Saldo["importes4"];
+        $meses[4] = $Saldo["importes5"];
+        $meses[5] = $Saldo["importes6"];
+        $meses[6] = $Saldo["importes7"];
+        $meses[7] = $Saldo["importes8"];
+        $meses[8] = $Saldo["importes9"];
+        $meses[9] = $Saldo["importes10"];
+        $meses[10] = $Saldo["importes11"];
+        $meses[11] = $Saldo["importes12"];
+        return $meses;        
     }
     
-    grafica($con,1,"4000000",2015,6);
+    $uno=consultacuenta($con,1,"4000000",2014,6);
+    $dos=consultacuenta($con,1,"4000000",2015,6);
+    
+    $limitemayor = max($uno);
+    if(max($dos)>$limitemayor){
+        $limitemayor=max($dos);
+    }
+    
+    $limitemenor = min($uno);
+    if(min($dos)<$limitemenor){
+        $limitemenor=min($dos);
+    }    
+    
+    echo $limitemayor."</br>";
+    echo round($limitemayor)."</br>";
+    echo $limitemenor."</br>";
+  
    
 ?>        
         
