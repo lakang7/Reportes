@@ -1,0 +1,372 @@
+CREATE TABLE categoriarazon (
+    idcategoriarazon mediumint(8) unsigned auto_increment,
+    nombre varchar(60) not null,
+    descripcion varchar(1200),
+    PRIMARY KEY (idcategoriarazon)
+);
+
+insert into categoriarazon (nombre,descripcion) values("Razones de liquidez","Razones para identificar las necesidades de efectivo de una empresa.");
+insert into categoriarazon (nombre,descripcion) values("Razones de actividad","Razones que miden la liquidez de los activos.");
+insert into categoriarazon (nombre,descripcion) values("Razones de apalancamiento financiero","Miden el uso de la deuda por parte de la empresa, comparado con el uso de capital y su capacidad de pagar los intereses y tros gastos fijos.");
+insert into categoriarazon (nombre,descripcion) values("Razones de Rentabilidad","Razones que miden el desempeño de todala empresa y su eficiencia en la administracion de los activos, pasivos y capital.");
+
+CREATE TABLE razonfinanciera (
+    idrazonfinanciera mediumint(8) unsigned auto_increment,
+    idcategoriarazon mediumint(8) unsigned not null,
+    nombre varchar(60) not null,
+    descripcion varchar(1200),  
+    tipo integer not null,
+    evaluacion integer not null,
+    unidad integer not null,
+    PRIMARY KEY (idrazonfinanciera),
+    FOREIGN KEY (idcategoriarazon) REFERENCES categoriarazon(idcategoriarazon) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(1,"Razón de Circulante","Razon de circulante optima, 1 o mayor, representa la liquidez a corto plazo que tiene la empresa por cada $1 que posee para pagar sus deudas a corto plazo.",0,0,0);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(1,"Prueba ácida","Señala la suficienca o insuficiencia de la empresa o de sus recursos de manera casi inmediata para hacer frente a sus deudas a corto plazo",0,0,0);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(1,"Razón de efectivo","Señala la solvencia inmediata en relacion al efectivo, caja y banco, para liquidar de manera instantanea las deudas a corto plazo.",0,0,0);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(1,"Capital de trabajo a activos","Esta razón nos muestra los recursos con los que cuanta realmente la empresa para poder operar.",1,3,1);
+
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(2,"Rotación de cobros","Indica cuántas veces, en promedio, se recaudan las cuentas por cobrar durante un año.",0,3,2);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(2,"Meses de recuperación de cobros","Es el número promedio de meses requeridos para convertir las cuentas por cobrar en efectivo. También provee información acerca de las políticas crediticias de la empresa.",0,3,3);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(2,"Rotación de inventarios","Indica cuantas veces en promedio se venden o rotan las mercancías durante el periodo.",0,3,2);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(2,"Días de Rotación de inventarios","Es el promedio de días que la compañía tarda en vender sus productos.",0,3,4);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(2,"Rotación del activo total (RAT)","Cuando la rotación de los activos es alta, generalmente se debe a que la inversión requerida para generar ventas es pequeña, y por lo tanto la empresa es más rentable.",0,1,0);
+
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(3,"Deuda total","Esta razón nos identifica como esta siendo financiada la empresa por terceros, el resultado es la participación de los acreedores y proveedores sobre los activos de la empresa.",1,3,1);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(3,"Deuda total a capital contable","Si es menor a 1 el capital propio puede cubrir sus deudas, si es mayor a 1 el capital propio no es suficiente para cubrir las deudas.",0,2,0);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(3,"Deuda a largo plazo","Lo optimo es un resultado no mayor de 1, es decir que el capital ajeno no sea mayor al propio.",0,2,0);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(3,"Razón sobre el interes devengado","Debe ser igual o mayor que 1, indicando que los pagos de interés fijo que acompañan a la deuda son mas que cubiertos con las utilidades operativas.",0,0,0);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(3,"Razón de cobertura de efectivo","Es una medida de las capacidades de la empresa para  pagar  sus intereses derivadas de sus obligaciones.",0,0,0);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(3,"Tasa de interes real pagada","El porcentaje real pagado por prestamos adquiridos.",1,3,1);
+
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(4,"Margen de utilidad","Esta razón mide el porcentaje de ganancia neta por las ventas.",1,3,1);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(4,"Rendimientos en activos (ROA)","Tiene la finanlidad de medir la efectividad de la administración para generar utilidades con sus activos disponibles, el resultado se recomienta sea mayor a 1, ya que sera la ganancia por cada 1 peso invertido en sus activos.",0,0,0);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(4,"Rendimiento en capital contable (ROE)","El ROE mide el rendimiento sobre la inversión de los accionistas en la empresa. En cuanto mayor sea el resultado, este sera mas favorable para los empresarios ya que será atractiva la inversión. Se mide en porcentaje y el resultado que genere sera la ganancia por cada 1 peso de capital en acciones ordinarias.",0,0,0);
+insert into razonfinanciera (idcategoriarazon,nombre,descripcion,tipo,evaluacion,unidad) values(4,"Tasa real impositiva","Muestra el porcentaje real pagado de impuestos anuales.",1,3,1);
+
+
+CREATE TABLE clave (
+    idclave mediumint(8) unsigned auto_increment,
+    nombre varchar(60) not null,
+    descripcion varchar(1200),
+    PRIMARY KEY (idclave)
+);
+
+insert into clave (nombre) values("Activo Circulante");
+insert into clave (nombre) values("Activo Total");
+insert into clave (nombre) values("Pasivo Circulante");
+insert into clave (nombre) values("Pasivo Total");
+insert into clave (nombre) values("Pasivo a Largo Plazo");
+insert into clave (nombre) values("Capital Contable");
+insert into clave (nombre) values("Inventarios");
+insert into clave (nombre) values("Efectivo");
+insert into clave (nombre) values("Ventas Netas");
+insert into clave (nombre) values("Utilidad Neta");
+insert into clave (nombre) values("Cuentas por Cobrar");
+insert into clave (nombre) values("Costo de los Bienes Vendidos");
+insert into clave (nombre) values("Deuda a Largo Plazo");
+insert into clave (nombre) values("Interés");
+insert into clave (nombre) values("Depreciación");
+insert into clave (nombre) values("Activo Fijo");
+insert into clave (nombre) values("Otros Ingresos");
+insert into clave (nombre) values("Descuentos en Compras");
+insert into clave (nombre) values("Gastos de Administracion");
+insert into clave (nombre) values("Intereses Devengados");
+insert into clave (nombre) values("Prestamos Recibidos");
+insert into clave (nombre) values("ISR anual");
+
+CREATE TABLE empresa (
+    idempresa mediumint(8) unsigned not null,
+    nombre varchar(60) not null,
+    logo varchar(60) not null,
+    PRIMARY KEY (idempresa)
+);
+
+insert into empresa (idempresa,nombre,logo) values(1,"Maxi Plant, S.A de C.V.","");
+insert into empresa (idempresa,nombre,logo) values(2,"SCIENTRIX MEXICO SC","");
+insert into empresa (idempresa,nombre,logo) values(3,"JC GLOBAL RESOURCES DE MEXICO SA DE CV-2015","");
+insert into empresa (idempresa,nombre,logo) values(4,"GAAG DESARROLLO EMPRESARIA S DE RL DE CV","");
+insert into empresa (idempresa,nombre,logo) values(5,"ZUBIALINK ENTERPRISES SA DE CV","");
+
+CREATE TABLE asociaclave (
+    idasociaclave mediumint(8) unsigned auto_increment,
+    idempresa mediumint(8) unsigned not null,
+    idclave mediumint(8) unsigned not null,
+    codigo varchar(30) not null,
+    indice integer not null,
+    PRIMARY KEY (idasociaclave),
+    FOREIGN KEY (idempresa) REFERENCES empresa(idempresa) ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY (idclave) REFERENCES clave(idclave) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,1,"0000110",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,2,"0000100",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,3,"0000210",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,4,"0000200",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,6,"_CAPITAL",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,8,"1020000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,9,"4000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,10,"_UTILIDAD",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,11,"1030000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,12,"5010000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,14,"7010003",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,15,"1230000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,16,"0000120",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,17,"7050000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,18,"5020000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,19,"6010000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,20,"7010003",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,22,"7990001",1);
+
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,1,"000011000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,2,"000010000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,3,"000021000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,4,"000020000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,6,"_CAPITAL",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,8,"102000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,9,"400000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,10,"_UTILIDAD",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,11,"103000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,12,"501000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,15,"124000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,16,"000012000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,17,"403000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,19,"601000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,22,"701003001",1);
+
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,1,"0001100000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,2,"0001000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,3,"0002100000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,4,"0002000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,5,"0002200000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,6,"_CAPITAL",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,8,"1020000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,9,"4010000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,10,"_UTILIDAD",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,11,"1030000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,12,"5010000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,14,"8010010001",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,15,"1320000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,16,"0001200000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,17,"7020010000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,19,"0006300000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,20,"8010010001",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,22,"1459208069",1);
+
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,1,"000011",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,2,"000010",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,3,"000021",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,4,"000020",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,5,"000022",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,6,"_CAPITAL",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,8,"102000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,9,"400000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,10,"_UTILIDAD",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,11,"103000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,12,"501000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,14,"633555767",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,15,"1451727926",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,16,"000012",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,17,"1298041073",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,18,"388881841",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,19,"601000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,20,"633555767",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,22,"220593503",1);
+
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,1,"0000110",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,2,"0000100",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,3,"0000210",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,4,"0000200",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,5,"0000220",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,6,"_CAPITAL",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,8,"1020000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,9,"4000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,10,"_UTILIDAD",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,11,"1030000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,12,"5010000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,14,"5040002",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,15,"1250000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,16,"0000120",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,19,"5030000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,20,"5040002",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,22,"2020004",1);
+
+CREATE TABLE calculo(
+    idcalculo mediumint(8) unsigned auto_increment,    
+    idrazonfinanciera mediumint(8) unsigned not null,
+    posicion integer not null,
+    tipo integer not null,
+    idclave mediumint(8) unsigned,
+    valorconstante integer,
+    parentesis integer,    
+    operacion integer, 
+    PRIMARY KEY (idcalculo),
+    FOREIGN KEY (idrazonfinanciera) REFERENCES razonfinanciera(idrazonfinanciera) ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY (idclave) REFERENCES clave(idclave) ON UPDATE CASCADE ON DELETE RESTRICT        
+);
+
+/*Razon de Circulante*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(1,1,1,1,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(1,2,1,3,4);
+
+/*Prueba ácida*/
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(2,1,3,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(2,2,1,1,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(2,3,1,7,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(2,4,3,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(2,5,1,3,4);
+
+/*Razón de efectivo*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(3,1,1,8,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(3,2,1,3,4);
+
+/*Razón de capital de trabajo a activos*/
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(4,1,3,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(4,2,1,1,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(4,3,1,3,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(4,4,3,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(4,5,1,2,4);
+
+/*Rotación de cobros*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(5,1,1,9,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(5,2,1,11,4);
+
+/*Meses de recuperación de cobros*/
+insert into calculo (idrazonfinanciera,posicion,tipo,valorconstante,operacion) values(6,1,2,12,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis,operacion) values(6,2,3,1,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(6,3,1,9,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(6,4,1,11,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(6,5,3,2);
+
+/*Rotación de inventarios*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(7,1,1,12,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(7,2,1,7,4);
+
+/*Días de Rotación de inventarios*/
+insert into calculo (idrazonfinanciera,posicion,tipo,valorconstante,operacion) values(8,1,2,365,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis,operacion) values(8,2,3,1,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(8,3,1,12,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(8,4,1,7,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(8,5,3,2);
+
+/*Rotación de activos Total*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(9,1,1,9,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(9,2,1,2,4);
+
+/*Razón de deuda total*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(10,1,1,4,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(10,2,1,2,4);
+
+/*Razón de deuda total a capital contable*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(11,1,1,4,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(11,2,1,6,4);
+
+/*Razón de deuda a largo plazo*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(12,1,1,5,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis,operacion) values(12,2,3,1,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(12,3,1,13,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(12,4,1,6,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(12,5,3,2);
+
+/*Razón sobre el interes devengado*/
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(13,1,3,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(13,2,1,9,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(13,3,1,17,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(13,4,1,12,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(13,5,1,18,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(13,6,1,19,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(13,7,3,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(13,8,1,14,4);
+
+/*Razón de cobertura de efectivo*/
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(14,1,3,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(14,2,3,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(14,3,3,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(14,4,1,9,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(14,5,1,17,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(14,6,1,12,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(14,7,1,18,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(14,8,1,19,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(14,9,3,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(14,10,1,14,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(14,11,3,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(14,12,1,15,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(14,13,3,2);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(14,14,1,14,4);
+
+/*Tasa de interes real pagada*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(15,1,1,20,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(15,2,1,21,4);
+
+/*Margen de utilidad*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(16,1,1,10,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(16,2,1,9,4);
+
+/*Rendimientos en activos (ROA)*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(17,1,1,10,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(17,2,1,2,4);
+
+/*Rendimiento en capital contable (ROE)*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(18,1,1,10,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(18,2,1,6,4);
+
+/*Tasa Real Impositiva*/
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(19,1,1,22,1);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(19,2,1,10,4);
+
+CREATE TABLE ejercicio (
+    idempresa mediumint(8) unsigned not null,
+    idejercicio mediumint(8) unsigned not null,
+    ejercicio mediumint(8) unsigned not null,
+    tipoperiodo mediumint(8) unsigned not null,
+    fechainicio TIMESTAMP not null,
+    fechafin TIMESTAMP not null,
+    PRIMARY KEY (idempresa,idejercicio)
+);
+
+CREATE TABLE cuenta (
+    idempresa mediumint(8) unsigned not null,
+    idcuenta mediumint(8) unsigned not null,
+    codigo varchar(30) not null,
+    nombre varchar(50) not null,
+    nomidioma varchar(50) not null,
+    tipo varchar(1) not null,
+    PRIMARY KEY (idempresa,idcuenta)
+);
+
+CREATE TABLE saldo (
+    idempresa mediumint(8) unsigned not null,
+    idsaldo mediumint(8) unsigned not null,
+    idcuenta mediumint(8) unsigned not null,
+    ejercicio mediumint(8) unsigned not null,
+    tipo mediumint(8) unsigned not null,
+    saldoinicial numeric(10,2),
+    importes1 numeric(10,2),
+    importes2 numeric(10,2),
+    importes3 numeric(10,2),
+    importes4 numeric(10,2),
+    importes5 numeric(10,2),
+    importes6 numeric(10,2),
+    importes7 numeric(10,2),
+    importes8 numeric(10,2),
+    importes9 numeric(10,2),
+    importes10 numeric(10,2),
+    importes11 numeric(10,2),
+    importes12 numeric(10,2),
+    PRIMARY KEY (idempresa,idsaldo)
+);
+
+CREATE TABLE movimiento (
+    idempresa mediumint(8) unsigned not null,
+    idmovimiento mediumint(8) unsigned not null,
+    idcuenta mediumint(8) unsigned not null,
+    ejercicio mediumint(8) unsigned not null,  
+    periodo mediumint(8) unsigned not null, 
+    nummovimiento mediumint(8) unsigned not null, 
+    importe numeric(10,2) not null,
+    concepto varchar(100) not null,
+    fecha TIMESTAMP not null,
+    tipomovimiento mediumint(8) unsigned not null,
+    PRIMARY KEY (idempresa,idmovimiento)
+);

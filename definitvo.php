@@ -79,40 +79,88 @@
                         $val="";
 
                         if($buscames==1){
-                            $val="(".$valor["importes1"].")";
+                            if($valor["importes1"]!="0"){
+                                $val="(".$valor["importes1"].")";
+                            }else{
+                                $val="(1)";  
+                            }                            
                         }
                         if($buscames==2){
-                            $val="(".$valor["importes2"].")";
+                            if($valor["importes2"]!="0"){
+                                $val="(".$valor["importes2"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==3){
-                            $val="(".$valor["importes3"].")";
+                            if($valor["importes3"]!="0"){
+                                $val="(".$valor["importes3"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==4){
-                            $val="(".$valor["importes4"].")";
+                            if($valor["importes4"]!="0"){
+                                $val="(".$valor["importes4"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==5){
-                            $val="(".$valor["importes5"].")";
+                            if($valor["importes5"]!="0"){
+                                $val="(".$valor["importes5"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==6){
-                            $val="(".$valor["importes6"].")";
+                            if($valor["importes6"]!="0"){
+                                $val="(".$valor["importes6"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==7){
-                            $val="(".$valor["importes7"].")";
+                            if($valor["importes7"]!="0"){
+                                $val="(".$valor["importes7"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==8){
-                            $val="(".$valor["importes8"].")";
+                            if($valor["importes8"]!="0"){
+                                $val="(".$valor["importes8"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==9){
-                            $val="(".$valor["importes9"].")";
+                            if($valor["importes9"]!="0"){
+                                $val="(".$valor["importes9"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==10){
-                            $val="(".$valor["importes10"].")";
+                            if($valor["importes10"]!="0"){
+                                $val="(".$valor["importes10"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==11){
-                            $val="(".$valor["importes11"].")";
+                            if($valor["importes11"]!="0"){
+                                $val="(".$valor["importes11"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==12){
-                            $val="(".$valor["importes12"].")";
+                            if($valor["importes12"]!="0"){
+                                $val="(".$valor["importes12"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }  
                         
                         if($numberelements==0){
@@ -506,11 +554,36 @@
             $raz=mysql_fetch_assoc($resutlRazon);            
             $pdf->StartTransform();
             $pdf->Rotate(($angulo*7.2), 105, 135);
-            if((double)$listavalores[$j]>=1){
-                $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(125, 190, 17));
-            }else{
-                $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(208, 0, 10));
+            
+            if($raz["evaluacion"]==0){
+                if((double)$listavalores[$j]>=1){
+                    $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(125, 190, 17));
+                }else{
+                    $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(208, 0, 10));
+                }                 
+            } 
+            
+            if($raz["evaluacion"]==1){
+                if((double)$listavalores[$j]>0){
+                    $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(125, 190, 17));
+                }else{
+                    $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(208, 0, 10));
+                }                
+            }
+            
+            if($raz["evaluacion"]==2){
+                if((double)$listavalores[$j]<=1){
+                    $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(125, 190, 17));
+                }else{
+                    $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(208, 0, 10));
+                }                
+            }
+            
+            if($raz["evaluacion"]==3){
+                $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(125, 190, 17));                
             }            
+            
+           
             $pdf->StopTransform();                         
             
             $angulos=array();
@@ -585,13 +658,42 @@
             $pdf->SetFont('helvetica', '', 8);            
             $pdf->StartTransform();
             $pdf->Rotate((($angulo+1)*7.2)-2, 105,135);
-            if((double)$listavalores[$j]>=1){
-                $cuentaOK++;
-                $pdf->Text(105,135, '                                                                    O');
-            }else{
-                $cuentaFA++;
-                $pdf->Text(105,135, '                                                                    X');
+            
+            if($raz["evaluacion"]==0){
+                if((double)$listavalores[$j]>=1){
+                    $cuentaOK++;
+                    $pdf->Text(105,135, '                                                                    O');
+                }else{
+                    $cuentaFA++;
+                    $pdf->Text(105,135, '                                                                    X');
+                }                
             }
+            if($raz["evaluacion"]==1){
+                if((double)$listavalores[$j]>0){
+                    $cuentaOK++;
+                    $pdf->Text(105,135, '                                                                    O');
+                }else{
+                    $cuentaFA++;
+                    $pdf->Text(105,135, '                                                                    X');
+                }                
+            }
+            if($raz["evaluacion"]==2){
+                if((double)$listavalores[$j]<=1){
+                    $cuentaOK++;
+                    $pdf->Text(105,135, '                                                                    O');
+                }else{
+                    $cuentaFA++;
+                    $pdf->Text(105,135, '                                                                    X');
+                }                
+            }
+            if($raz["evaluacion"]==3){
+                    $cuentaOK++;
+                    $pdf->Text(105,135, '                                                                    O');                
+            }            
+
+            
+            
+            
             $pdf->SetTextColor(0,0,0);            
             $pdf->StopTransform();            
             
@@ -690,10 +792,10 @@
     $posiciony=34;
     $pdf->SetLineStyle(array('color' => array(148,148,148)));
     $pdf->Line(10, $posiciony, 200, $posiciony);
-    $pdf->Text(110, 36, 'Resultado');
+    $pdf->Text(124, 36, 'Resultado');
     
-    $pdf->Text(137, 36, 'Objetivo');
-    $pdf->Text(159, 36, 'Estado');
+    $pdf->Text(146, 36, 'Objetivo');
+    $pdf->Text(162, 36, 'Estado');
     $pdf->Text(180, 36, 'Tendencia');
     
     $posiciony+=7;
@@ -714,9 +816,9 @@
         
         $pdf->SetFillColor(244, 244, 244);
         $pdf->Line(10, $posiciony, 200, $posiciony);
-        $pdf->Rect(10, $posiciony, 190, 7,'F');     
-        $pdf->Text(10,$posiciony+2,$letras[$i].". ".$Cat["nombre"]);
-        $posiciony+=7;
+        $pdf->Rect(10, $posiciony, 190, 5,'F');     
+        $pdf->Text(10,$posiciony+1,$letras[$i].". ".$Cat["nombre"]);
+        $posiciony+=5;
         $pdf->Line(10, $posiciony, 200, $posiciony);
         $lisaux = explode("-",$razonesporca[$i]);
         $lisval = explode(";",$valoresporra[$i]);
@@ -726,36 +828,106 @@
             $resutlRaz=mysql_query($sqlRaz,$con) or die(mysql_error());
             $Raz = mysql_fetch_assoc($resutlRaz);   
             $pdf->Line(10, $posiciony, 200, $posiciony);
-            $pdf->Text(10,$posiciony+2,$Raz["nombre"]);
-            $pdf->Text(113,$posiciony+2,$lisval[$j]);
-            $pdf->Text(140,$posiciony+2,">= 1");
-            $pdf->Text(180,$posiciony+2,$liscom[$j]);
+            
+            $pdf->Text(14,$posiciony+1,$Raz["nombre"]);
+            $pdf->SetFont('Helvetica', '', 6);          
+            $pdf->SetXY(9, ($posiciony+4.5));
+            $pdf->SetTextColor(75,75,75);
+            $pdf->MultiCell(110, 5,$Raz["descripcion"], 0, 'L', 0, 0, '', '', true);            
+            
+            $pdf->SetTextColor(0,0,0);
+            
+            $pdf->SetFont('Helvetica', '', 8);
+            $uni="";
+            if($Raz["unidad"]==1){
+                $uni=" %";
+            }
+            if($Raz["unidad"]==2){
+                $uni=" veces";
+            }
+            if($Raz["unidad"]==3){
+                $uni=" meses";
+            }
+            if($Raz["unidad"]==4){
+                $uni=" dias";
+            }            
+            
+            $pdf->SetX(119);
+            if($Raz["tipo"]==1){
+                $lisval[$j]=$lisval[$j]*100;
+            }
+            
+            $pdf->Cell(25, 0,$lisval[$j].$uni, 0, 1, 'C', 0, '', 1);            
+            
+            if($Raz["evaluacion"]==0){
+                $pdf->Text(148,$posiciony+4,">= 1");
+            }
+            if($Raz["evaluacion"]==1){
+                $pdf->Text(148,$posiciony+4,"> 0");
+            }
+            if($Raz["evaluacion"]==2){
+                $pdf->Text(148,$posiciony+4,"<= 1");
+            }
+            if($Raz["evaluacion"]==3){
+                $pdf->Text(148,$posiciony+4,"n/a");
+            }            
+            
+            $pdf->SetX(175);
+            if($Raz["tipo"]==1){
+                $liscom[$j]=$liscom[$j]*100;
+            }            
+            $pdf->Cell(25, 0,$liscom[$j].$uni, 0, 1, 'C', 0, '', 1);
+            
+            
             if($lisval[$j]>=$liscom[$j]){
-                $pdf->Polygon(array(110,$posiciony+5,113,$posiciony+5,111.5,$posiciony+3), 'F', array($style1), array(125, 190, 17));
+                $pdf->Polygon(array(10,$posiciony+4,13,$posiciony+4,11.5,$posiciony+2), 'F', array($style1), array(125, 190, 17));
                 
             }else{
-                $pdf->Polygon(array(110,$posiciony+2,113,$posiciony+2,111.5,$posiciony+4), 'F', array($style1), array(208, 0, 10));
+                $pdf->Polygon(array(10,$posiciony+2,13,$posiciony+2,11.5,$posiciony+4), 'F', array($style1), array(208, 0, 10));
             }
             
-            if($lisval[$j]>=1){
-                $pdf->SetFillColor(125, 190, 17);
-            }else{
-                $pdf->SetFillColor(208, 0, 10);
+            
+            
+            if($Raz["evaluacion"]==0){
+                if($lisval[$j]>=1){
+                    $pdf->SetFillColor(125, 190, 17);
+                }else{
+                    $pdf->SetFillColor(208, 0, 10);
+                }                                
             }
+            if($Raz["evaluacion"]==1){
+                if($lisval[$j]>0){
+                    $pdf->SetFillColor(125, 190, 17);
+                }else{
+                    $pdf->SetFillColor(208, 0, 10);
+                }                               
+            }
+            if($Raz["evaluacion"]==2){
+                if($lisval[$j]<=1){
+                    $pdf->SetFillColor(125, 190, 17);
+                }else{
+                    $pdf->SetFillColor(208, 0, 10);
+                }                                
+            }
+            if($Raz["evaluacion"]==3){
+                $pdf->SetFillColor(125, 190, 17);                
+            }              
+            
+
                         
-            $pdf->Circle(164,($posiciony+3.5),1,0,360,'F',array('color'=>array(125, 190, 17)));
+            $pdf->Circle(167,($posiciony+6),1,0,360,'F',array('color'=>array(125, 190, 17)));
            
            
             
-            $posiciony+=7;            
+            $posiciony+=11;            
         }
     }            
     
-    $pdf->Text(110, 43,$me[($buscames-1)].' '.$buscaano);
-    $pdf->Text(178, 43,'vs '.$me[($comparames-1)].' '.$comparaano);
+    $pdf->Text(124, 42,$me[($buscames-1)].' '.$buscaano);
+    $pdf->Text(178, 42,'vs '.$me[($comparames-1)].' '.$comparaano);
     $pdf->Line(10, $posiciony, 200, $posiciony);
-    $pdf->Line(133, 34, 133,$posiciony);
-    $pdf->Line(154, 34, 154,$posiciony);
+    $pdf->Line(144, 34, 144,$posiciony);
+    $pdf->Line(160, 34, 160,$posiciony);
     $pdf->Line(175, 34, 175,$posiciony);
     
     
@@ -766,6 +938,9 @@
     $pdf->SetTextColor(0,0,0);
     $pdf->Text(10,280,$Empresa["nombre"]." | ".$me[($buscames-1)].' '.$buscaano); 
     $pdf->Text(185,280,"Página 03");    
+   
+   
+   
     
     $pdf->Output('example_012.pdf', 'I');       
     
