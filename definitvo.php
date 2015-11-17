@@ -79,84 +79,84 @@
                         $val="";
 
                         if($buscames==1){
-                            if($valor["importes1"]!="0"){
+                            if($valor["importes1"]!="0" && $valor["importes1"]!=""){
                                 $val="(".$valor["importes1"].")";
                             }else{
                                 $val="(1)";  
                             }                            
                         }
                         if($buscames==2){
-                            if($valor["importes2"]!="0"){
+                            if($valor["importes2"]!="0" && $valor["importes2"]!=""){
                                 $val="(".$valor["importes2"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==3){
-                            if($valor["importes3"]!="0"){
+                            if($valor["importes3"]!="0" && $valor["importes3"]!=""){
                                 $val="(".$valor["importes3"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==4){
-                            if($valor["importes4"]!="0"){
+                            if($valor["importes4"]!="0" && $valor["importes4"]!=""){
                                 $val="(".$valor["importes4"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==5){
-                            if($valor["importes5"]!="0"){
+                            if($valor["importes5"]!="0" && $valor["importes5"]!=""){
                                 $val="(".$valor["importes5"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==6){
-                            if($valor["importes6"]!="0"){
+                            if($valor["importes6"]!="0" && $valor["importes6"]!=""){
                                 $val="(".$valor["importes6"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==7){
-                            if($valor["importes7"]!="0"){
+                            if($valor["importes7"]!="0" && $valor["importes7"]!=""){
                                 $val="(".$valor["importes7"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==8){
-                            if($valor["importes8"]!="0"){
+                            if($valor["importes8"]!="0" && $valor["importes8"]!=""){
                                 $val="(".$valor["importes8"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==9){
-                            if($valor["importes9"]!="0"){
+                            if($valor["importes9"]!="0" && $valor["importes9"]!=""){
                                 $val="(".$valor["importes9"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==10){
-                            if($valor["importes10"]!="0"){
+                            if($valor["importes10"]!="0" && $valor["importes10"]!=""){
                                 $val="(".$valor["importes10"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==11){
-                            if($valor["importes11"]!="0"){
+                            if($valor["importes11"]!="0" && $valor["importes11"]!=""){
                                 $val="(".$valor["importes11"].")";
                             }else{
                                 $val="(1)";  
                             }                             
                         }
                         if($buscames==12){
-                            if($valor["importes12"]!="0"){
+                            if($valor["importes12"]!="0" && $valor["importes12"]!=""){
                                 $val="(".$valor["importes12"].")";
                             }else{
                                 $val="(1)";  
@@ -245,7 +245,7 @@
     
     $buscaempresa = 1;
     $buscaano = 2015;
-    $buscames = 6;
+    $buscames = 9;
     $buscaejercicio = "";
         
     $categoriasID=array();
@@ -313,40 +313,88 @@
                     $valor=mysql_fetch_assoc($resultvalor);
                     $val="";
                         if($buscames==1){
-                            $val="(".$valor["importes1"].")";
+                            if($valor["importes1"]!="0" && $valor["importes1"]!=""){
+                                $val="(".$valor["importes1"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==2){
-                            $val="(".$valor["importes2"].")";
+                            if($valor["importes2"]!="0" && $valor["importes2"]!=""){
+                                $val="(".$valor["importes2"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==3){
-                            $val="(".$valor["importes3"].")";
+                            if($valor["importes3"]!="0" && $valor["importes3"]!=""){
+                                $val="(".$valor["importes3"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==4){
-                            $val="(".$valor["importes4"].")";
+                            if($valor["importes4"]!="0" && $valor["importes4"]!=""){
+                                $val="(".$valor["importes4"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==5){
-                            $val="(".$valor["importes5"].")";
+                            if($valor["importes5"]!="0" && $valor["importes5"]!=""){
+                                $val="(".$valor["importes5"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==6){
-                            $val="(".$valor["importes6"].")";
+                            if($valor["importes6"]!="0" && $valor["importes6"]!=""){
+                                $val="(".$valor["importes6"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==7){
-                            $val="(".$valor["importes7"].")";
+                            if($valor["importes7"]!="0" && $valor["importes7"]!=""){
+                                $val="(".$valor["importes7"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==8){
-                            $val="(".$valor["importes8"].")";
+                            if($valor["importes8"]!="0" && $valor["importes8"]!=""){
+                                $val="(".$valor["importes8"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==9){
-                            $val="(".$valor["importes9"].")";
+                            if($valor["importes9"]!="0" && $valor["importes9"]!=""){
+                                $val="(".$valor["importes9"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==10){
-                            $val="(".$valor["importes10"].")";
+                            if($valor["importes10"]!="0" && $valor["importes10"]!=""){
+                                $val="(".$valor["importes10"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==11){
-                            $val="(".$valor["importes11"].")";
+                            if($valor["importes11"]!="0" && $valor["importes11"]!=""){
+                                $val="(".$valor["importes11"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         }
                         if($buscames==12){
-                            $val="(".$valor["importes12"].")";
+                            if($valor["importes12"]!="0" && $valor["importes12"]!=""){
+                                $val="(".$valor["importes12"].")";
+                            }else{
+                                $val="(1)";  
+                            }                             
                         } 
                         
                     if($numberelements==0){
@@ -780,8 +828,10 @@
         $comparaano=$buscaano;
     }else if($buscames==1){
         $comparames=12;
-        $comparaano=$comparaano-1;
+        $comparaano=((int)$buscaano)-1;
     }   
+    
+    //echo $comparaano."    ".$comparames;
     
     $resultado = calcula($con,$buscaempresa,$comparaano,$comparames); 
     $arreglo01 = $resultado[0];
@@ -939,8 +989,250 @@
     $pdf->Text(10,280,$Empresa["nombre"]." | ".$me[($buscames-1)].' '.$buscaano); 
     $pdf->Text(185,280,"Página 03");    
    
-   
-   
+    $pdf->AddPage('P', 'A4');   
+    $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+    $pdf->Line(10, 25, 200, 25);
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');  
+         
+    
+    function consultacuenta($conexion,$bempresa,$bcuenta,$bano,$tipo){
+        $con=$conexion;
+        $sqlEje="select * from ejercicio where idempresa='".$bempresa."' and ejercicio='".$bano."'";
+        $resultEje=mysql_query($sqlEje,$con) or die(mysql_error());
+        $Eje = mysql_fetch_assoc($resultEje); 
+        
+        $sqlCue="select * from cuenta where idempresa='".$bempresa."' and codigo='".$bcuenta."' ";
+        $resutlCue=mysql_query($sqlCue,$con) or die(mysql_error());
+        $Cuenta = mysql_fetch_assoc($resutlCue); 
+        
+        $sqlSal="select * from saldo where idempresa='".$bempresa."' and ejercicio ='".$Eje["idejercicio"]."' and idcuenta='".$Cuenta["idcuenta"]."' and tipo='".$tipo."'";
+        $resutlSal=mysql_query($sqlSal,$con) or die(mysql_error());
+        $Saldo = mysql_fetch_assoc($resutlSal);
+        
+        $meses = array();
+        $meses[0] = $Saldo["importes1"];
+        $meses[1] = $Saldo["importes2"];
+        $meses[2] = $Saldo["importes3"];
+        $meses[3] = $Saldo["importes4"];
+        $meses[4] = $Saldo["importes5"];
+        $meses[5] = $Saldo["importes6"];
+        $meses[6] = $Saldo["importes7"];
+        $meses[7] = $Saldo["importes8"];
+        $meses[8] = $Saldo["importes9"];
+        $meses[9] = $Saldo["importes10"];
+        $meses[10] = $Saldo["importes11"];
+        $meses[11] = $Saldo["importes12"];
+        return $meses;        
+    }
+    
+    function graficar($conexion,$pdf,$mescalculando,$anocalculado,$empresa,$cuenta,$titulo,$tipo){
+        $pdf->SetFont('Helvetica', '', 8);
+        $con=$conexion;
+        $uno=consultacuenta($con,$empresa,$cuenta,($anocalculado-1),$tipo);
+        $dos=consultacuenta($con,$empresa,$cuenta,$anocalculado,$tipo);
+        
+        $limitemayor = max($uno);
+        if(max($dos)>$limitemayor){
+            $limitemayor=max($dos);
+        }
+        
+        $limitemenor = min($uno);
+        if(min($dos)<$limitemenor){
+            $limitemenor=min($dos);
+        }    
+    
+        $porango=array();
+        $porango[0]=10000;
+        $porango[1]=20000;
+        $porango[2]=50000;
+        $porango[3]=100000;
+        $porango[4]=200000;
+        $porango[5]=500000;
+        $porango[6]=1000000;
+        $porango[7]=2000000;
+        $porango[8]=5000000;
+        
+        $rango=0;
+    
+        for($i=0;$i<count($porango);$i++){
+            $acum=0;
+            for($j=0;$j<10;$j++){
+                $acum=$acum+$porango[$i];
+            }
+            if($acum>$limitemayor){
+                $rango=$i;
+                break;
+            }
+        }
+        
+        $meses=array();
+        $meses[0]="Enero";
+        $meses[1]="Febrero";
+        $meses[2]="Marzo";
+        $meses[3]="Abril";
+        $meses[4]="Mayo";
+        $meses[5]="Junio";
+        $meses[6]="Julio";
+        $meses[7]="Agosto";
+        $meses[8]="Septiembre";
+        $meses[9]="Octubre";
+        $meses[10]="Noviembre";
+        $meses[11]="Diciembre";
+        
+        $me=array();
+        $me[0]="Ene";
+        $me[1]="Feb";
+        $me[2]="Mar";
+        $me[3]="Abr";
+        $me[4]="May";
+        $me[5]="Jun";
+        $me[6]="Jul";
+        $me[7]="Ago";
+        $me[8]="Sep";
+        $me[9]="Oct";
+        $me[10]="Nov";
+        $me[11]="Dic";        
+        
+        $pdf->Line(25, 185, 200, 185);
+        $ejex=39.5;
+        
+        /*Pinto el eje de las x*/
+        for($i=0;$i<12;$i++){
+            $pdf->Line($ejex, 184, $ejex,186);            
+            $pdf->StartTransform();
+            $pdf->Rotate(40, ($ejex-17), 198);        
+            $pdf->SetXY(($ejex-17),198);                
+            $pdf->Cell(20,5,$meses[$i], 0, 1, 'R', 0, '', 1); 
+            $pdf->StopTransform();
+            
+            $pdf->SetLineStyle(array('width' => 0.4,'color' => array(255,0,0)));
+            $puntoy=(185-($uno[$i]*((1*14.5)/$porango[$rango])));
+            //$pdf->Line($ejex,$puntoy, $ejex,($puntoy+1));
+            if($i<11){
+                $puntoy2=(185-($uno[($i+1)]*((1*14.5)/$porango[$rango])));
+                $pdf->Line($ejex,$puntoy, ($ejex+14.5),($puntoy2)); 
+            }
+            
+            
+            if($i<$mescalculando){
+                $pdf->SetLineStyle(array('width' => 0.4,'color' => array(2,147,255)));
+                $puntoy=(185-($dos[$i]*((1*14.5)/$porango[$rango])));
+                $pdf->Line($ejex,($puntoy-0.25), $ejex,($puntoy+0.25));
+            }
+            
+            if($i<($mescalculando-1)){                
+                $puntoy=(185-($dos[$i]*((1*14.5)/$porango[$rango])));
+                //$pdf->Line($ejex,$puntoy, $ejex,($puntoy+1));
+                if($i<11){
+                    $puntoy2=(185-($dos[($i+1)]*((1*14.5)/$porango[$rango])));
+                    $pdf->Line($ejex,$puntoy, ($ejex+14.5),($puntoy2)); 
+                }                 
+            }
+                       
+            $pdf->SetLineStyle(array('width' => 0.25,'color' => array(148,148,148)));                        
+            $ejex+=14.5;
+        }  
+                
+        $pdf->Line(25, 39, 25, 185);
+        $ejey=170.5;
+        $acum=$porango[$rango];
+        /*Pinto el eje de las y*/
+        for($i=0;$i<10;$i++){
+            $pdf->Line(24,$ejey,26,$ejey);
+            $pdf->Text(10,$ejey-2,$acum);
+            $ejey-=14.5;
+            $acum+=$porango[$rango];
+        }
+        
+        $pdf->SetLineStyle(array('width' => 0.4,'color' => array(255,0,0)));
+        $pdf->Line(83,206.5,88,206.5); 
+        $pdf->Text(90,205,($anocalculado-1));
+        
+        $pdf->SetLineStyle(array('width' => 0.4,'color' => array(2,147,255)));
+        $pdf->Line(133,206.5,138,206.5);
+        $pdf->Text(140,205,$anocalculado);
+        $pdf->SetLineStyle(array('width' => 0.25,'color' => array(148,148,148)));
+        
+        $pdf->Line(10,230,200,230);
+        $pdf->Line(10,236,200,236);
+        $pdf->Line(10,242,200,242);
+        
+        $columna=25;
+        $pdf->SetFont('Helvetica', '', 7);
+        for($i=0;$i<12;$i++){
+            $pdf->Line($columna,224,$columna,242);                      
+            $pdf->SetXY($columna,224);                
+            $pdf->Cell(14.5,6,$me[$i], 0, 1, 'C', 0, '', 1);
+            $pdf->SetXY($columna,230);
+            $pdf->Cell(14.5,6,$uno[$i], 0, 1, 'C', 0, '', 1);
+            if($i<$mescalculando){
+                $pdf->SetXY($columna,236);
+                $pdf->Cell(14.5,6,$dos[$i], 0, 1, 'C', 0, '', 1);                
+            }
+            
+            $columna+=14.5;
+        }
+        
+        $pdf->SetXY(10,230);
+        $pdf->Cell(14.5,6,($anocalculado-1),0, 1, 'C', 0, '', 1);     
+        $pdf->SetXY(10,236);
+        $pdf->Cell(14.5,6,($anocalculado),0, 1, 'C', 0, '', 1);        
+        
+                                        
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->SetXY(90,35);                
+        $pdf->Cell(50,5,$titulo, 1, 1, 'C', 0, '', 1);     
+        $pdf->SetFont('Helvetica', '', 8);
+    }
+    
+    
+    $sqlVentas = "select * from asociaclave where idempresa='".$buscaempresa."' and idclave=9";
+    $resultVentas=mysql_query($sqlVentas,$con) or die(mysql_error());    
+    $clave=mysql_fetch_assoc($resultVentas);
+    /*mes-año-empresa-cuenta*/    
+    graficar($con,$pdf,$buscames,$buscaano,$buscaempresa,$clave["codigo"],"Resumen de Ventas",3);  
+    
+    $pdf->SetFont('Helvetica', '', 7);
+    $pdf->SetTextColor(126,130,109);
+    $pdf->Text(10,277,"Creado por GAAG Desarrollo Empresarial");
+    $pdf->SetTextColor(0,0,0);
+    $pdf->Text(10,280,$Empresa["nombre"]." | ".$me[($buscames-1)].' '.$buscaano); 
+    $pdf->Text(185,280,"Página 04"); 
+    
+    $pdf->AddPage('P', 'A4');   
+    $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+    $pdf->Line(10, 25, 200, 25);
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');        
+    $sqlCostos = "select * from asociaclave where idempresa='".$buscaempresa."' and idclave=12";
+    $resultCostos=mysql_query($sqlCostos,$con) or die(mysql_error());    
+    $costos=mysql_fetch_assoc($resultCostos);
+    /*mes-año-empresa-cuenta*/    
+    graficar($con,$pdf,$buscames,$buscaano,$buscaempresa,$costos["codigo"],"Resumen Costos de Ventas",2);  
+    $pdf->SetFont('Helvetica', '', 7);
+    $pdf->SetTextColor(126,130,109);
+    $pdf->Text(10,277,"Creado por GAAG Desarrollo Empresarial");
+    $pdf->SetTextColor(0,0,0);
+    $pdf->Text(10,280,$Empresa["nombre"]." | ".$me[($buscames-1)].' '.$buscaano); 
+    $pdf->Text(185,280,"Página 05".$costos["codigo"]);  
+    
+    $pdf->AddPage('P', 'A4');   
+    $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+    $pdf->Line(10, 25, 200, 25);
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');        
+    $sqlGastosA = "select * from asociaclave where idempresa='".$buscaempresa."' and idclave=19";
+    $resultGastosA=mysql_query($sqlGastosA,$con) or die(mysql_error());    
+    $gastos=mysql_fetch_assoc($resultGastosA);
+    /*mes-año-empresa-cuenta*/    
+    graficar($con,$pdf,$buscames,$buscaano,$buscaempresa,$gastos["codigo"],"Resumen Gastos de Administración",2);  
+    $pdf->SetFont('Helvetica', '', 7);
+    $pdf->SetTextColor(126,130,109);
+    $pdf->Text(10,277,"Creado por GAAG Desarrollo Empresarial");
+    $pdf->SetTextColor(0,0,0);
+    $pdf->Text(10,280,$Empresa["nombre"]." | ".$me[($buscames-1)].' '.$buscaano); 
+    $pdf->Text(185,280,"Página 05".$costos["codigo"]);    
     
     $pdf->Output('example_012.pdf', 'I');       
     

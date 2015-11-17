@@ -514,23 +514,55 @@ and open the template in the editor.
         return $meses;        
     }
     
-    $uno=consultacuenta($con,1,"4000000",2014,6);
-    $dos=consultacuenta($con,1,"4000000",2015,6);
+    function graficar($conexion){
+        $con=$conexion;
+        $uno=consultacuenta($con,1,"4000000",2014,6);
+        $dos=consultacuenta($con,1,"4000000",2015,6);
+        
+        $limitemayor = max($uno);
+        if(max($dos)>$limitemayor){
+            $limitemayor=max($dos);
+        }
+        
+        $limitemenor = min($uno);
+        if(min($dos)<$limitemenor){
+            $limitemenor=min($dos);
+        }    
     
-    $limitemayor = max($uno);
-    if(max($dos)>$limitemayor){
-        $limitemayor=max($dos);
+        echo round($limitemayor)."</br>";
+        echo round($limitemenor)."</br>";
+    
+        $porango=array();
+        $porango[0]=10000;
+        $porango[1]=20000;
+        $porango[2]=50000;
+        $porango[3]=100000;
+        $porango[4]=200000;
+        $porango[5]=500000;
+        $porango[6]=1000000;
+        $porango[7]=2000000;
+        $porango[8]=5000000;
+        
+        $rango=0;
+    
+        for($i=0;$i<count($porango);$i++){
+            $acum=0;
+            for($j=0;$j<10;$j++){
+                $acum=$acum+$porango[$i];
+            }
+            if($acum>$limitemayor){
+                $rango=$i;
+                break;
+            }
+        }
+    
+        echo "</br>El rango debe ser de :".$porango[$i];        
+                
     }
     
-    $limitemenor = min($uno);
-    if(min($dos)<$limitemenor){
-        $limitemenor=min($dos);
-    }    
+    graficar($con);
     
-    echo $limitemayor."</br>";
-    echo round($limitemayor)."</br>";
-    echo $limitemenor."</br>";
-  
+
    
 ?>        
         
