@@ -118,6 +118,9 @@ insert into asociaclave (idempresa,idclave,codigo,indice) values(1,18,"5020000",
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,19,"6010000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,20,"7010003",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,22,"7990001",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,21,"2032003",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,21,"2032004",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,7,"1040000",1);
 
 insert into asociaclave (idempresa,idclave,codigo,indice) values(2,1,"000011000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(2,2,"000010000",1);
