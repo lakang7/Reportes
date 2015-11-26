@@ -111,183 +111,283 @@
                         if($buscames==1){
                             if($aux01>1){                                
                                 if($valor["importes1"]!="0" && $valor["importes1"]!=""){
-                                    $val=$val."(".$valor["importes1"].")";
+                                    if($calculo["promedio"]==1){
+                                        $val=$val."((".$valor["saldoinicial"]."+".$valor["importes1"].")/2)";
+                                    }else{
+                                        $val=$val."(".$valor["importes1"].")";
+                                    }
+                                        
                                 }else{
                                     $val=$val."(0)";  
                                 }                                                                                                 
                             }else{                                                                                                
-                                if($valor["importes1"]!="0" && $valor["importes1"]!=""){
+                            if($valor["importes1"]!="0" && $valor["importes1"]!=""){
+                                if($calculo["promedio"]==1){
+                                    $val="((".$valor["saldoinicial"]."+".$valor["importes1"].")/2)";
+                                }else{
                                     $val="(".$valor["importes1"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                           
-                        }
-                        if($buscames==2){
-                            if($aux01>1){                                
-                                if($valor["importes2"]!="0" && $valor["importes2"]!=""){
-                                    $val=$val."(".$valor["importes2"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes2"]!="0" && $valor["importes2"]!=""){
-                                    $val="(".$valor["importes2"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                             
-                        }
-                        if($buscames==3){
-                            if($aux01>1){                                
-                                if($valor["importes3"]!="0" && $valor["importes3"]!=""){
-                                    $val=$val."(".$valor["importes3"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes3"]!="0" && $valor["importes3"]!=""){
-                                    $val="(".$valor["importes3"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                              
-                        }
-                        if($buscames==4){
-                            if($aux01>1){                                
-                                if($valor["importes4"]!="0" && $valor["importes4"]!=""){
-                                    $val=$val."(".$valor["importes4"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes4"]!="0" && $valor["importes4"]!=""){
-                                    $val="(".$valor["importes4"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                              
-                        }
-                        if($buscames==5){
-                            if($aux01>1){                                
-                                if($valor["importes5"]!="0" && $valor["importes5"]!=""){
-                                    $val=$val."(".$valor["importes5"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes5"]!="0" && $valor["importes5"]!=""){
-                                    $val="(".$valor["importes5"].")";
-                                }else{
-                                    $val="(0)";  
+                                }                                        
+                            }else{
+                                $val="(0)";  
                                 }                                                                                                 
                             }                            
                         }
-                        if($buscames==6){
-                            if($aux01>1){                                
-                                if($valor["importes6"]!="0" && $valor["importes6"]!=""){
-                                    $val=$val."(".$valor["importes6"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes6"]!="0" && $valor["importes6"]!=""){
-                                    $val="(".$valor["importes6"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                             
-                        }
-                        if($buscames==7){
-                            if($aux01>1){                                
-                                if($valor["importes7"]!="0" && $valor["importes7"]!=""){
-                                    $val=$val."(".$valor["importes7"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes7"]!="0" && $valor["importes7"]!=""){
-                                    $val="(".$valor["importes7"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                             
-                        }
-                        if($buscames==8){
-                            if($aux01>1){                                
-                                if($valor["importes8"]!="0" && $valor["importes8"]!=""){
-                                    $val=$val."(".$valor["importes8"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes8"]!="0" && $valor["importes8"]!=""){
-                                    $val="(".$valor["importes8"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                              
-                        }
-                        if($buscames==9){
-                            if($aux01>1){                                
-                                if($valor["importes9"]!="0" && $valor["importes9"]!=""){
-                                    $val=$val."(".$valor["importes9"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes9"]!="0" && $valor["importes9"]!=""){
-                                    $val="(".$valor["importes9"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                           
-                        }
-                        if($buscames==10){
-                            if($aux01>1){                                
-                                if($valor["importes10"]!="0" && $valor["importes10"]!=""){
-                                    $val=$val."(".$valor["importes10"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes10"]!="0" && $valor["importes10"]!=""){
-                                    $val="(".$valor["importes10"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                             
-                        }
-                        if($buscames==11){
-                            if($aux01>1){                                
-                                if($valor["importes11"]!="0" && $valor["importes11"]!=""){
-                                    $val=$val."(".$valor["importes11"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes11"]!="0" && $valor["importes11"]!=""){
-                                    $val="(".$valor["importes11"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                           
-                        }
-                        if($buscames==12){
-                            if($aux01>1){                                
-                                if($valor["importes12"]!="0" && $valor["importes12"]!=""){
-                                    $val=$val."(".$valor["importes12"].")";
-                                }else{
-                                    $val=$val."(0)";  
-                                }                                                                                                 
-                            }else{                                                                                                
-                                if($valor["importes12"]!="0" && $valor["importes12"]!=""){
-                                    $val="(".$valor["importes12"].")";
-                                }else{
-                                    $val="(0)";  
-                                }                                                                                                 
-                            }                            
-                        }  
+                            if($buscames==2){
+                                if($aux01>1){                                
+                                    if($valor["importes2"]!="0" && $valor["importes2"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes2"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes2"].")";
+                                        }                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes2"]!="0" && $valor["importes2"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes2"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes2"].")";
+                                        }
+                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                            
+                            }
+                            if($buscames==3){
+                                if($aux01>1){                                
+                                    if($valor["importes3"]!="0" && $valor["importes3"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes3"].")/2)"; 
+                                        }else{
+                                            $val=$val."(".$valor["importes3"].")"; 
+                                        }                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes3"]!="0" && $valor["importes3"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes3"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes3"].")";
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                           
+                            }
+                            if($buscames==4){
+                                if($aux01>1){                                
+                                    if($valor["importes4"]!="0" && $valor["importes4"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes4"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes4"].")";
+                                        }                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes4"]!="0" && $valor["importes4"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes4"].")/2)"; 
+                                        }else{
+                                            $val="(".$valor["importes4"].")";
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                            
+                            }
+                            if($buscames==5){
+                                if($aux01>1){                                
+                                    if($valor["importes5"]!="0" && $valor["importes5"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes5"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes5"].")";
+                                        }                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes5"]!="0" && $valor["importes5"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes5"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes5"].")";
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                            
+                            }
+                            if($buscames==6){
+                                if($aux01>1){                                
+                                    if($valor["importes6"]!="0" && $valor["importes6"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes6"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes6"].")";
+                                        }
+                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes6"]!="0" && $valor["importes6"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes6"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes6"].")"; 
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                            
+                            }   
+                            if($buscames==7){
+                                if($aux01>1){                                
+                                    if($valor["importes7"]!="0" && $valor["importes7"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes7"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes7"].")";                                            
+                                        }
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes7"]!="0" && $valor["importes7"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes7"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes7"].")";
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                             
+                            }
+                            if($buscames==8){
+                                if($aux01>1){                                
+                                    if($valor["importes8"]!="0" && $valor["importes8"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes8"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes8"].")";
+                                        }
+                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes8"]!="0" && $valor["importes8"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes8"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes8"].")";
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                            
+                            }
+                            if($buscames==9){
+                                if($aux01>1){                                
+                                    if($valor["importes9"]!="0" && $valor["importes9"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes9"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes9"].")";
+                                        }                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes9"]!="0" && $valor["importes9"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes9"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes9"].")";
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                           
+                            }
+                            if($buscames==10){
+                                if($aux01>1){                                
+                                    if($valor["importes10"]!="0" && $valor["importes10"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes10"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes10"].")";
+                                        }                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes10"]!="0" && $valor["importes10"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes10"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes10"].")";
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                             
+                            }
+                            if($buscames==11){
+                                if($aux01>1){                                
+                                    if($valor["importes11"]!="0" && $valor["importes11"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes11"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes11"].")";
+                                        }                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes11"]!="0" && $valor["importes11"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes11"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes11"].")";
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                            
+                            }
+                            if($buscames==12){
+                                if($aux01>1){                                
+                                    if($valor["importes12"]!="0" && $valor["importes12"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes12"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes12"].")";
+                                        }                                        
+                                    }else{
+                                        $val=$val."(0)";  
+                                    }                                                                                                 
+                                }else{                                                                                                
+                                    if($valor["importes12"]!="0" && $valor["importes12"]!=""){
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes12"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes12"].")";
+                                        }                                        
+                                    }else{
+                                        $val="(0)";  
+                                    }                                                                                                 
+                                }                             
+                            }   
                         
                         if($numberelements==0){
                             $val=0;
@@ -378,7 +478,7 @@
     
     $buscaempresa = 1;
     $buscaano = 2015;
-    $buscames = 6;
+    $buscames = 9;
     $buscaejercicio = "";
         
     $categoriasID=array();
@@ -460,13 +560,22 @@
                             if($buscames==1){
                                 if($aux01>1){                                
                                     if($valor["importes1"]!="0" && $valor["importes1"]!=""){
-                                        $val=$val."(".$valor["importes1"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes1"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes1"].")";
+                                        }
+                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes1"]!="0" && $valor["importes1"]!=""){
-                                        $val="(".$valor["importes1"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes1"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes1"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -475,13 +584,22 @@
                             if($buscames==2){
                                 if($aux01>1){                                
                                     if($valor["importes2"]!="0" && $valor["importes2"]!=""){
-                                        $val=$val."(".$valor["importes2"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes2"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes2"].")";
+                                        }                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes2"]!="0" && $valor["importes2"]!=""){
-                                        $val="(".$valor["importes2"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes2"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes2"].")";
+                                        }
+                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -490,13 +608,21 @@
                             if($buscames==3){
                                 if($aux01>1){                                
                                     if($valor["importes3"]!="0" && $valor["importes3"]!=""){
-                                        $val=$val."(".$valor["importes3"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes3"].")/2)"; 
+                                        }else{
+                                            $val=$val."(".$valor["importes3"].")"; 
+                                        }                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes3"]!="0" && $valor["importes3"]!=""){
-                                        $val="(".$valor["importes3"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes3"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes3"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -505,13 +631,21 @@
                             if($buscames==4){
                                 if($aux01>1){                                
                                     if($valor["importes4"]!="0" && $valor["importes4"]!=""){
-                                        $val=$val."(".$valor["importes4"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes4"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes4"].")";
+                                        }                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes4"]!="0" && $valor["importes4"]!=""){
-                                        $val="(".$valor["importes4"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes4"].")/2)"; 
+                                        }else{
+                                            $val="(".$valor["importes4"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -520,13 +654,21 @@
                             if($buscames==5){
                                 if($aux01>1){                                
                                     if($valor["importes5"]!="0" && $valor["importes5"]!=""){
-                                        $val=$val."(".$valor["importes5"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes5"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes5"].")";
+                                        }                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes5"]!="0" && $valor["importes5"]!=""){
-                                        $val="(".$valor["importes5"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes5"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes5"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -535,13 +677,22 @@
                             if($buscames==6){
                                 if($aux01>1){                                
                                     if($valor["importes6"]!="0" && $valor["importes6"]!=""){
-                                        $val=$val."(".$valor["importes6"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes6"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes6"].")";
+                                        }
+                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes6"]!="0" && $valor["importes6"]!=""){
-                                        $val="(".$valor["importes6"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes6"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes6"].")"; 
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -550,13 +701,21 @@
                             if($buscames==7){
                                 if($aux01>1){                                
                                     if($valor["importes7"]!="0" && $valor["importes7"]!=""){
-                                        $val=$val."(".$valor["importes7"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes7"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes7"].")";                                            
+                                        }
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes7"]!="0" && $valor["importes7"]!=""){
-                                        $val="(".$valor["importes7"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes7"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes7"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -565,13 +724,22 @@
                             if($buscames==8){
                                 if($aux01>1){                                
                                     if($valor["importes8"]!="0" && $valor["importes8"]!=""){
-                                        $val=$val."(".$valor["importes8"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes8"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes8"].")";
+                                        }
+                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes8"]!="0" && $valor["importes8"]!=""){
-                                        $val="(".$valor["importes8"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes8"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes8"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -580,13 +748,21 @@
                             if($buscames==9){
                                 if($aux01>1){                                
                                     if($valor["importes9"]!="0" && $valor["importes9"]!=""){
-                                        $val=$val."(".$valor["importes9"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes9"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes9"].")";
+                                        }                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes9"]!="0" && $valor["importes9"]!=""){
-                                        $val="(".$valor["importes9"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes9"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes9"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -595,13 +771,21 @@
                             if($buscames==10){
                                 if($aux01>1){                                
                                     if($valor["importes10"]!="0" && $valor["importes10"]!=""){
-                                        $val=$val."(".$valor["importes10"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes10"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes10"].")";
+                                        }                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes10"]!="0" && $valor["importes10"]!=""){
-                                        $val="(".$valor["importes10"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes10"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes10"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -610,13 +794,21 @@
                             if($buscames==11){
                                 if($aux01>1){                                
                                     if($valor["importes11"]!="0" && $valor["importes11"]!=""){
-                                        $val=$val."(".$valor["importes11"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes11"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes11"].")";
+                                        }                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes11"]!="0" && $valor["importes11"]!=""){
-                                        $val="(".$valor["importes11"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes11"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes11"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -625,13 +817,21 @@
                             if($buscames==12){
                                 if($aux01>1){                                
                                     if($valor["importes12"]!="0" && $valor["importes12"]!=""){
-                                        $val=$val."(".$valor["importes12"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val=$val."((".$valor["saldoinicial"]."+".$valor["importes12"].")/2)";
+                                        }else{
+                                            $val=$val."(".$valor["importes12"].")";
+                                        }                                        
                                     }else{
                                         $val=$val."(0)";  
                                     }                                                                                                 
                                 }else{                                                                                                
                                     if($valor["importes12"]!="0" && $valor["importes12"]!=""){
-                                        $val="(".$valor["importes12"].")";
+                                        if($calculo["promedio"]==1){
+                                            $val="((".$valor["saldoinicial"]."+".$valor["importes12"].")/2)";
+                                        }else{
+                                            $val="(".$valor["importes12"].")";
+                                        }                                        
                                     }else{
                                         $val="(0)";  
                                     }                                                                                                 
@@ -748,7 +948,7 @@
         require_once(dirname(__FILE__).'/lang/eng.php');
         $pdf->setLanguageArray($l);
     }
-    
+           
     $meses=array();
     
     $meses[0]="Enero";
@@ -819,6 +1019,658 @@
     $ano=date("Y");
     $pdf->Text(30, 208,$dia." de ".$meses[($mes-1)]." de ".$ano);
     
+    $pdf->AddPage('P', 'A4');   
+    $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+    $pdf->Line(10, 25, 200, 25);
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(9, 26, 'Balance General '.$Empresa["nombre"]);  
+    $pdf->SetFont('Helvetica', '', 7);
+    
+    
+    $NomActCir=array();
+    $SalActCir=array();
+    $NomActFij=array();
+    $SalActFij=array();
+    $NomActDif=array();
+    $SalActDif=array();
+    
+    $NomPasCir=array();
+    $SalPasCir=array();  
+    $NomPasFij=array();
+    $SalPasFij=array();    
+    
+    $NomCapital=array();
+    $SalCapital=array(); 
+    
+    $NomUtilidad=array();
+    $SalUtilidad=array();
+    
+    /*Activo Circulante*/
+    $sqlBal01="select * from cuenta where idempresa='".$buscaempresa."' and tipo='A' and ctamayor=1 and (codigo like '10%' or codigo like '11%')";
+    $resultBal01=mysql_query($sqlBal01,$con) or die(mysql_error());
+    while ($bal01=mysql_fetch_assoc($resultBal01)) {
+        $sqlBal02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$bal01["idcuenta"]."' and tipo=1 ";
+        $resultBal02=mysql_query($sqlBal02,$con) or die(mysql_error());
+        $bal02=mysql_fetch_assoc($resultBal02);        
+        if($buscames==1 && ($bal02["importes1"]!=0 && $bal02["importes1"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes1"];
+        }
+        if($buscames==2 && ($bal02["importes2"]!=0 && $bal02["importes2"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes2"];
+        }
+        if($buscames==3 && ($bal02["importes3"]!=0 && $bal02["importes3"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes3"];
+        }
+        if($buscames==4 && ($bal02["importes4"]!=0 && $bal02["importes4"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes4"];
+        }
+        if($buscames==5 && ($bal02["importes5"]!=0 && $bal02["importes5"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes5"];
+        }        
+        if($buscames==6 && ($bal02["importes6"]!=0 && $bal02["importes6"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes6"];
+        }
+        if($buscames==7 && ($bal02["importes7"]!=0 && $bal02["importes7"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes7"];
+        }
+        if($buscames==8 && ($bal02["importes8"]!=0 && $bal02["importes8"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes8"];
+        }
+        if($buscames==9 && ($bal02["importes9"]!=0 && $bal02["importes9"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes9"];
+        }
+        if($buscames==10 && ($bal02["importes10"]!=0 && $bal02["importes10"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes10"];
+        }
+        if($buscames==11 && ($bal02["importes11"]!=0 && $bal02["importes11"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes11"];
+        }
+        if($buscames==12 && ($bal02["importes12"]!=0 && $bal02["importes12"]!=null)){
+            $NomActCir[count($NomActCir)]=$bal01["nombre"];
+            $SalActCir[count($SalActCir)]=$bal02["importes12"];
+        }               
+    }
+        
+    /*Activo Fijo*/
+    $sqlBal01="select * from cuenta where idempresa='".$buscaempresa."' and (tipo='A' or tipo='B') and ctamayor=1 and (codigo like '12%' or codigo like '13%')";
+    $resultBal01=mysql_query($sqlBal01,$con) or die(mysql_error());
+    while ($bal01=mysql_fetch_assoc($resultBal01)) {
+        $sqlBal02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$bal01["idcuenta"]."' and tipo=1 ";
+        $resultBal02=mysql_query($sqlBal02,$con) or die(mysql_error());
+        $bal02=mysql_fetch_assoc($resultBal02);        
+        if($buscames==1 && ($bal02["importes1"]!=0 && $bal02["importes1"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes1"];
+        }
+        if($buscames==2 && ($bal02["importes2"]!=0 && $bal02["importes2"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes2"];
+        }
+        if($buscames==3 && ($bal02["importes3"]!=0 && $bal02["importes3"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes3"];
+        }
+        if($buscames==4 && ($bal02["importes4"]!=0 && $bal02["importes4"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes4"];
+        }
+        if($buscames==5 && ($bal02["importes5"]!=0 && $bal02["importes5"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes5"];
+        }        
+        if($buscames==6 && ($bal02["importes6"]!=0 && $bal02["importes6"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes6"];
+        }
+        if($buscames==7 && ($bal02["importes7"]!=0 && $bal02["importes7"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes7"];
+        }
+        if($buscames==8 && ($bal02["importes8"]!=0 && $bal02["importes8"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes8"];
+        }
+        if($buscames==9 && ($bal02["importes9"]!=0 && $bal02["importes9"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes9"];
+        }
+        if($buscames==10 && ($bal02["importes10"]!=0 && $bal02["importes10"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes10"];
+        }
+        if($buscames==11 && ($bal02["importes11"]!=0 && $bal02["importes11"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes11"];
+        }
+        if($buscames==12 && ($bal02["importes12"]!=0 && $bal02["importes12"]!=null)){
+            $NomActFij[count($NomActFij)]=$bal01["nombre"];
+            $SalActFij[count($SalActFij)]=$bal02["importes12"];
+        }               
+    }
+    
+    /*Activo Diferido*/
+    $sqlBal01="select * from cuenta where idempresa='".$buscaempresa."' and tipo='A' and ctamayor=1 and afectable=0 and (codigo like '14%' or codigo like '15%')";
+    $resultBal01=mysql_query($sqlBal01,$con) or die(mysql_error());
+    while ($bal01=mysql_fetch_assoc($resultBal01)) {
+        $sqlBal02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$bal01["idcuenta"]."' and tipo=1 ";
+        $resultBal02=mysql_query($sqlBal02,$con) or die(mysql_error());
+        $bal02=mysql_fetch_assoc($resultBal02);        
+        if($buscames==1 && ($bal02["importes1"]!=0 && $bal02["importes1"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes1"];
+        }
+        if($buscames==2 && ($bal02["importes2"]!=0 && $bal02["importes2"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes2"];
+        }
+        if($buscames==3 && ($bal02["importes3"]!=0 && $bal02["importes3"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes3"];
+        }
+        if($buscames==4 && ($bal02["importes4"]!=0 && $bal02["importes4"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes4"];
+        }
+        if($buscames==5 && ($bal02["importes5"]!=0 && $bal02["importes5"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes5"];
+        }        
+        if($buscames==6 && ($bal02["importes6"]!=0 && $bal02["importes6"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes6"];
+        }
+        if($buscames==7 && ($bal02["importes7"]!=0 && $bal02["importes7"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes7"];
+        }
+        if($buscames==8 && ($bal02["importes8"]!=0 && $bal02["importes8"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes8"];
+        }
+        if($buscames==9 && ($bal02["importes9"]!=0 && $bal02["importes9"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes9"];
+        }
+        if($buscames==10 && ($bal02["importes10"]!=0 && $bal02["importes10"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes10"];
+        }
+        if($buscames==11 && ($bal02["importes11"]!=0 && $bal02["importes11"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes11"];
+        }
+        if($buscames==12 && ($bal02["importes12"]!=0 && $bal02["importes12"]!=null)){
+            $NomActDif[count($NomActDif)]=$bal01["nombre"];
+            $SalActDif[count($SalActDif)]=$bal02["importes12"];
+        }               
+    }    
+    
+    
+    /*Pasivo Circulante*/
+    $sqlBal01="select * from cuenta where idempresa='".$buscaempresa."' and tipo='D' and ctamayor=1 and (codigo like '20%')";
+    $resultBal01=mysql_query($sqlBal01,$con) or die(mysql_error());
+    while ($bal01=mysql_fetch_assoc($resultBal01)) {
+        $sqlBal02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$bal01["idcuenta"]."' and tipo=1 ";
+        $resultBal02=mysql_query($sqlBal02,$con) or die(mysql_error());
+        $bal02=mysql_fetch_assoc($resultBal02);        
+        if($buscames==1 && ($bal02["importes1"]!=0 && $bal02["importes1"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes1"];
+        }
+        if($buscames==2 && ($bal02["importes2"]!=0 && $bal02["importes2"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes2"];
+        }
+        if($buscames==3 && ($bal02["importes3"]!=0 && $bal02["importes3"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes3"];
+        }
+        if($buscames==4 && ($bal02["importes4"]!=0 && $bal02["importes4"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes4"];
+        }
+        if($buscames==5 && ($bal02["importes5"]!=0 && $bal02["importes5"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes5"];
+        }        
+        if($buscames==6 && ($bal02["importes6"]!=0 && $bal02["importes6"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes6"];
+        }
+        if($buscames==7 && ($bal02["importes7"]!=0 && $bal02["importes7"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes7"];
+        }
+        if($buscames==8 && ($bal02["importes8"]!=0 && $bal02["importes8"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes8"];
+        }
+        if($buscames==9 && ($bal02["importes9"]!=0 && $bal02["importes9"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes9"];
+        }
+        if($buscames==10 && ($bal02["importes10"]!=0 && $bal02["importes10"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes10"];
+        }
+        if($buscames==11 && ($bal02["importes11"]!=0 && $bal02["importes11"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes11"];
+        }
+        if($buscames==12 && ($bal02["importes12"]!=0 && $bal02["importes12"]!=null)){
+            $NomPasCir[count($NomPasCir)]=$bal01["nombre"];
+            $SalPasCir[count($SalPasCir)]=$bal02["importes12"];
+        }               
+    }    
+    
+    
+    /*Pasivo Fijo o a largo plazo*/
+    $sqlBal01="select * from cuenta where idempresa='".$buscaempresa."' and tipo='D' and ctamayor=1 and (codigo like '22%')";
+    $resultBal01=mysql_query($sqlBal01,$con) or die(mysql_error());
+    while ($bal01=mysql_fetch_assoc($resultBal01)) {
+        $sqlBal02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$bal01["idcuenta"]."' and tipo=1 ";
+        $resultBal02=mysql_query($sqlBal02,$con) or die(mysql_error());
+        $bal02=mysql_fetch_assoc($resultBal02);        
+        if($buscames==1 && ($bal02["importes1"]!=0 && $bal02["importes1"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes1"];
+        }
+        if($buscames==2 && ($bal02["importes2"]!=0 && $bal02["importes2"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes2"];
+        }
+        if($buscames==3 && ($bal02["importes3"]!=0 && $bal02["importes3"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes3"];
+        }
+        if($buscames==4 && ($bal02["importes4"]!=0 && $bal02["importes4"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes4"];
+        }
+        if($buscames==5 && ($bal02["importes5"]!=0 && $bal02["importes5"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes5"];
+        }        
+        if($buscames==6 && ($bal02["importes6"]!=0 && $bal02["importes6"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes6"];
+        }
+        if($buscames==7 && ($bal02["importes7"]!=0 && $bal02["importes7"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes7"];
+        }
+        if($buscames==8 && ($bal02["importes8"]!=0 && $bal02["importes8"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes8"];
+        }
+        if($buscames==9 && ($bal02["importes9"]!=0 && $bal02["importes9"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes9"];
+        }
+        if($buscames==10 && ($bal02["importes10"]!=0 && $bal02["importes10"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes10"];
+        }
+        if($buscames==11 && ($bal02["importes11"]!=0 && $bal02["importes11"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes11"];
+        }
+        if($buscames==12 && ($bal02["importes12"]!=0 && $bal02["importes12"]!=null)){
+            $NomPasFij[count($NomPasFij)]=$bal01["nombre"];
+            $SalPasFij[count($SalPasFij)]=$bal02["importes12"];
+        }               
+    }      
+    
+    
+    /*Capital*/
+    $sqlBal01="select * from cuenta where idempresa='".$buscaempresa."' and tipo='F' and ctamayor=1";
+    $resultBal01=mysql_query($sqlBal01,$con) or die(mysql_error());
+    while ($bal01=mysql_fetch_assoc($resultBal01)) {
+        $sqlBal02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$bal01["idcuenta"]."' and tipo=1 ";
+        $resultBal02=mysql_query($sqlBal02,$con) or die(mysql_error());
+        $bal02=mysql_fetch_assoc($resultBal02);        
+        if($buscames==1 && ($bal02["importes1"]!=0 && $bal02["importes1"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes1"];
+        }
+        if($buscames==2 && ($bal02["importes2"]!=0 && $bal02["importes2"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes2"];
+        }
+        if($buscames==3 && ($bal02["importes3"]!=0 && $bal02["importes3"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes3"];
+        }
+        if($buscames==4 && ($bal02["importes4"]!=0 && $bal02["importes4"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes4"];
+        }
+        if($buscames==5 && ($bal02["importes5"]!=0 && $bal02["importes5"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes5"];
+        }        
+        if($buscames==6 && ($bal02["importes6"]!=0 && $bal02["importes6"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes6"];
+        }
+        if($buscames==7 && ($bal02["importes7"]!=0 && $bal02["importes7"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes7"];
+        }
+        if($buscames==8 && ($bal02["importes8"]!=0 && $bal02["importes8"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes8"];
+        }
+        if($buscames==9 && ($bal02["importes9"]!=0 && $bal02["importes9"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes9"];
+        }
+        if($buscames==10 && ($bal02["importes10"]!=0 && $bal02["importes10"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes10"];
+        }
+        if($buscames==11 && ($bal02["importes11"]!=0 && $bal02["importes11"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes11"];
+        }
+        if($buscames==12 && ($bal02["importes12"]!=0 && $bal02["importes12"]!=null)){
+            $NomCapital[count($NomCapital)]=$bal01["nombre"];
+            $SalCapital[count($SalCapital)]=$bal02["importes12"];
+        }               
+    }    
+    
+    
+    /*Utilidad*/
+    $sqlBal01="select * from cuenta where idempresa='".$buscaempresa."' and codigo='_UTILIDAD'";
+    $resultBal01=mysql_query($sqlBal01,$con) or die(mysql_error());
+    while ($bal01=mysql_fetch_assoc($resultBal01)) {
+        $sqlBal02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$bal01["idcuenta"]."' and tipo=1 ";
+        $resultBal02=mysql_query($sqlBal02,$con) or die(mysql_error());
+        $bal02=mysql_fetch_assoc($resultBal02);        
+        if($buscames==1 && ($bal02["importes1"]!=0 && $bal02["importes1"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes1"];
+        }
+        if($buscames==2 && ($bal02["importes2"]!=0 && $bal02["importes2"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes2"];
+        }
+        if($buscames==3 && ($bal02["importes3"]!=0 && $bal02["importes3"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes3"];
+        }
+        if($buscames==4 && ($bal02["importes4"]!=0 && $bal02["importes4"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes4"];
+        }
+        if($buscames==5 && ($bal02["importes5"]!=0 && $bal02["importes5"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes5"];
+        }        
+        if($buscames==6 && ($bal02["importes6"]!=0 && $bal02["importes6"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes6"];
+        }
+        if($buscames==7 && ($bal02["importes7"]!=0 && $bal02["importes7"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes7"];
+        }
+        if($buscames==8 && ($bal02["importes8"]!=0 && $bal02["importes8"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes8"];
+        }
+        if($buscames==9 && ($bal02["importes9"]!=0 && $bal02["importes9"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes9"];
+        }
+        if($buscames==10 && ($bal02["importes10"]!=0 && $bal02["importes10"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes10"];
+        }
+        if($buscames==11 && ($bal02["importes11"]!=0 && $bal02["importes11"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes11"];
+        }
+        if($buscames==12 && ($bal02["importes12"]!=0 && $bal02["importes12"]!=null)){
+            $NomUtilidad[count($NomUtilidad)]=$bal01["nombre"];
+            $SalUtilidad[count($SalUtilidad)]=$bal02["importes12"];
+        }               
+    }    
+    
+    //Ajuste de depreciaciones
+    for($i=0;$i<count($NomActFij);$i++){
+        if(substr($NomActFij[$i],0,13)=="Depreciación" || substr($NomActFij[$i],0,13)=="Depreciaciòn" || substr($NomActFij[$i],0,13)=="Depreciacion "){
+            $SalActFij[$i]=$SalActFij[$i]*-1;
+        }
+    }
+    
+    $acum01=0;
+    $acum02=0;
+    $acum03=0;
+    $acum04=0;
+    $acum05=0;
+    $acum06=0;
+    
+    for($i=0;$i<count($NomActCir);$i++){
+        $acum01+=$SalActCir[$i];  
+    }    
+    
+    for($i=0;$i<count($NomActFij);$i++){
+        $acum02+=$SalActFij[$i];  
+    } 
+    
+    for($i=0;$i<count($NomActDif);$i++){
+        $acum03+=$SalActDif[$i];  
+    }  
+    
+    for($i=0;$i<count($NomPasCir);$i++){
+        $acum04+=$SalPasCir[$i];  
+    }  
+    
+    for($i=0;$i<count($NomPasFij);$i++){
+        $acum05+=$SalPasFij[$i];  
+    }    
+    
+    for($i=0;$i<count($NomCapital);$i++){
+        $acum06+=$SalCapital[$i];  
+    }    
+    
+    
+    function columna1($pdf,$fila,$nombre,$saldo,$por01,$por02,$alinea){
+        $filab=35+(($fila*5)-5);
+        $pdf->SetXY(10, $filab);
+        $pdf->Cell(45, 5,$nombre, 0, 1, $alinea, 0, '', 0); 
+        $pdf->SetXY(55, $filab);
+        $pdf->Cell(15, 5,$saldo, 0, 1, 'R', 0, '', 0);
+        $pdf->SetXY(70, $filab);
+        $pdf->Cell(15, 5,$por01, 0, 1, 'R', 0, '', 0); 
+        $pdf->SetXY(85, $filab);
+        $pdf->Cell(15, 5,$por02, 0, 1, 'R', 0, '', 0);         
+    }
+    
+    function columna2($pdf,$fila,$nombre,$saldo,$por01,$por02,$alinea){
+        $filab=35+(($fila*5)-5);
+        $pdf->SetXY(110, $filab);
+        $pdf->Cell(45, 5,$nombre, 0, 1, $alinea, 0, '', 0); 
+        $pdf->SetXY(155, $filab);
+        $pdf->Cell(15, 5,$saldo, 0, 1, 'R', 0, '', 0);
+        $pdf->SetXY(170, $filab);
+        $pdf->Cell(15, 5,$por01, 0, 1, 'R', 0, '', 0); 
+        $pdf->SetXY(185, $filab);
+        $pdf->Cell(15, 5,$por02, 0, 1, 'R', 0, '', 0);         
+    }    
+
+    $fila=1;
+    $pdf->SetFont('Helvetica', 'B', 8);
+    columna1($pdf,$fila,"ACTIVO",null,null,null,'C');$fila++;
+    $pdf->SetFont('Helvetica', '', 7);
+    columna1($pdf,$fila,null,null,null,null,null);$fila++;
+    if(count($NomActCir)>0){
+        $acumActCirculante=0;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        columna1($pdf,$fila,"    CIRCULANTE",null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna1($pdf,$fila,null,null,null,null,null);$fila++;
+        for($i=0;$i<count($NomActCir);$i++){
+            columna1($pdf,$fila,substr($NomActCir[$i],0,35),number_format($SalActCir[$i],2),round((($SalActCir[$i]*100)/$acum01),2)." %",null,null);$fila++;
+            $acumActCirculante+=$SalActCir[$i];
+        }
+        columna1($pdf,$fila,null,null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));
+        columna1($pdf,$fila,"    Total CIRCULANTE",  number_format($acumActCirculante,2),"100 %",round((($acumActCirculante*100)/($acum01+$acum02+$acum03)),2)." %",null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna1($pdf,$fila,null,null,null,null,null);$fila++;
+    }
+    
+    if(count($NomActFij)>0){
+        $acumActFijo=0;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        columna1($pdf,$fila,"    FIJO",null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna1($pdf,$fila,null,null,null,null,null);$fila++;   
+        for($i=0;$i<count($NomActFij);$i++){
+            columna1($pdf,$fila,substr($NomActFij[$i],0,35),number_format($SalActFij[$i],2),round((($SalActFij[$i]*100)/$acum02),2)." %",null,null);$fila++;
+            $acumActFijo+=$SalActFij[$i];
+        }
+        columna1($pdf,$fila,null,null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));
+        columna1($pdf,$fila,"    Total FIJO",  number_format($acumActFijo,2),"100 %",round((($acumActFijo*100)/($acum01+$acum02+$acum03)),2)." %",null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna1($pdf,$fila,null,null,null,null,null);$fila++;        
+    }
+    
+    if(count($NomActDif)>0){
+        $acumActDiferido=0;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        columna1($pdf,$fila,"    DIFERIDO",null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna1($pdf,$fila,null,null,null,null,null);$fila++;   
+        for($i=0;$i<count($NomActDif);$i++){
+            columna1($pdf,$fila,substr($NomActDif[$i],0,35),number_format($SalActDif[$i],2),round((($SalActDif[$i]*100)/$acum03),2)." %",null,null);$fila++;
+            $acumActDiferido+=$SalActDif[$i];
+        }
+        columna1($pdf,$fila,null,null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));
+        columna1($pdf,$fila,"    Total DIFERIDO",  number_format($acumActDiferido,2),"100 %",round((($acumActDiferido*100)/($acum01+$acum02+$acum03)),2)." %",null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna1($pdf,$fila,null,null,null,null,null);$fila++;        
+    } 
+    
+    $pdf->SetFont('Helvetica', 'B', 8);
+    $maximoAct=$fila;
+    //columna1($pdf,$fila,"SUMA DEL ACTIVO",  number_format(round(($acum01+$acum02+$acum03),2),2),null,"100%","C");$fila++;
+    $pdf->SetFont('Helvetica', '', 7);
+    
+    $fila=1;
+    $pdf->SetFont('Helvetica', 'B', 8);
+    columna2($pdf,$fila,"PASIVO",null,null,null,'C');$fila++;
+    $pdf->SetFont('Helvetica', '', 7);
+    columna2($pdf,$fila,null,null,null,null,null);$fila++;    
+    
+    if(count($NomPasCir)>0){
+        $acumPasCirculante=0;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        columna2($pdf,$fila,"    CIRCULANTE",null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna2($pdf,$fila,null,null,null,null,null);$fila++;
+        for($i=0;$i<count($NomPasCir);$i++){
+            columna2($pdf,$fila,substr($NomPasCir[$i],0,35),number_format($SalPasCir[$i],2),round((($SalPasCir[$i]*100)/($acum04+$acum05)),2)." %",null,null);$fila++;
+            $acumPasCirculante+=$SalPasCir[$i];
+        }
+        columna2($pdf,$fila,null,null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
+        columna2($pdf,$fila,"    Total CIRCULANTE",  number_format($acumPasCirculante,2),"100 %",null,null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna2($pdf,$fila,null,null,null,null,null);$fila++;
+    } 
+    
+    if(count($NomPasFij)>0){
+        $acumPasFijo=0;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        columna2($pdf,$fila,"    FIJO",null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna2($pdf,$fila,null,null,null,null,null);$fila++;
+        for($i=0;$i<count($NomPasFij);$i++){
+            columna2($pdf,$fila,substr($NomPasFij[$i],0,35),number_format($SalPasCir[$i],2),round((($SalPasCir[$i]*100)/($acum04+$acum05)),2)." %",null,null);$fila++;
+            $acumPasFijo+=$SalPasCir[$i];
+        }
+        columna2($pdf,$fila,null,null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
+        columna2($pdf,$fila,"    Total FIJO",  number_format($acumPasFijo,2),"100 %",round((($acumPasFijo*100)/($acum04+$acum05)),2)." %",null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna2($pdf,$fila,null,null,null,null,null);$fila++;
+    }    
+    
+    $pdf->SetFont('Helvetica', 'B', 8);
+    $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
+    columna2($pdf,$fila,"SUMA DEL PASIVO",  number_format(round(($acum04+$acum05),2),2),null,round(((($acum04+$acum05)*100)/($acum04+$acum05+$acum06+$SalUtilidad[0])),2)." %","C");$fila++;
+    columna2($pdf,$fila,null,null,null,null,null);$fila++; 
+    $pdf->SetFont('Helvetica', '', 7);  
+    
+    $pdf->SetFont('Helvetica', 'B', 8);
+    columna2($pdf,$fila,"CAPITAL",null,null,null,'C');$fila++;
+    $pdf->SetFont('Helvetica', '', 7);
+    columna2($pdf,$fila,null,null,null,null,null);$fila++;     
+    
+    if(count($NomCapital)>0){
+        $acumCapital=0;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        columna2($pdf,$fila,"    CAPITAL",null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna2($pdf,$fila,null,null,null,null,null);$fila++;
+        for($i=0;$i<count($NomCapital);$i++){
+            columna2($pdf,$fila,substr($NomCapital[$i],0,35),number_format($SalCapital[$i],2),round((($SalCapital[$i]*100)/($acum06+$SalUtilidad[0])),2)." %",null,null);$fila++;
+            $acumCapital+=$SalCapital[$i];
+        }
+        columna2($pdf,$fila,null,null,null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', 'I', 7);
+        $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
+        columna2($pdf,$fila,"    Total CAPITAL",  number_format($acumCapital,2),null,null,null);$fila++;
+        $pdf->SetFont('Helvetica', '', 7);
+        columna2($pdf,$fila,null,null,null,null,null);$fila++;
+    }     
+    
+    columna2($pdf,$fila,substr($NomUtilidad[0],0,35),number_format($SalUtilidad[0],2),round((($SalUtilidad[0]*100)/($acum06+$SalUtilidad[0])),2)." %",null,null);$fila++;    
+    columna2($pdf,$fila,null,null,null,null,null);$fila++;
+    
+    $pdf->SetFont('Helvetica', 'B', 8);
+    $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
+    columna2($pdf,$fila,"SUMA DEL CAPITAL",  number_format(round(($acum06+$SalUtilidad[0]),2),2),null,round(((($acum06+$SalUtilidad[0])*100)/($acum04+$acum05+$acum06+$SalUtilidad[0])),2)." %","C");$fila++;
+    columna2($pdf,$fila,null,null,null,null,null);$fila++; 
+    $maximoPas=$fila;
+    
+    if($maximoAct>$maximoPas){
+        $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
+        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));        
+        columna1($pdf,$maximoAct,"SUMA DEL ACTIVO",  number_format(round(($acum01+$acum02+$acum03),2),2),null,"100%","C");$fila++;
+        columna2($pdf,$maximoAct,"PASIVO Y CAPITAL",number_format(round(($acum04+$acum05+$acum06+$SalUtilidad[0]),2),2),null,"100 %",'C');$fila++;    
+        $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
+        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));            
+    }else{
+        $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
+        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));
+        columna1($pdf,$maximoPas,"SUMA DEL ACTIVO",  number_format(round(($acum01+$acum02+$acum03),2),2),null,"100%","C");$fila++;        
+        columna2($pdf,$maximoPas,"PASIVO Y CAPITAL",number_format(round(($acum04+$acum05+$acum06+$SalUtilidad[0]),2),2),null,"100 %",'C');$fila++;  
+        $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
+        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));         
+    }
+                                
     $pdf->SetFont('Helvetica', '', 8);
     $pdf->AddPage('P', 'A4');
     
@@ -1274,6 +2126,178 @@
         return $meses;        
     }
     
+    function graficarcompara($conexion,$pdf,$mescalculando,$anocalculado,$empresa,$cuenta01,$cuenta02,$titulo,$tipo01,$tipo02,$nombre01,$nombre02,$reducido01,$reducido02){
+        $pdf->SetFont('Helvetica', '', 8);
+        $con=$conexion;        
+        $uno=consultacuenta($con,$empresa,$cuenta01,$anocalculado,$tipo01);
+        $dos=consultacuenta($con,$empresa,$cuenta02,$anocalculado,$tipo02);        
+        
+        $limitemayor = max($uno);
+        if(max($dos)>$limitemayor){
+            $limitemayor=max($dos);
+        }
+        
+        $limitemenor = min($uno);
+        if(min($dos)<$limitemenor){
+            $limitemenor=min($dos);
+        }    
+    
+        $porango=array();
+        $porango[0]=10000;
+        $porango[1]=20000;
+        $porango[2]=50000;
+        $porango[3]=100000;
+        $porango[4]=200000;
+        $porango[5]=500000;
+        $porango[6]=1000000;
+        $porango[7]=2000000;
+        $porango[8]=5000000;
+        
+        $rango=0;
+    
+        for($i=0;$i<count($porango);$i++){
+            $acum=0;
+            for($j=0;$j<10;$j++){
+                $acum=$acum+$porango[$i];
+            }
+            if($acum>$limitemayor){
+                $rango=$i;
+                break;
+            }
+        }
+        
+        $meses=array();
+        $meses[0]="Enero";
+        $meses[1]="Febrero";
+        $meses[2]="Marzo";
+        $meses[3]="Abril";
+        $meses[4]="Mayo";
+        $meses[5]="Junio";
+        $meses[6]="Julio";
+        $meses[7]="Agosto";
+        $meses[8]="Septiembre";
+        $meses[9]="Octubre";
+        $meses[10]="Noviembre";
+        $meses[11]="Diciembre";
+        
+        $me=array();
+        $me[0]="Ene";
+        $me[1]="Feb";
+        $me[2]="Mar";
+        $me[3]="Abr";
+        $me[4]="May";
+        $me[5]="Jun";
+        $me[6]="Jul";
+        $me[7]="Ago";
+        $me[8]="Sep";
+        $me[9]="Oct";
+        $me[10]="Nov";
+        $me[11]="Dic";        
+        
+        $pdf->Line(25, 185, 200, 185);
+        $ejex=39.5;
+        
+        /*Pinto el eje de las x*/
+        for($i=0;$i<12;$i++){
+            $pdf->Line($ejex, 184, $ejex,186);            
+            $pdf->StartTransform();
+            $pdf->Rotate(40, ($ejex-17), 198);        
+            $pdf->SetXY(($ejex-17),198);                
+            $pdf->Cell(20,5,$meses[$i], 0, 1, 'R', 0, '', 1); 
+            $pdf->StopTransform();
+            
+            $pdf->SetLineStyle(array('width' => 0.4,'color' => array(29,219,0)));
+            $puntoy=(185-($uno[$i]*((1*14.5)/$porango[$rango])));
+            //$pdf->Line($ejex,$puntoy, $ejex,($puntoy+1));
+            
+            if($i<($mescalculando-1)){                
+                if($i<11){  
+                    $puntoy2=(185-($uno[($i+1)]*((1*14.5)/$porango[$rango])));
+                    $pdf->Line($ejex,$puntoy, ($ejex+14.5),($puntoy2));                     
+                }                                                   
+            }    
+            if($i<$mescalculando){
+                $pdf->SetFillColor(29,219,0);           
+                $pdf->Circle($ejex,$puntoy,1,0,360,'F',array('color'=>array(29,219,0)));                 
+            }
+            
+            if($i<$mescalculando){
+                $pdf->SetLineStyle(array('width' => 0.4,'color' => array(255,206,1)));
+                $puntoy=(185-($dos[$i]*((1*14.5)/$porango[$rango])));
+                $pdf->Line($ejex,($puntoy-0.25), $ejex,($puntoy+0.25));
+                $pdf->SetFillColor(255,206,1);           
+                $pdf->Circle($ejex,$puntoy,1,0,360,'F',array('color'=>array(29,219,0)));                 
+            }
+            
+            if($i<($mescalculando-1)){                
+                $puntoy=(185-($dos[$i]*((1*14.5)/$porango[$rango])));
+                //$pdf->Line($ejex,$puntoy, $ejex,($puntoy+1));
+                if($i<11){
+                    $puntoy2=(185-($dos[($i+1)]*((1*14.5)/$porango[$rango])));
+                    $pdf->Line($ejex,$puntoy, ($ejex+14.5),($puntoy2)); 
+                }                 
+            }
+            
+            
+                       
+            $pdf->SetLineStyle(array('width' => 0.25,'color' => array(148,148,148)));                        
+            $ejex+=14.5;
+        }  
+                
+       // $pdf->Line(25, 39, 25, 185);
+        $ejey=170.5;
+        $acum=$porango[$rango];
+        /*Pinto el eje de las y*/
+        for($i=0;$i<10;$i++){
+            $pdf->Line(24,$ejey,200,$ejey);
+            $pdf->Text(9,$ejey-2,number_format($acum));
+            $ejey-=14.5;
+            $acum+=$porango[$rango];
+        }
+        
+        $pdf->SetLineStyle(array('width' => 0.4,'color' => array(0,160,0)));
+        $pdf->Line(63,206.5,68,206.5); 
+        $pdf->Text(70,205,$nombre01);
+        
+        $pdf->SetLineStyle(array('width' => 0.4,'color' => array(255,206,1)));
+        $pdf->Line(113,206.5,118,206.5);
+        $pdf->Text(120,205,$nombre02);
+        $pdf->SetLineStyle(array('width' => 0.25,'color' => array(148,148,148)));
+        
+        $pdf->Line(10,230,200,230);
+        $pdf->Line(10,236,200,236);
+        $pdf->Line(10,242,200,242);
+        
+        $columna=25;
+        $pdf->SetFont('Helvetica', '', 7);
+        for($i=0;$i<12;$i++){
+            $pdf->Line($columna,224,$columna,242);                      
+            $pdf->SetXY($columna,224);                
+            $pdf->Cell(14.5,6,$me[$i], 0, 1, 'C', 0, '', 1);
+
+            if($i<$mescalculando){
+                $pdf->SetXY($columna,230);
+                $pdf->Cell(14.5,6,number_format(round($uno[$i],0)), 0, 1, 'C', 0, '', 1);                
+                $pdf->SetXY($columna,236);
+                $pdf->Cell(14.5,6,number_format(round($dos[$i],0)), 0, 1, 'C', 0, '', 1);                
+            }
+            
+            $columna+=14.5;
+        }
+        
+        $pdf->SetXY(10,230);
+        $pdf->Cell(14.5,6,$reducido01,0, 1, 'C', 0, '', 1);     
+        $pdf->SetXY(10,236);
+        $pdf->Cell(14.5,6,$reducido02,0, 1, 'C', 0, '', 1);        
+        
+                                        
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->SetXY(90,30);                
+        $pdf->Cell(50,5,$titulo, 1, 1, 'C', 0, '', 1);     
+        $pdf->SetFont('Helvetica', '', 8);        
+        
+    }
+    
     function graficar($conexion,$pdf,$mescalculando,$anocalculado,$empresa,$cuenta,$titulo,$tipo){
         $pdf->SetFont('Helvetica', '', 8);
         $con=$conexion;
@@ -1479,8 +2503,7 @@
     $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');        
     $sqlGastosA = "select * from asociaclave where idempresa='".$buscaempresa."' and idclave=19";
     $resultGastosA=mysql_query($sqlGastosA,$con) or die(mysql_error());    
-    $gastos=mysql_fetch_assoc($resultGastosA);
-    /*mes-año-empresa-cuenta*/    
+    $gastos=mysql_fetch_assoc($resultGastosA);   
     graficar($con,$pdf,$buscames,$buscaano,$buscaempresa,$gastos["codigo"],"Resumen Gastos de Administración",2);  
     $pdf->SetFont('Helvetica', '', 7);
     $pdf->SetTextColor(126,130,109);
@@ -1488,6 +2511,43 @@
     $pdf->SetTextColor(0,0,0);
     $pdf->Text(10,280,$Empresa["nombre"]." | ".$me[($buscames-1)].' '.$buscaano); 
     $pdf->Text(185,280,"Página 06");    
+    
+    $pdf->AddPage('P', 'A4');   
+    $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+    $pdf->Line(10, 25, 200, 25);
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');        
+    $sqlGastosA = "select * from asociaclave where idempresa='".$buscaempresa."' and idclave=23";
+    $resultGastosA=mysql_query($sqlGastosA,$con) or die(mysql_error());    
+    $gastos=mysql_fetch_assoc($resultGastosA);   
+    graficar($con,$pdf,$buscames,$buscaano,$buscaempresa,$gastos["codigo"],"Resumen Gastos de de Venta",2);  
+    $pdf->SetFont('Helvetica', '', 7);
+    $pdf->SetTextColor(126,130,109);
+    $pdf->Text(10,277,"Creado por GAAG Desarrollo Empresarial");
+    $pdf->SetTextColor(0,0,0);
+    $pdf->Text(10,280,$Empresa["nombre"]." | ".$me[($buscames-1)].' '.$buscaano); 
+    $pdf->Text(185,280,"Página 07");  
+    
+    $pdf->AddPage('P', 'A4');   
+    $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+    $pdf->Line(10, 25, 200, 25);
+    $pdf->SetFont('Helvetica', '', 10);
+    $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');        
+    $sqlGastosA01 = "select * from asociaclave where idempresa='".$buscaempresa."' and idclave=9";
+    $resultGastosA01=mysql_query($sqlGastosA01,$con) or die(mysql_error());    
+    $gastos01=mysql_fetch_assoc($resultGastosA01);      
+    
+    $sqlGastosA02 = "select * from asociaclave where idempresa='".$buscaempresa."' and idclave=12";
+    $resultGastosA02=mysql_query($sqlGastosA02,$con) or die(mysql_error());    
+    $gastos02=mysql_fetch_assoc($resultGastosA02);        
+    
+    graficarcompara($con,$pdf,$buscames,$buscaano,$buscaempresa,$gastos01["codigo"],$gastos02["codigo"],"Ventas vs Costo de Ventas",3,2,"Ventas","Costo de Ventas","Ventas","Costo Venta");  
+    $pdf->SetFont('Helvetica', '', 7);
+    $pdf->SetTextColor(126,130,109);
+    $pdf->Text(10,277,"Creado por GAAG Desarrollo Empresarial");
+    $pdf->SetTextColor(0,0,0);
+    $pdf->Text(10,280,$Empresa["nombre"]." | ".$me[($buscames-1)].' '.$buscaano); 
+    $pdf->Text(185,280,"Página 08");      
     
     $pdf->Output('example_012.pdf', 'I');       
     

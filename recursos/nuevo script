@@ -75,6 +75,7 @@ insert into clave (nombre) values("Gastos de Administracion");
 insert into clave (nombre) values("Intereses Devengados");
 insert into clave (nombre) values("Prestamos Recibidos");
 insert into clave (nombre) values("ISR anual");
+insert into clave (nombre) values("Gastos de Venta");
 
 CREATE TABLE empresa (
     idempresa mediumint(8) unsigned not null,
@@ -105,8 +106,11 @@ insert into asociaclave (idempresa,idclave,codigo,indice) values(1,2,"0000100",1
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,3,"0000210",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,4,"0000200",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,6,"_CAPITAL",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,6,"0000300",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,8,"1020000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,8,"1000000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,9,"4000000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,9,"4010000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,10,"_UTILIDAD",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,11,"1030000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,12,"5010000",1);
@@ -121,6 +125,7 @@ insert into asociaclave (idempresa,idclave,codigo,indice) values(1,22,"7990001",
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,21,"2032003",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,21,"2032004",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(1,7,"1040000",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(1,23,"6000000",1);
 
 insert into asociaclave (idempresa,idclave,codigo,indice) values(2,1,"000011000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(2,2,"000010000",1);
@@ -137,6 +142,7 @@ insert into asociaclave (idempresa,idclave,codigo,indice) values(2,16,"000012000
 insert into asociaclave (idempresa,idclave,codigo,indice) values(2,17,"403000000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(2,19,"601000000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(2,22,"701003001",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(2,23,"502000000",1);
 
 insert into asociaclave (idempresa,idclave,codigo,indice) values(3,1,"0001100000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(3,2,"0001000000",1);
@@ -156,6 +162,7 @@ insert into asociaclave (idempresa,idclave,codigo,indice) values(3,17,"702001000
 insert into asociaclave (idempresa,idclave,codigo,indice) values(3,19,"0006300000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(3,20,"8010010001",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(3,22,"1459208069",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(3,23,"0006100000",1);
 
 insert into asociaclave (idempresa,idclave,codigo,indice) values(4,1,"000011",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(4,2,"000010",1);
@@ -168,14 +175,14 @@ insert into asociaclave (idempresa,idclave,codigo,indice) values(4,9,"400000",1)
 insert into asociaclave (idempresa,idclave,codigo,indice) values(4,10,"_UTILIDAD",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(4,11,"103000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(4,12,"501000",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(4,14,"633555767",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(4,15,"1451727926",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,14,"801003",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,15,"601018",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(4,16,"000012",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(4,17,"1298041073",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(4,18,"388881841",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,17,"701002",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(4,19,"601000",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(4,20,"633555767",1);
-insert into asociaclave (idempresa,idclave,codigo,indice) values(4,22,"220593503",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,20,"801003",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,22,"901001",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(4,23,"602000",1);
 
 insert into asociaclave (idempresa,idclave,codigo,indice) values(5,1,"0000110",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(5,2,"0000100",1);
@@ -194,6 +201,7 @@ insert into asociaclave (idempresa,idclave,codigo,indice) values(5,16,"0000120",
 insert into asociaclave (idempresa,idclave,codigo,indice) values(5,19,"5030000",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(5,20,"5040002",1);
 insert into asociaclave (idempresa,idclave,codigo,indice) values(5,22,"2020004",1);
+insert into asociaclave (idempresa,idclave,codigo,indice) values(5,23,"5020000",1);
 
 CREATE TABLE calculo(
     idcalculo mediumint(8) unsigned auto_increment,    
@@ -204,6 +212,7 @@ CREATE TABLE calculo(
     valorconstante integer,
     parentesis integer,    
     operacion integer, 
+    promedio integer,
     PRIMARY KEY (idcalculo),
     FOREIGN KEY (idrazonfinanciera) REFERENCES razonfinanciera(idrazonfinanciera) ON UPDATE CASCADE ON DELETE RESTRICT,
     FOREIGN KEY (idclave) REFERENCES clave(idclave) ON UPDATE CASCADE ON DELETE RESTRICT        
@@ -233,24 +242,24 @@ insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(4
 
 /*Rotación de cobros*/
 insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(5,1,1,9,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(5,2,1,11,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion,promedio) values(5,2,1,11,4,1);
 
 /*Meses de recuperación de cobros*/
 insert into calculo (idrazonfinanciera,posicion,tipo,valorconstante,operacion) values(6,1,2,12,1);
 insert into calculo (idrazonfinanciera,posicion,tipo,parentesis,operacion) values(6,2,3,1,4);
 insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(6,3,1,9,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(6,4,1,11,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion,promedio) values(6,4,1,11,4,1);
 insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(6,5,3,2);
 
 /*Rotación de inventarios*/
 insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(7,1,1,12,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(7,2,1,7,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion,promedio) values(7,2,1,7,4,1);
 
 /*Días de Rotación de inventarios*/
 insert into calculo (idrazonfinanciera,posicion,tipo,valorconstante,operacion) values(8,1,2,365,1);
 insert into calculo (idrazonfinanciera,posicion,tipo,parentesis,operacion) values(8,2,3,1,4);
 insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(8,3,1,12,1);
-insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion) values(8,4,1,7,4);
+insert into calculo (idrazonfinanciera,posicion,tipo,idclave,operacion,promedio) values(8,4,1,7,4,1);
 insert into calculo (idrazonfinanciera,posicion,tipo,parentesis) values(8,5,3,2);
 
 /*Rotación de activos Total*/
@@ -335,6 +344,8 @@ CREATE TABLE cuenta (
     nombre varchar(50) not null,
     nomidioma varchar(50) not null,
     tipo varchar(1) not null,
+    ctamayor integer not null,
+    afectable integer not null,
     PRIMARY KEY (idempresa,idcuenta)
 );
 
