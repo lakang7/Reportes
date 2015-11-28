@@ -1217,7 +1217,380 @@ set_error_handler("myFunctionErrorHandler", E_WARNING);
     
     for($i=0;$i<count($NomUtilidad);$i++){
         echo $NomUtilidad[$i]." ".$SalUtilidad[$i]."</br>";
+    }  
+    
+    echo "------------------------------------------------------------------------------------------</br>";
+    
+    $estadoNom=array();
+    $estadoPer=array();
+    $estadoAcu=array();
+    $indice=0;
+    $estadoNom[$indice]="Ventas Netas";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=9";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) {       
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}        
+    }
+    
+    $indice++;
+    $estadoNom[$indice]="Costo de Ventas";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;        
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=12";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) {       
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}        
     }    
+    
+    $indice++;
+    $estadoNom[$indice]="Gastos de Ventas";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;        
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=23";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) { 
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}        
+    }  
+    
+    
+    $indice++;
+    $estadoNom[$indice]="Gastos de Administración";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;        
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=19";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) { 
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}        
+    }     
+    
+    
+    $indice++;
+    $estadoNom[$indice]="Otros ingresos y gastos netos";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;        
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=17";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) { 
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}        
+    }     
+    
+    $indice++;
+    $estadoNom[$indice]="Resultado integral de financiamiento";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;        
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=27";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) { 
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
+        $est05=mysql_fetch_assoc($resultEst05);        
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=($est05["importes1"]-$est02["importes1"]);}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=($est05["importes2"]-$est02["importes2"]);}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=($est05["importes3"]-$est02["importes3"]);}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=($est05["importes4"]-$est02["importes4"]);}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=($est05["importes5"]-$est02["importes5"]);}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=($est05["importes6"]-$est02["importes6"]);}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=($est05["importes7"]-$est02["importes7"]);}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=($est05["importes8"]-$est02["importes8"]);}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=($est05["importes9"]-$est02["importes9"]);}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=($est05["importes10"]-$est02["importes10"]);}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=($est05["importes11"]-$est02["importes11"]);}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=($est05["importes12"]-$est02["importes12"]);}        
+    }      
+    
+    $indice++;
+    $estadoNom[$indice]="Participación en subsidiarias y asociadas";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;        
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=24";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) { 
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
+        $est05=mysql_fetch_assoc($resultEst05);        
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
+    }  
+    
+    $indice++;
+    $estadoNom[$indice]="Partidas no ordinarias";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;        
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=25";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) { 
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
+        $est05=mysql_fetch_assoc($resultEst05);        
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
+    }    
+    
+    $indice++;
+    $estadoNom[$indice]="Impuestos a la utilidad";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;        
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=22";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) { 
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
+        $est05=mysql_fetch_assoc($resultEst05);        
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
+    }    
+    
+    $indice++;
+    $estadoNom[$indice]="Operaciones Discontinuadas";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;        
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=26";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) { 
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
+        $est05=mysql_fetch_assoc($resultEst05);        
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
+    }     
+    
+    for($i=0;$i<count($estadoNom);$i++){
+        echo $estadoNom[$i]." -- ".$estadoPer[$i]." -- ".$estadoAcu[$i]."</br>";
+    }    
+    
+    
 ?>        
         
         
