@@ -1,3 +1,14 @@
+CREATE TABLE administrador (
+    idadministrador mediumint(8) unsigned auto_increment,
+    nombre varchar(45) not null,    
+    correo varchar(60) not null,
+    contrasena varchar(12) not null,
+    PRIMARY KEY (idadministrador)    
+);
+
+insert into administrador (nombre,correo,contrasena) values("Lakhsmi Angarita","lakang7@gmail.com","holamundo");
+insert into administrador (nombre,correo,contrasena) values("Nelly Galicia","nelly@gaag.com.mx","holamundo2");
+
 CREATE TABLE categoriarazon (
     idcategoriarazon mediumint(8) unsigned auto_increment,
     nombre varchar(60) not null,
@@ -85,6 +96,7 @@ CREATE TABLE empresa (
     idempresa mediumint(8) unsigned not null,
     nombre varchar(60) not null,
     logo varchar(60) not null,
+    basedatos varchar(100) not null,
     PRIMARY KEY (idempresa)
 );
 
@@ -93,6 +105,15 @@ insert into empresa (idempresa,nombre,logo) values(2,"SCIENTRIX MEXICO SC","");
 insert into empresa (idempresa,nombre,logo) values(3,"JC GLOBAL RESOURCES DE MEXICO SA DE CV-2015","");
 insert into empresa (idempresa,nombre,logo) values(4,"GAAG DESARROLLO EMPRESARIA S DE RL DE CV","");
 insert into empresa (idempresa,nombre,logo) values(5,"ZUBIALINK ENTERPRISES SA DE CV","");
+
+CREATE TABLE emails (
+    idemails mediumint(8) unsigned auto_increment,
+    idempresa varchar(60) not null,
+    nombre varchar(60) not null,
+    correo varchar(60) not null,
+    PRIMARY KEY (idemails)
+);
+
 
 CREATE TABLE asociaclave (
     idasociaclave mediumint(8) unsigned auto_increment,

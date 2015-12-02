@@ -6,6 +6,13 @@
         mysql_select_db("razonesfinancieras", $conexion);	        
 	return $conexion;
     }
+    
+    function Menu(){
+        echo "<div class='col-md-12 itemMenu' onclick=redirigir('../administracion/recursos/acciones.php?tarea=58')>Cerrar Sessión</div>";
+        echo "<div class='col-md-12 itemMenu' onclick=redirigir('listarempresa.php')>Empresas</div>";
+        echo "<div class='col-md-12 itemMenu' onclick=redirigir('listaremails.php')>Receptores de Correo</div>";
+        echo "<div class='col-md-12 itemMenu' onclick=redirigir('listarconsultas.php') style='border-bottom: 1px solid #CCCCCC' >Reporte Razones Financieras</div>";
+    }        
 
 
 ?>

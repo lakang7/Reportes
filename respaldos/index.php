@@ -237,7 +237,7 @@ set_error_handler("myFunctionErrorHandler", E_WARNING);
     
     
     
-    $buscaempresa = 1;
+    $buscaempresa = 6;
     $buscaano = 2015;
     $buscames = 6;             
     $buscaejercicio = "";

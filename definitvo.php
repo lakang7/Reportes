@@ -476,9 +476,9 @@
     
     
     
-    $buscaempresa = 1;
+    $buscaempresa = 8;
     $buscaano = 2015;
-    $buscames = 9;
+    $buscames = 10;
     $buscaejercicio = "";
         
     $categoriasID=array();
@@ -1023,7 +1023,7 @@
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
-    $pdf->Text(9, 26, 'Balance General '.$Empresa["nombre"]);  
+    $pdf->Text(9, 26, 'Estado de Situación Financiera '.$Empresa["nombre"]." ".$meses[($buscames-1)].' '.$buscaano);  
     $pdf->SetFont('Helvetica', '', 7);
     
     
@@ -1552,7 +1552,7 @@
         $pdf->SetFont('Helvetica', '', 7);
         columna1($pdf,$fila,null,null,null,null,null);$fila++;
         for($i=0;$i<count($NomActCir);$i++){
-            columna1($pdf,$fila,substr($NomActCir[$i],0,35),number_format($SalActCir[$i],2),round((($SalActCir[$i]*100)/$acum01),2)." %",null,null);$fila++;
+            columna1($pdf,$fila,substr(ucwords(strtolower($NomActCir[$i])),0,35),number_format($SalActCir[$i],2),round((($SalActCir[$i]*100)/$acum01),2)." %",null,null);$fila++;
             $acumActCirculante+=$SalActCir[$i];
         }
         columna1($pdf,$fila,null,null,null,null,null);$fila++;
@@ -1617,7 +1617,7 @@
         $pdf->SetFont('Helvetica', '', 7);
         columna2($pdf,$fila,null,null,null,null,null);$fila++;
         for($i=0;$i<count($NomPasCir);$i++){
-            columna2($pdf,$fila,substr($NomPasCir[$i],0,35),number_format($SalPasCir[$i],2),round((($SalPasCir[$i]*100)/($acum04+$acum05)),2)." %",null,null);$fila++;
+            columna2($pdf,$fila,substr(ucwords(strtolower($NomPasCir[$i])),0,35),number_format($SalPasCir[$i],2),round((($SalPasCir[$i]*100)/($acum04+$acum05)),2)." %",null,null);$fila++;
             $acumPasCirculante+=$SalPasCir[$i];
         }
         columna2($pdf,$fila,null,null,null,null,null);$fila++;
@@ -1635,7 +1635,7 @@
         $pdf->SetFont('Helvetica', '', 7);
         columna2($pdf,$fila,null,null,null,null,null);$fila++;
         for($i=0;$i<count($NomPasFij);$i++){
-            columna2($pdf,$fila,substr($NomPasFij[$i],0,35),number_format($SalPasCir[$i],2),round((($SalPasCir[$i]*100)/($acum04+$acum05)),2)." %",null,null);$fila++;
+            columna2($pdf,$fila,substr(ucwords(strtolower($NomPasFij[$i])),0,35),number_format($SalPasCir[$i],2),round((($SalPasCir[$i]*100)/($acum04+$acum05)),2)." %",null,null);$fila++;
             $acumPasFijo+=$SalPasCir[$i];
         }
         columna2($pdf,$fila,null,null,null,null,null);$fila++;
@@ -1664,7 +1664,7 @@
         $pdf->SetFont('Helvetica', '', 7);
         columna2($pdf,$fila,null,null,null,null,null);$fila++;
         for($i=0;$i<count($NomCapital);$i++){
-            columna2($pdf,$fila,substr($NomCapital[$i],0,35),number_format($SalCapital[$i],2),round((($SalCapital[$i]*100)/($acum06+$SalUtilidad[0])),2)." %",null,null);$fila++;
+            columna2($pdf,$fila,substr(ucwords(strtolower($NomCapital[$i])),0,26),number_format($SalCapital[$i],2),round((($SalCapital[$i]*100)/($acum06+$SalUtilidad[0])),2)." %",null,null);$fila++;
             $acumCapital+=$SalCapital[$i];
         }
         columna2($pdf,$fila,null,null,null,null,null);$fila++;
@@ -1685,19 +1685,21 @@
     $maximoPas=$fila;
     
     if($maximoAct>$maximoPas){
+        $fila=$maximoAct;
         $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
         $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));        
         columna1($pdf,$maximoAct,"SUMA DEL ACTIVO",  number_format(round(($acum01+$acum02+$acum03),2),2),null,"100%","C");$fila++;
         columna2($pdf,$maximoAct,"PASIVO Y CAPITAL",number_format(round(($acum04+$acum05+$acum06+$SalUtilidad[0]),2),2),null,"100 %",'C');$fila++;    
         $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
-        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));            
+        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));           
     }else{
+        $fila = $maximoPas;
         $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
         $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));
         columna1($pdf,$maximoPas,"SUMA DEL ACTIVO",  number_format(round(($acum01+$acum02+$acum03),2),2),null,"100%","C");$fila++;        
         columna2($pdf,$maximoPas,"PASIVO Y CAPITAL",number_format(round(($acum04+$acum05+$acum06+$SalUtilidad[0]),2),2),null,"100 %",'C');$fila++;  
         $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
-        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));         
+        $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));        
     }
 
     $pdf->SetFont('Helvetica', '', 7);
@@ -1714,7 +1716,7 @@
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
-    $pdf->Text(9, 26, 'Estado de Resultados '.$Empresa["nombre"]);
+    $pdf->Text(9, 26, 'Estado de Resultados '.$Empresa["nombre"]." ".$meses[($buscames-1)].' '.$buscaano);
     $pdf->SetFont('Helvetica', '', 8);    
     
     $estadoNom=array();
@@ -2084,7 +2086,46 @@
         if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
         if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
         if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
+    }   
+    
+    $indice++;
+    $estadoNom[$indice]="Descuento Sobre Compras";
+    $estadoPer[$indice]=0;
+    $estadoAcu[$indice]=0;    
+    
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=18";
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
+    while ($est01=mysql_fetch_assoc($resultEst01)) { 
+        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
+        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
+        $est04=mysql_fetch_assoc($resultEst04);
+        
+        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
+        $est02=mysql_fetch_assoc($resultEst02);
+        
+        $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
+        $est05=mysql_fetch_assoc($resultEst05);        
+        
+        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
+        $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
     }     
+       
                 
     function columna3($pdf,$fila,$texto01,$texto02,$texto03,$texto04,$texto05,$inicial){
         $ali="R";
@@ -2108,15 +2149,16 @@
     columna3($pdf, $fila,null, "     Periodo", "        % Intregrales", "      Acumulado", "        % Integrales",1);$fila+=2;
     columna3($pdf, $fila,$estadoNom[0], number_format($estadoPer[0],2),"100 %", number_format($estadoAcu[0],2),"100 %",0);$fila++;
     columna3($pdf, $fila,$estadoNom[1], number_format($estadoPer[1],2),round((($estadoPer[1]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[1],2),round((($estadoAcu[1]*100)/$estadoAcu[0]),2)." %",0);$fila++;
+    columna3($pdf, $fila,$estadoNom[10], number_format($estadoPer[10],2),round((($estadoPer[10]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[10],2),round((($estadoAcu[10]*100)/$estadoAcu[0]),2)." %",0);$fila++;
     $pdf->SetFont('Helvetica', 'B', 8);
     $pdf->Line(108,(35+(($fila*5)-5)), 200,(35+(($fila*5)-5)));
-    columna3($pdf, $fila,"          Utilidad o Pérdida Bruta", number_format(($estadoPer[0]-$estadoPer[1]),2),round(((($estadoPer[0]-$estadoPer[1])*100)/$estadoPer[0]),2)." %", number_format(($estadoAcu[0]-$estadoAcu[1]),2),round(((($estadoAcu[0]-$estadoAcu[1])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;
+    columna3($pdf, $fila,"          Utilidad o Pérdida Bruta", number_format(($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10])),2),round(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))*100)/$estadoPer[0]),2)." %", number_format(($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10])),2),round(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))*100)/$estadoAcu[0]),2)." %",0);$fila+=2;
     $pdf->SetFont('Helvetica', '', 8);
     columna3($pdf, $fila,$estadoNom[2], number_format($estadoPer[2],2),round((($estadoPer[2]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[2],2),round((($estadoAcu[2]*100)/$estadoAcu[0]),2)." %",0);$fila++;
     columna3($pdf, $fila,$estadoNom[3], number_format($estadoPer[3],2),round((($estadoPer[3]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[3],2),round((($estadoAcu[3]*100)/$estadoAcu[0]),2)." %",0);$fila++;
     $pdf->SetFont('Helvetica', 'B', 8);
     $pdf->Line(108,(35+(($fila*5)-5)), 200,(35+(($fila*5)-5)));
-    columna3($pdf, $fila,"          Utilidad o Pérdida en Operación", number_format((($estadoPer[0]-$estadoPer[1])-$estadoPer[2]-$estadoPer[3]),2),round((((($estadoPer[0]-$estadoPer[1])-$estadoPer[2]-$estadoPer[3])*100)/$estadoPer[0]),2)." %", number_format((($estadoAcu[0]-$estadoAcu[1])-$estadoAcu[2]-$estadoAcu[3]),2), round((((($estadoAcu[0]-$estadoAcu[1])-$estadoAcu[2]-$estadoAcu[3])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
+    columna3($pdf, $fila,"          Utilidad o Pérdida en Operación", number_format((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])*100)/$estadoPer[0]),2)." %", number_format((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]),2), round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
     $pdf->SetFont('Helvetica', '', 8);    
     columna3($pdf, $fila,$estadoNom[4], number_format($estadoPer[4],2),round((($estadoPer[4]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[4],2), round((($estadoAcu[4]*100)/$estadoAcu[0]),2)." %",0);$fila++;
     columna3($pdf, $fila,$estadoNom[5], number_format($estadoPer[5],2),round((($estadoPer[5]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[5],2), round((($estadoAcu[5]*100)/$estadoAcu[0]),2)." %",0);$fila++;    
@@ -2124,17 +2166,17 @@
     columna3($pdf, $fila,$estadoNom[7], number_format($estadoPer[7],2),round((($estadoPer[7]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[7],2), round((($estadoAcu[7]*100)/$estadoAcu[0]),2)." %",0);$fila++;    
     $pdf->SetFont('Helvetica', 'B', 8);
     $pdf->Line(108,(35+(($fila*5)-5)), 200,(35+(($fila*5)-5)));
-    columna3($pdf, $fila,"          Utilidad o pérdida antes de impuestos a la utilidad", number_format(((($estadoPer[0]-$estadoPer[1])-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])),2),round((((($estadoPer[0]-$estadoPer[1])-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1])-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])),2),round((((($estadoAcu[0]-$estadoAcu[1])-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
+    columna3($pdf, $fila,"          Utilidad o pérdida antes de impuestos a la utilidad", number_format(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])),2),round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
     $pdf->SetFont('Helvetica', '', 8);     
     columna3($pdf, $fila,$estadoNom[8], number_format($estadoPer[8],2),round((($estadoPer[8]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[8],2), round((($estadoAcu[8]*100)/$estadoAcu[0]),2)." %",0);$fila++;    
     $pdf->SetFont('Helvetica', 'B', 8);
     $pdf->Line(108,(35+(($fila*5)-5)), 200,(35+(($fila*5)-5)));
-    columna3($pdf, $fila,"          Utilidad o pérdida antes de las operaciones discontinuadas", number_format(((($estadoPer[0]-$estadoPer[1])-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])-($estadoPer[8])),2),round((((($estadoPer[0]-$estadoPer[1])-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7]-$estadoPer[8])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1])-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])-($estadoAcu[8])),2), round((((($estadoAcu[0]-$estadoAcu[1])-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7]-$estadoAcu[8])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
+    columna3($pdf, $fila,"          Utilidad o pérdida antes de las operaciones discontinuadas", number_format(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])-($estadoPer[8])),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7]-$estadoPer[8])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])-($estadoAcu[8])),2), round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7]-$estadoAcu[8])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
     $pdf->SetFont('Helvetica', '', 8);   
     columna3($pdf, $fila,$estadoNom[9], number_format($estadoPer[9],2),round((($estadoPer[9]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[9],2), round((($estadoAcu[9]*100)/$estadoAcu[0]),2)." %",0);$fila++;    
     $pdf->SetFont('Helvetica', 'B', 8);
     $pdf->Line(108,(35+(($fila*5)-5)), 200,(35+(($fila*5)-5)));
-    columna3($pdf, $fila,"          Utilidad o pérdida neta", number_format(((($estadoPer[0]-$estadoPer[1])-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])-($estadoPer[8])-($estadoPer[9])),2),round((((($estadoPer[0]-$estadoPer[1])-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7]-$estadoPer[8]-$estadoPer[9])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1])-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])-($estadoAcu[8])-($estadoAcu[9])),2), round((((($estadoAcu[0]-$estadoAcu[1])-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7]-$estadoAcu[8]-$estadoAcu[9])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
+    columna3($pdf, $fila,"          Utilidad o pérdida neta", number_format(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])-($estadoPer[8])-($estadoPer[9])),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7]-$estadoPer[8]-$estadoPer[9])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])-($estadoAcu[8])-($estadoAcu[9])),2), round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7]-$estadoAcu[8]-$estadoAcu[9])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
     $pdf->SetFont('Helvetica', '', 8);      
     
     $pdf->SetFont('Helvetica', '', 7);

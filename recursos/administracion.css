@@ -1,0 +1,57 @@
+.itemMenu{
+    border: 1px solid #CCCCCC;
+    border-bottom: 0px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 17px; 
+    line-height: 28px;
+}
+
+.itemMenu:hover{
+    cursor: pointer;
+    background-color: #f4f6f6;
+}
+
+.titulopagina{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 40px; 
+    line-height: 52px;
+    border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 20px;
+}
+
+.subtitulopagina{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 22px; 
+    line-height: 37px;
+    border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 20px;
+}
+
+.boton{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 16px;
+}
+
+.titulo_entrada{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 18px; 
+    line-height: 22px;    
+}
+
+.contiene_entrada{
+    margin-bottom: 10px;
+}
+
+.consultatitulo{
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: bold;   
+}
+
+.tituloconsulta{
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 20px; 
+    line-height: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
