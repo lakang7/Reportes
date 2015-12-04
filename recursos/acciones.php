@@ -157,6 +157,45 @@
 		location.href="../listaremails.php";
             </script>
 	<?php            
+    }
+    
+    /*Generación de Reporte Razones Financieras*/
+    if($_GET["tarea"]==10){
+        $mensaje="";       
+        if($_POST["opcion"]==1){
+            $mensaje="Generacion Satisfactoria de Reporte";
+        }else{
+            $mensaje="Envio Satisfactorio de Reporte";
+        }
+    ?>
+        <script type="text/javascript">            
+            window.open("../razonesfinancieras.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>",'_blank');            
+            alert("<?php echo $mensaje; ?>");
+            location.href="../reporterazonesfinancieras.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>";                
+        </script>            
+    <?php
     }    
     
+    
+    /*Generación de Reporte Estado de Resultados*/
+    if($_GET["tarea"]==11){
+        $mensaje="Reporte Generado Satisfactoriamente";       
+    ?>
+        <script type="text/javascript">            
+            window.open("../estadoderesultados.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>",'_blank');            
+            alert("<?php echo $mensaje; ?>");
+            location.href="../reporteestadoderesultados.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>";                
+        </script>            
+    <?php
+    }     
+    
+    /*Cerrar Sesion*/
+    if($_GET["tarea"]==12){
+        session_destroy();
+        ?>
+            <script type="text/javascript" language="JavaScript" >                
+                location.href="../index.php";
+            </script>
+        <?php        
+    }     
 ?>
