@@ -5,6 +5,7 @@
     $con = Conexion();
     $buscaempresa = $_GET["empresa"];
     $buscaano = $_GET["anno"];
+    $meslimite = $_GET["mes"];
     
     $buscaejercicio = "";        
     
@@ -32,6 +33,23 @@
     $estadoPer11=array();
     $estadoPer12=array();
     
+    $total01=0;
+    $total02=0;
+    $total03=0;
+    $total04=0;
+    $total05=0;
+    $total06=0;
+    $total07=0;
+    $total08=0;
+    $total09=0;
+    $total10=0;
+    $total11=0;
+    $total12=0;
+    $total13=0;
+    $total14=0;
+    $total15=0;    
+    $total16=0;
+    
     $indice=0;
     
     $estadoNom[$indice]="Ventas Netas"; 
@@ -49,7 +67,7 @@
     $estadoPer11[$indice]=0;
     $estadoPer12[$indice]=0;
                
-    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=9";
+    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=9 order by idasociaclave";
     $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error()); 
     
     while ($est01=mysql_fetch_assoc($resultEst01)) {  
@@ -58,8 +76,28 @@
         $est04=mysql_fetch_assoc($resultEst04);
         
         $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        if($est01["codigo"]=="4010000" && $buscaempresa==1){
+            $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        }
+        
         $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
         $est02=mysql_fetch_assoc($resultEst02); 
+                
+        if($est01["codigo"]=="4010000" && $buscaempresa==1){            
+            
+            $est02["importes1"]=$est02["importes1"]*(-1);
+            $est02["importes2"]=$est02["importes2"]*(-1);
+            $est02["importes3"]=$est02["importes3"]*(-1);
+            $est02["importes4"]=$est02["importes4"]*(-1);
+            $est02["importes5"]=$est02["importes5"]*(-1);
+            $est02["importes6"]=$est02["importes6"]*(-1);
+            $est02["importes7"]=$est02["importes7"]*(-1);
+            $est02["importes8"]=$est02["importes8"]*(-1);
+            $est02["importes9"]=$est02["importes9"]*(-1);
+            $est02["importes10"]=$est02["importes10"]*(-1);
+            $est02["importes11"]=$est02["importes11"]*(-1);
+            $est02["importes12"]=$est02["importes12"]*(-1);                        
+        }        
         
         $estadoPer1[$indice]+=$est02["importes1"];   
         $estadoPer2[$indice]+=$est02["importes2"]; 
@@ -186,22 +224,26 @@
         $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
         $est04=mysql_fetch_assoc($resultEst04);
         
+        $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
+        $est05=mysql_fetch_assoc($resultEst05);         
+        
         $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
         $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
         $est02=mysql_fetch_assoc($resultEst02);        
         
-        $estadoPer1[$indice]+=$est02["importes1"];   
-        $estadoPer2[$indice]+=$est02["importes2"]; 
-        $estadoPer3[$indice]+=$est02["importes3"]; 
-        $estadoPer4[$indice]+=$est02["importes4"];
-        $estadoPer5[$indice]+=$est02["importes5"];
-        $estadoPer6[$indice]+=$est02["importes6"]; 
-        $estadoPer7[$indice]+=$est02["importes7"];
-        $estadoPer8[$indice]+=$est02["importes8"]; 
-        $estadoPer9[$indice]+=$est02["importes9"]; 
-        $estadoPer10[$indice]+=$est02["importes10"];
-        $estadoPer11[$indice]+=$est02["importes11"];
-        $estadoPer12[$indice]+=$est02["importes12"];                
+        $estadoPer1[$indice]+=($est02["importes1"]-$est05["importes1"]);   
+        $estadoPer2[$indice]+=($est02["importes2"]-$est05["importes2"]); 
+        $estadoPer3[$indice]+=($est02["importes3"]-$est05["importes3"]); 
+        $estadoPer4[$indice]+=($est02["importes4"]-$est05["importes4"]);
+        $estadoPer5[$indice]+=($est02["importes5"]-$est05["importes5"]);
+        $estadoPer6[$indice]+=($est02["importes6"]-$est05["importes6"]); 
+        $estadoPer7[$indice]+=($est02["importes7"]-$est05["importes7"]);
+        $estadoPer8[$indice]+=($est02["importes8"]-$est05["importes8"]); 
+        $estadoPer9[$indice]+=($est02["importes9"]-$est05["importes9"]); 
+        $estadoPer10[$indice]+=($est02["importes10"]-$est05["importes10"]);
+        $estadoPer11[$indice]+=($est02["importes11"]-$est05["importes11"]);
+        $estadoPer12[$indice]+=($est02["importes12"]-$est05["importes12"]);                
     }    
 
     $indice++;   
@@ -518,6 +560,325 @@
     
     $indice++;
     
+    if($meslimite==1){
+        $total01=$estadoPer1[0];
+        $total02=$estadoPer1[1];
+        $total03=$estadoPer1[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3];
+        $total06=$estadoPer1[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5];
+        $total09=$estadoPer1[6];
+        $total10=$estadoPer1[7];
+        $total11=$estadoPer1[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10];
+        $total16=$total14-$total15;
+        
+        for ($a=0;$a<11;$a++){
+             $estadoPer2[$a]=0;
+             $estadoPer3[$a]=0;
+             $estadoPer4[$a]=0;
+             $estadoPer5[$a]=0;
+             $estadoPer6[$a]=0;
+             $estadoPer7[$a]=0;
+             $estadoPer8[$a]=0;
+             $estadoPer9[$a]=0;
+             $estadoPer10[$a]=0;
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }
+        
+    }
+    
+    if($meslimite==2){
+        $total01=$estadoPer1[0]+$estadoPer2[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10];
+        $total16=$total14-$total15;
+        
+        for ($a=0;$a<11;$a++){
+             $estadoPer3[$a]=0;
+             $estadoPer4[$a]=0;
+             $estadoPer5[$a]=0;
+             $estadoPer6[$a]=0;
+             $estadoPer7[$a]=0;
+             $estadoPer8[$a]=0;
+             $estadoPer9[$a]=0;
+             $estadoPer10[$a]=0;
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }        
+    }    
+    
+    if($meslimite==3){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10];
+        $total16=$total14-$total15;
+        for ($a=0;$a<11;$a++){
+             $estadoPer4[$a]=0;
+             $estadoPer5[$a]=0;
+             $estadoPer6[$a]=0;
+             $estadoPer7[$a]=0;
+             $estadoPer8[$a]=0;
+             $estadoPer9[$a]=0;
+             $estadoPer10[$a]=0;
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }        
+    } 
+    
+    if($meslimite==4){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0]+$estadoPer4[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1]+$estadoPer4[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2]+$estadoPer4[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3]+$estadoPer4[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4]+$estadoPer4[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5]+$estadoPer4[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6]+$estadoPer4[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7]+$estadoPer4[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8]+$estadoPer4[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9]+$estadoPer4[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10]+$estadoPer4[10];
+        $total16=$total14-$total15;
+        for ($a=0;$a<11;$a++){
+             $estadoPer5[$a]=0;
+             $estadoPer6[$a]=0;
+             $estadoPer7[$a]=0;
+             $estadoPer8[$a]=0;
+             $estadoPer9[$a]=0;
+             $estadoPer10[$a]=0;
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }        
+    } 
+    
+    if($meslimite==5){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0]+$estadoPer4[0]+$estadoPer5[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1]+$estadoPer4[1]+$estadoPer5[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2]+$estadoPer4[2]+$estadoPer5[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3]+$estadoPer4[3]+$estadoPer5[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4]+$estadoPer4[4]+$estadoPer5[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5]+$estadoPer4[5]+$estadoPer5[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6]+$estadoPer4[6]+$estadoPer5[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7]+$estadoPer4[7]+$estadoPer5[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8]+$estadoPer4[8]+$estadoPer5[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9]+$estadoPer4[9]+$estadoPer5[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10]+$estadoPer4[10]+$estadoPer5[10];
+        $total16=$total14-$total15;
+        for ($a=0;$a<11;$a++){
+             $estadoPer6[$a]=0;
+             $estadoPer7[$a]=0;
+             $estadoPer8[$a]=0;
+             $estadoPer9[$a]=0;
+             $estadoPer10[$a]=0;
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }        
+    }    
+    
+    if($meslimite==6){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0]+$estadoPer4[0]+$estadoPer5[0]+$estadoPer6[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1]+$estadoPer4[1]+$estadoPer5[1]+$estadoPer6[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2]+$estadoPer4[2]+$estadoPer5[2]+$estadoPer6[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3]+$estadoPer4[3]+$estadoPer5[3]+$estadoPer6[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4]+$estadoPer4[4]+$estadoPer5[4]+$estadoPer6[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5]+$estadoPer4[5]+$estadoPer5[5]+$estadoPer6[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6]+$estadoPer4[6]+$estadoPer5[6]+$estadoPer6[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7]+$estadoPer4[7]+$estadoPer5[7]+$estadoPer6[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8]+$estadoPer4[8]+$estadoPer5[8]+$estadoPer6[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9]+$estadoPer4[9]+$estadoPer5[9]+$estadoPer6[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10]+$estadoPer4[10]+$estadoPer5[10]+$estadoPer6[10];
+        $total16=$total14-$total15;
+        for ($a=0;$a<11;$a++){
+             $estadoPer7[$a]=0;
+             $estadoPer8[$a]=0;
+             $estadoPer9[$a]=0;
+             $estadoPer10[$a]=0;
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }         
+    }  
+    
+    if($meslimite==7){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0]+$estadoPer4[0]+$estadoPer5[0]+$estadoPer6[0]+$estadoPer7[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1]+$estadoPer4[1]+$estadoPer5[1]+$estadoPer6[1]+$estadoPer7[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2]+$estadoPer4[2]+$estadoPer5[2]+$estadoPer6[2]+$estadoPer7[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3]+$estadoPer4[3]+$estadoPer5[3]+$estadoPer6[3]+$estadoPer7[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4]+$estadoPer4[4]+$estadoPer5[4]+$estadoPer6[4]+$estadoPer7[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5]+$estadoPer4[5]+$estadoPer5[5]+$estadoPer6[5]+$estadoPer7[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6]+$estadoPer4[6]+$estadoPer5[6]+$estadoPer6[6]+$estadoPer7[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7]+$estadoPer4[7]+$estadoPer5[7]+$estadoPer6[7]+$estadoPer7[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8]+$estadoPer4[8]+$estadoPer5[8]+$estadoPer6[8]+$estadoPer7[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9]+$estadoPer4[9]+$estadoPer5[9]+$estadoPer6[9]+$estadoPer7[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10]+$estadoPer4[10]+$estadoPer5[10]+$estadoPer6[10]+$estadoPer7[10];
+        $total16=$total14-$total15;
+        for ($a=0;$a<11;$a++){
+             $estadoPer8[$a]=0;
+             $estadoPer9[$a]=0;
+             $estadoPer10[$a]=0;
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }         
+    }   
+    
+    if($meslimite==8){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0]+$estadoPer4[0]+$estadoPer5[0]+$estadoPer6[0]+$estadoPer7[0]+$estadoPer8[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1]+$estadoPer4[1]+$estadoPer5[1]+$estadoPer6[1]+$estadoPer7[1]+$estadoPer8[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2]+$estadoPer4[2]+$estadoPer5[2]+$estadoPer6[2]+$estadoPer7[2]+$estadoPer8[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3]+$estadoPer4[3]+$estadoPer5[3]+$estadoPer6[3]+$estadoPer7[3]+$estadoPer8[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4]+$estadoPer4[4]+$estadoPer5[4]+$estadoPer6[4]+$estadoPer7[4]+$estadoPer8[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5]+$estadoPer4[5]+$estadoPer5[5]+$estadoPer6[5]+$estadoPer7[5]+$estadoPer8[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6]+$estadoPer4[6]+$estadoPer5[6]+$estadoPer6[6]+$estadoPer7[6]+$estadoPer8[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7]+$estadoPer4[7]+$estadoPer5[7]+$estadoPer6[7]+$estadoPer7[7]+$estadoPer8[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8]+$estadoPer4[8]+$estadoPer5[8]+$estadoPer6[8]+$estadoPer7[8]+$estadoPer8[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9]+$estadoPer4[9]+$estadoPer5[9]+$estadoPer6[9]+$estadoPer7[9]+$estadoPer8[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10]+$estadoPer4[10]+$estadoPer5[10]+$estadoPer6[10]+$estadoPer7[10]+$estadoPer8[10];
+        $total16=$total14-$total15;
+        for ($a=0;$a<11;$a++){
+             $estadoPer9[$a]=0;
+             $estadoPer10[$a]=0;
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }          
+    }
+    
+    if($meslimite==9){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0]+$estadoPer4[0]+$estadoPer5[0]+$estadoPer6[0]+$estadoPer7[0]+$estadoPer8[0]+$estadoPer9[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1]+$estadoPer4[1]+$estadoPer5[1]+$estadoPer6[1]+$estadoPer7[1]+$estadoPer8[1]+$estadoPer9[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2]+$estadoPer4[2]+$estadoPer5[2]+$estadoPer6[2]+$estadoPer7[2]+$estadoPer8[2]+$estadoPer9[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3]+$estadoPer4[3]+$estadoPer5[3]+$estadoPer6[3]+$estadoPer7[3]+$estadoPer8[3]+$estadoPer9[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4]+$estadoPer4[4]+$estadoPer5[4]+$estadoPer6[4]+$estadoPer7[4]+$estadoPer8[4]+$estadoPer9[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5]+$estadoPer4[5]+$estadoPer5[5]+$estadoPer6[5]+$estadoPer7[5]+$estadoPer8[5]+$estadoPer9[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6]+$estadoPer4[6]+$estadoPer5[6]+$estadoPer6[6]+$estadoPer7[6]+$estadoPer8[6]+$estadoPer9[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7]+$estadoPer4[7]+$estadoPer5[7]+$estadoPer6[7]+$estadoPer7[7]+$estadoPer8[7]+$estadoPer9[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8]+$estadoPer4[8]+$estadoPer5[8]+$estadoPer6[8]+$estadoPer7[8]+$estadoPer8[8]+$estadoPer9[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9]+$estadoPer4[9]+$estadoPer5[9]+$estadoPer6[9]+$estadoPer7[9]+$estadoPer8[9]+$estadoPer9[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10]+$estadoPer4[10]+$estadoPer5[10]+$estadoPer6[10]+$estadoPer7[10]+$estadoPer8[10]+$estadoPer9[10];
+        $total16=$total14-$total15;
+        for ($a=0;$a<11;$a++){
+             $estadoPer10[$a]=0;
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }        
+    } 
+    
+    if($meslimite==10){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0]+$estadoPer4[0]+$estadoPer5[0]+$estadoPer6[0]+$estadoPer7[0]+$estadoPer8[0]+$estadoPer9[0]+$estadoPer10[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1]+$estadoPer4[1]+$estadoPer5[1]+$estadoPer6[1]+$estadoPer7[1]+$estadoPer8[1]+$estadoPer9[1]+$estadoPer10[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2]+$estadoPer4[2]+$estadoPer5[2]+$estadoPer6[2]+$estadoPer7[2]+$estadoPer8[2]+$estadoPer9[2]+$estadoPer10[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3]+$estadoPer4[3]+$estadoPer5[3]+$estadoPer6[3]+$estadoPer7[3]+$estadoPer8[3]+$estadoPer9[3]+$estadoPer10[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4]+$estadoPer4[4]+$estadoPer5[4]+$estadoPer6[4]+$estadoPer7[4]+$estadoPer8[4]+$estadoPer9[4]+$estadoPer10[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5]+$estadoPer4[5]+$estadoPer5[5]+$estadoPer6[5]+$estadoPer7[5]+$estadoPer8[5]+$estadoPer9[5]+$estadoPer10[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6]+$estadoPer4[6]+$estadoPer5[6]+$estadoPer6[6]+$estadoPer7[6]+$estadoPer8[6]+$estadoPer9[6]+$estadoPer10[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7]+$estadoPer4[7]+$estadoPer5[7]+$estadoPer6[7]+$estadoPer7[7]+$estadoPer8[7]+$estadoPer9[7]+$estadoPer10[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8]+$estadoPer4[8]+$estadoPer5[8]+$estadoPer6[8]+$estadoPer7[8]+$estadoPer8[8]+$estadoPer9[8]+$estadoPer10[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9]+$estadoPer4[9]+$estadoPer5[9]+$estadoPer6[9]+$estadoPer7[9]+$estadoPer8[9]+$estadoPer9[9]+$estadoPer10[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10]+$estadoPer4[10]+$estadoPer5[10]+$estadoPer6[10]+$estadoPer7[10]+$estadoPer8[10]+$estadoPer9[10]+$estadoPer10[10];
+        $total16=$total14-$total15;
+        for ($a=0;$a<11;$a++){
+             $estadoPer11[$a]=0;
+             $estadoPer12[$a]=0;                         
+        }          
+    }  
+    
+    if($meslimite==11){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0]+$estadoPer4[0]+$estadoPer5[0]+$estadoPer6[0]+$estadoPer7[0]+$estadoPer8[0]+$estadoPer9[0]+$estadoPer10[0]+$estadoPer11[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1]+$estadoPer4[1]+$estadoPer5[1]+$estadoPer6[1]+$estadoPer7[1]+$estadoPer8[1]+$estadoPer9[1]+$estadoPer10[1]+$estadoPer11[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2]+$estadoPer4[2]+$estadoPer5[2]+$estadoPer6[2]+$estadoPer7[2]+$estadoPer8[2]+$estadoPer9[2]+$estadoPer10[2]+$estadoPer11[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3]+$estadoPer4[3]+$estadoPer5[3]+$estadoPer6[3]+$estadoPer7[3]+$estadoPer8[3]+$estadoPer9[3]+$estadoPer10[3]+$estadoPer11[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4]+$estadoPer4[4]+$estadoPer5[4]+$estadoPer6[4]+$estadoPer7[4]+$estadoPer8[4]+$estadoPer9[4]+$estadoPer10[4]+$estadoPer11[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5]+$estadoPer4[5]+$estadoPer5[5]+$estadoPer6[5]+$estadoPer7[5]+$estadoPer8[5]+$estadoPer9[5]+$estadoPer10[5]+$estadoPer11[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6]+$estadoPer4[6]+$estadoPer5[6]+$estadoPer6[6]+$estadoPer7[6]+$estadoPer8[6]+$estadoPer9[6]+$estadoPer10[6]+$estadoPer11[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7]+$estadoPer4[7]+$estadoPer5[7]+$estadoPer6[7]+$estadoPer7[7]+$estadoPer8[7]+$estadoPer9[7]+$estadoPer10[7]+$estadoPer11[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8]+$estadoPer4[8]+$estadoPer5[8]+$estadoPer6[8]+$estadoPer7[8]+$estadoPer8[8]+$estadoPer9[8]+$estadoPer10[8]+$estadoPer11[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9]+$estadoPer4[9]+$estadoPer5[9]+$estadoPer6[9]+$estadoPer7[9]+$estadoPer8[9]+$estadoPer9[9]+$estadoPer10[9]+$estadoPer11[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10]+$estadoPer4[10]+$estadoPer5[10]+$estadoPer6[10]+$estadoPer7[10]+$estadoPer8[10]+$estadoPer9[10]+$estadoPer10[10]+$estadoPer11[10];
+        $total16=$total14-$total15;
+        for ($a=0;$a<11;$a++){
+             $estadoPer12[$a]=0;                         
+        }         
+    } 
+    
+    if($meslimite==12){
+        $total01=$estadoPer1[0]+$estadoPer2[0]+$estadoPer3[0]+$estadoPer4[0]+$estadoPer5[0]+$estadoPer6[0]+$estadoPer7[0]+$estadoPer8[0]+$estadoPer9[0]+$estadoPer10[0]+$estadoPer11[0]+$estadoPer12[0];
+        $total02=$estadoPer1[1]+$estadoPer2[1]+$estadoPer3[1]+$estadoPer4[1]+$estadoPer5[1]+$estadoPer6[1]+$estadoPer7[1]+$estadoPer8[1]+$estadoPer9[1]+$estadoPer10[1]+$estadoPer11[1]+$estadoPer12[1];
+        $total03=$estadoPer1[2]+$estadoPer2[2]+$estadoPer3[2]+$estadoPer4[2]+$estadoPer5[2]+$estadoPer6[2]+$estadoPer7[2]+$estadoPer8[2]+$estadoPer9[2]+$estadoPer10[2]+$estadoPer11[2]+$estadoPer12[2];
+        $total04=($total01-$total02-$total03);
+        $total05=$estadoPer1[3]+$estadoPer2[3]+$estadoPer3[3]+$estadoPer4[3]+$estadoPer5[3]+$estadoPer6[3]+$estadoPer7[3]+$estadoPer8[3]+$estadoPer9[3]+$estadoPer10[3]+$estadoPer11[3]+$estadoPer12[3];
+        $total06=$estadoPer1[4]+$estadoPer2[4]+$estadoPer3[4]+$estadoPer4[4]+$estadoPer5[4]+$estadoPer6[4]+$estadoPer7[4]+$estadoPer8[4]+$estadoPer9[4]+$estadoPer10[4]+$estadoPer11[4]+$estadoPer12[4];
+        $total07=$total04-($total05+$total06);
+        $total08=$estadoPer1[5]+$estadoPer2[5]+$estadoPer3[5]+$estadoPer4[5]+$estadoPer5[5]+$estadoPer6[5]+$estadoPer7[5]+$estadoPer8[5]+$estadoPer9[5]+$estadoPer10[5]+$estadoPer11[5]+$estadoPer12[5];
+        $total09=$estadoPer1[6]+$estadoPer2[6]+$estadoPer3[6]+$estadoPer4[6]+$estadoPer5[6]+$estadoPer6[6]+$estadoPer7[6]+$estadoPer8[6]+$estadoPer9[6]+$estadoPer10[6]+$estadoPer11[6]+$estadoPer12[6];
+        $total10=$estadoPer1[7]+$estadoPer2[7]+$estadoPer3[7]+$estadoPer4[7]+$estadoPer5[7]+$estadoPer6[7]+$estadoPer7[7]+$estadoPer8[7]+$estadoPer9[7]+$estadoPer10[7]+$estadoPer11[7]+$estadoPer12[7];
+        $total11=$estadoPer1[8]+$estadoPer2[8]+$estadoPer3[8]+$estadoPer4[8]+$estadoPer5[8]+$estadoPer6[8]+$estadoPer7[8]+$estadoPer8[8]+$estadoPer9[8]+$estadoPer10[8]+$estadoPer11[8]+$estadoPer12[8];
+        $total12=$total07-($total08+$total09+$total10+$total11);
+        $total13=$estadoPer1[9]+$estadoPer2[9]+$estadoPer3[9]+$estadoPer4[9]+$estadoPer5[9]+$estadoPer6[9]+$estadoPer7[9]+$estadoPer8[9]+$estadoPer9[9]+$estadoPer10[9]+$estadoPer11[9]+$estadoPer12[9];
+        $total14=$total12-$total13;
+        $total15=$estadoPer1[10]+$estadoPer2[10]+$estadoPer3[10]+$estadoPer4[10]+$estadoPer5[10]+$estadoPer6[10]+$estadoPer7[10]+$estadoPer8[10]+$estadoPer9[10]+$estadoPer10[10]+$estadoPer11[10]+$estadoPer12[10];
+        $total16=$total14-$total15;
+    }     
+    
     $meses=array();
     
     $meses[0]="Enero";
@@ -614,7 +975,7 @@
     $pdf->Text(9, 26, 'Estado de Resultados '.$Empresa["nombre"]." | ".$buscaano);  
     $pdf->SetFont('Helvetica', '', 7);    
     
-    function columna($pdf,$fila,$texto01,$texto02,$texto03,$texto04,$texto05,$texto06,$texto07,$texto08,$texto09,$texto10,$texto11,$texto12,$texto13,$inicial){
+    function columna($pdf,$fila,$texto01,$texto02,$texto03,$texto04,$texto05,$texto06,$texto07,$texto08,$texto09,$texto10,$texto11,$texto12,$texto13,$texto14,$inicial){
         $ali="R";
         if($inicial==1){
             $ali="C";
@@ -625,7 +986,7 @@
         $pdf->SetXY($margen, $filab);
         $pdf->Cell($ancho, 5,$texto01, 0, 1, 'L', 0, '', 0); 
         $margen+=$ancho;
-        $ancho=17;
+        $ancho=15.5;
         $pdf->SetXY($margen, $filab);
         $pdf->Cell($ancho, 5,$texto02, 0, 1, $ali, 0, '', 0);
         $margen+=$ancho;
@@ -660,7 +1021,10 @@
         $pdf->Cell($ancho, 5,$texto12, 0, 1, $ali, 0, '', 0);
         $margen+=$ancho;
         $pdf->SetXY($margen, $filab);
-        $pdf->Cell($ancho, 5,$texto13, 0, 1, $ali, 0, '', 0);             
+        $pdf->Cell($ancho, 5,$texto13, 0, 1, $ali, 0, '', 0); 
+        $margen+=$ancho;
+        $pdf->SetXY($margen, $filab);
+        $pdf->Cell($ancho, 5,$texto14, 0, 1, $ali, 0, '', 0);         
     } 
     
     $acumes1=$estadoPer1[0];
@@ -678,15 +1042,15 @@
     
     $fila=4;
     $pdf->SetFont('Helvetica', 'B', 8);
-    columna($pdf,$fila,"","Enero" ,"Febrero","Marzo", "Abril","Mayo","Junio","julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre", 1);
+    columna($pdf,$fila,"","Enero" ,"Febrero","Marzo", "Abril","Mayo","Junio","julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre","Total", 1);
     $pdf->SetFont('Helvetica', '', 7);
     $fila++;
     $fila++;
-    columna($pdf,$fila,$estadoNom[0],number_format($estadoPer1[0],2),number_format($estadoPer2[0],2),number_format($estadoPer3[0],2),number_format($estadoPer4[0],2),number_format($estadoPer5[0],2),number_format($estadoPer6[0],2),number_format($estadoPer7[0],2),number_format($estadoPer8[0],2),number_format($estadoPer9[0],2),number_format($estadoPer10[0],2),number_format($estadoPer11[0],2),number_format($estadoPer12[0],2), 0);
+    columna($pdf,$fila,$estadoNom[0],number_format($estadoPer1[0],2),number_format($estadoPer2[0],2),number_format($estadoPer3[0],2),number_format($estadoPer4[0],2),number_format($estadoPer5[0],2),number_format($estadoPer6[0],2),number_format($estadoPer7[0],2),number_format($estadoPer8[0],2),number_format($estadoPer9[0],2),number_format($estadoPer10[0],2),number_format($estadoPer11[0],2),number_format($estadoPer12[0],2),number_format($total01,2), 0);
     $fila++;
-    columna($pdf,$fila,$estadoNom[1],number_format($estadoPer1[1],2),number_format($estadoPer2[1],2),number_format($estadoPer3[1],2),number_format($estadoPer4[1],2),number_format($estadoPer5[1],2),number_format($estadoPer6[1],2),number_format($estadoPer7[1],2),number_format($estadoPer8[1],2),number_format($estadoPer9[1],2),number_format($estadoPer10[1],2),number_format($estadoPer11[1],2),number_format($estadoPer12[1],2), 0);
+    columna($pdf,$fila,$estadoNom[1],number_format($estadoPer1[1],2),number_format($estadoPer2[1],2),number_format($estadoPer3[1],2),number_format($estadoPer4[1],2),number_format($estadoPer5[1],2),number_format($estadoPer6[1],2),number_format($estadoPer7[1],2),number_format($estadoPer8[1],2),number_format($estadoPer9[1],2),number_format($estadoPer10[1],2),number_format($estadoPer11[1],2),number_format($estadoPer12[1],2),number_format($total02,2), 0);
     $fila++;
-    columna($pdf,$fila,$estadoNom[2],number_format($estadoPer1[2],2),number_format($estadoPer2[2],2),number_format($estadoPer3[2],2),number_format($estadoPer4[2],2),number_format($estadoPer5[2],2),number_format($estadoPer6[2],2),number_format($estadoPer7[2],2),number_format($estadoPer8[2],2),number_format($estadoPer9[2],2),number_format($estadoPer10[2],2),number_format($estadoPer11[2],2),number_format($estadoPer12[2],2), 0);    
+    columna($pdf,$fila,$estadoNom[2],number_format($estadoPer1[2],2),number_format($estadoPer2[2],2),number_format($estadoPer3[2],2),number_format($estadoPer4[2],2),number_format($estadoPer5[2],2),number_format($estadoPer6[2],2),number_format($estadoPer7[2],2),number_format($estadoPer8[2],2),number_format($estadoPer9[2],2),number_format($estadoPer10[2],2),number_format($estadoPer11[2],2),number_format($estadoPer12[2],2),number_format($total03,2), 0);    
     
     $acumes1=($acumes1-$estadoPer1[1]-$estadoPer1[2]);
     $acumes2=($acumes2-$estadoPer2[1]-$estadoPer2[2]);
@@ -703,13 +1067,13 @@
     $pdf->SetFont('Helvetica', 'B', 7);
     $fila++;
     $pdf->Line(81,(35+(($fila*5)-5)), 283,(35+(($fila*5)-5)));
-    columna($pdf,$fila,"Utilidad o Pérdida Bruta",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2), 0);    
+    columna($pdf,$fila,"Utilidad o Pérdida Bruta",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2),  number_format($total04,2), 0);    
     $fila++;
     $fila++;
     $pdf->SetFont('Helvetica','', 7);
-    columna($pdf,$fila,$estadoNom[3],number_format($estadoPer1[3],2),number_format($estadoPer2[3],2),number_format($estadoPer3[3],2),number_format($estadoPer4[3],2),number_format($estadoPer5[3],2),number_format($estadoPer6[3],2),number_format($estadoPer7[3],2),number_format($estadoPer8[3],2),number_format($estadoPer9[3],2),number_format($estadoPer10[3],2),number_format($estadoPer11[3],2),number_format($estadoPer12[3],2), 0);    
+    columna($pdf,$fila,$estadoNom[3],number_format($estadoPer1[3],2),number_format($estadoPer2[3],2),number_format($estadoPer3[3],2),number_format($estadoPer4[3],2),number_format($estadoPer5[3],2),number_format($estadoPer6[3],2),number_format($estadoPer7[3],2),number_format($estadoPer8[3],2),number_format($estadoPer9[3],2),number_format($estadoPer10[3],2),number_format($estadoPer11[3],2),number_format($estadoPer12[3],2),  number_format($total05,2), 0);    
     $fila++;
-    columna($pdf,$fila,$estadoNom[4],number_format($estadoPer1[4],2),number_format($estadoPer2[4],2),number_format($estadoPer3[4],2),number_format($estadoPer4[4],2),number_format($estadoPer5[4],2),number_format($estadoPer6[4],2),number_format($estadoPer7[4],2),number_format($estadoPer8[4],2),number_format($estadoPer9[4],2),number_format($estadoPer10[4],2),number_format($estadoPer11[4],2),number_format($estadoPer12[4],2), 0);        
+    columna($pdf,$fila,$estadoNom[4],number_format($estadoPer1[4],2),number_format($estadoPer2[4],2),number_format($estadoPer3[4],2),number_format($estadoPer4[4],2),number_format($estadoPer5[4],2),number_format($estadoPer6[4],2),number_format($estadoPer7[4],2),number_format($estadoPer8[4],2),number_format($estadoPer9[4],2),number_format($estadoPer10[4],2),number_format($estadoPer11[4],2),number_format($estadoPer12[4],2),  number_format($total06,2), 0);        
     $acumes1=($acumes1-$estadoPer1[3]-$estadoPer1[4]);
     $acumes2=($acumes2-$estadoPer2[3]-$estadoPer2[4]);
     $acumes3=($acumes3-$estadoPer3[3]-$estadoPer3[4]);
@@ -725,18 +1089,18 @@
     $fila++;
     $pdf->SetFont('Helvetica', 'B', 7);
     $pdf->Line(81,(35+(($fila*5)-5)), 283,(35+(($fila*5)-5)));
-    columna($pdf,$fila,"Utilidad o Pérdida en Operación",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2), 0);        
+    columna($pdf,$fila,"Utilidad o Pérdida en Operación",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2), number_format($total07,2),0);        
     $pdf->SetFont('Helvetica','', 7);
     
     $fila++;
     $fila++;
-    columna($pdf,$fila,$estadoNom[5],number_format($estadoPer1[5],2),number_format($estadoPer2[5],2),number_format($estadoPer3[5],2),number_format($estadoPer4[5],2),number_format($estadoPer5[5],2),number_format($estadoPer6[5],2),number_format($estadoPer7[5],2),number_format($estadoPer8[5],2),number_format($estadoPer9[5],2),number_format($estadoPer10[5],2),number_format($estadoPer11[5],2),number_format($estadoPer12[5],2), 0);            
+    columna($pdf,$fila,$estadoNom[5],number_format($estadoPer1[5],2),number_format($estadoPer2[5],2),number_format($estadoPer3[5],2),number_format($estadoPer4[5],2),number_format($estadoPer5[5],2),number_format($estadoPer6[5],2),number_format($estadoPer7[5],2),number_format($estadoPer8[5],2),number_format($estadoPer9[5],2),number_format($estadoPer10[5],2),number_format($estadoPer11[5],2),number_format($estadoPer12[5],2), number_format($total08,2),0);            
     $fila++;
-    columna($pdf,$fila,$estadoNom[6],number_format($estadoPer1[6],2),number_format($estadoPer2[6],2),number_format($estadoPer3[6],2),number_format($estadoPer4[6],2),number_format($estadoPer5[6],2),number_format($estadoPer6[6],2),number_format($estadoPer7[6],2),number_format($estadoPer8[6],2),number_format($estadoPer9[6],2),number_format($estadoPer10[6],2),number_format($estadoPer11[6],2),number_format($estadoPer12[6],2), 0);            
+    columna($pdf,$fila,$estadoNom[6],number_format($estadoPer1[6],2),number_format($estadoPer2[6],2),number_format($estadoPer3[6],2),number_format($estadoPer4[6],2),number_format($estadoPer5[6],2),number_format($estadoPer6[6],2),number_format($estadoPer7[6],2),number_format($estadoPer8[6],2),number_format($estadoPer9[6],2),number_format($estadoPer10[6],2),number_format($estadoPer11[6],2),number_format($estadoPer12[6],2), number_format($total09,2),0);            
     $fila++;
-    columna($pdf,$fila,$estadoNom[7],number_format($estadoPer1[7],2),number_format($estadoPer2[7],2),number_format($estadoPer3[7],2),number_format($estadoPer4[7],2),number_format($estadoPer5[7],2),number_format($estadoPer6[7],2),number_format($estadoPer7[7],2),number_format($estadoPer8[7],2),number_format($estadoPer9[7],2),number_format($estadoPer10[7],2),number_format($estadoPer11[7],2),number_format($estadoPer12[7],2), 0);            
+    columna($pdf,$fila,$estadoNom[7],number_format($estadoPer1[7],2),number_format($estadoPer2[7],2),number_format($estadoPer3[7],2),number_format($estadoPer4[7],2),number_format($estadoPer5[7],2),number_format($estadoPer6[7],2),number_format($estadoPer7[7],2),number_format($estadoPer8[7],2),number_format($estadoPer9[7],2),number_format($estadoPer10[7],2),number_format($estadoPer11[7],2),number_format($estadoPer12[7],2), number_format($total10,2),0);            
     $fila++;
-    columna($pdf,$fila,$estadoNom[8],number_format($estadoPer1[8],2),number_format($estadoPer2[8],2),number_format($estadoPer3[8],2),number_format($estadoPer4[8],2),number_format($estadoPer5[8],2),number_format($estadoPer6[8],2),number_format($estadoPer7[8],2),number_format($estadoPer8[8],2),number_format($estadoPer9[8],2),number_format($estadoPer10[8],2),number_format($estadoPer11[8],2),number_format($estadoPer12[8],2), 0);                
+    columna($pdf,$fila,$estadoNom[8],number_format($estadoPer1[8],2),number_format($estadoPer2[8],2),number_format($estadoPer3[8],2),number_format($estadoPer4[8],2),number_format($estadoPer5[8],2),number_format($estadoPer6[8],2),number_format($estadoPer7[8],2),number_format($estadoPer8[8],2),number_format($estadoPer9[8],2),number_format($estadoPer10[8],2),number_format($estadoPer11[8],2),number_format($estadoPer12[8],2), number_format($total11,2),0);                
     
     $acumes1=($acumes1-$estadoPer1[5]-$estadoPer1[6]-$estadoPer1[7]-$estadoPer1[8]);
     $acumes2=($acumes2-$estadoPer2[5]-$estadoPer2[6]-$estadoPer2[7]-$estadoPer2[8]);
@@ -754,12 +1118,12 @@
     $fila++;
     $pdf->SetFont('Helvetica', 'B', 7);
     $pdf->Line(81,(35+(($fila*5)-5)), 283,(35+(($fila*5)-5)));
-    columna($pdf,$fila,"Utilidad o pérdida antes de impuestos a la utilidad",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2), 0);        
+    columna($pdf,$fila,"Utilidad o pérdida antes de impuestos a la utilidad",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2),number_format($total12,2), 0);        
     $pdf->SetFont('Helvetica','', 7);    
     
     $fila++;
     $fila++;
-    columna($pdf,$fila,$estadoNom[9],number_format($estadoPer1[9],2),number_format($estadoPer2[9],2),number_format($estadoPer3[9],2),number_format($estadoPer4[9],2),number_format($estadoPer5[9],2),number_format($estadoPer6[9],2),number_format($estadoPer7[9],2),number_format($estadoPer8[9],2),number_format($estadoPer9[9],2),number_format($estadoPer10[9],2),number_format($estadoPer11[9],2),number_format($estadoPer12[9],2), 0);                    
+    columna($pdf,$fila,$estadoNom[9],number_format($estadoPer1[9],2),number_format($estadoPer2[9],2),number_format($estadoPer3[9],2),number_format($estadoPer4[9],2),number_format($estadoPer5[9],2),number_format($estadoPer6[9],2),number_format($estadoPer7[9],2),number_format($estadoPer8[9],2),number_format($estadoPer9[9],2),number_format($estadoPer10[9],2),number_format($estadoPer11[9],2),number_format($estadoPer12[9],2),  number_format($total13,2), 0);                    
     
     $acumes1=($acumes1-$estadoPer1[9]);
     $acumes2=($acumes2-$estadoPer2[9]);
@@ -776,12 +1140,12 @@
     $fila++;
     $pdf->SetFont('Helvetica', 'B', 7);
     $pdf->Line(81,(35+(($fila*5)-5)), 283,(35+(($fila*5)-5)));
-    columna($pdf,$fila,"Utilidad o pérdida antes de las operaciones discontinuadas",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2), 0);        
+    columna($pdf,$fila,"Utilidad o pérdida antes de las operaciones discontinuadas",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2), number_format($total14,2),0);        
     $pdf->SetFont('Helvetica','', 7); 
     
     $fila++;
     $fila++;
-    columna($pdf,$fila,$estadoNom[10],number_format($estadoPer1[10],2),number_format($estadoPer2[10],2),number_format($estadoPer3[10],2),number_format($estadoPer4[10],2),number_format($estadoPer5[10],2),number_format($estadoPer6[10],2),number_format($estadoPer7[10],2),number_format($estadoPer8[10],2),number_format($estadoPer9[10],2),number_format($estadoPer10[10],2),number_format($estadoPer11[10],2),number_format($estadoPer12[10],2), 0);                        
+    columna($pdf,$fila,$estadoNom[10],number_format($estadoPer1[10],2),number_format($estadoPer2[10],2),number_format($estadoPer3[10],2),number_format($estadoPer4[10],2),number_format($estadoPer5[10],2),number_format($estadoPer6[10],2),number_format($estadoPer7[10],2),number_format($estadoPer8[10],2),number_format($estadoPer9[10],2),number_format($estadoPer10[10],2),number_format($estadoPer11[10],2),number_format($estadoPer12[10],2),number_format($total15,2), 0);                        
     
     $acumes1=($acumes1-$estadoPer1[10]);
     $acumes2=($acumes2-$estadoPer2[10]);
@@ -798,7 +1162,7 @@
     $fila++;
     $pdf->SetFont('Helvetica', 'B', 7);
     $pdf->Line(81,(35+(($fila*5)-5)), 283,(35+(($fila*5)-5)));
-    columna($pdf,$fila,"Utilidad o pérdida neta",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2), 0);            
+    columna($pdf,$fila,"Utilidad o pérdida neta",number_format($acumes1,2),number_format($acumes2,2),number_format($acumes3,2),number_format($acumes4,2),number_format($acumes5,2),number_format($acumes6,2),number_format($acumes7,2),number_format($acumes8,2),number_format($acumes9,2),number_format($acumes10,2),number_format($acumes11,2),number_format($acumes12,2), number_format($total16,2),0);            
     
     
     $pdf->SetFont('Helvetica', '', 7);

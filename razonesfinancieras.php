@@ -1733,12 +1733,44 @@
         $est04=mysql_fetch_assoc($resultEst04);
         
         $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        if($est01["codigo"]=="4010000" && $buscaempresa==1){
+            $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        }                
+        
         $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
         $est02=mysql_fetch_assoc($resultEst02);
         
         $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
         $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
         $est03=mysql_fetch_assoc($resultEst03); 
+        
+        if($est01["codigo"]=="4010000" && $buscaempresa==1){
+            $est03["importes1"]=$est03["importes1"]*(-1);
+            $est03["importes2"]=$est03["importes2"]*(-1);
+            $est03["importes3"]=$est03["importes3"]*(-1);
+            $est03["importes4"]=$est03["importes4"]*(-1);
+            $est03["importes5"]=$est03["importes5"]*(-1);
+            $est03["importes6"]=$est03["importes6"]*(-1);
+            $est03["importes7"]=$est03["importes7"]*(-1);
+            $est03["importes8"]=$est03["importes8"]*(-1);
+            $est03["importes9"]=$est03["importes9"]*(-1);
+            $est03["importes10"]=$est03["importes10"]*(-1);
+            $est03["importes11"]=$est03["importes11"]*(-1);
+            $est03["importes12"]=$est03["importes12"]*(-1);
+            
+            $est02["importes1"]=$est02["importes1"]*(-1);
+            $est02["importes2"]=$est02["importes2"]*(-1);
+            $est02["importes3"]=$est02["importes3"]*(-1);
+            $est02["importes4"]=$est02["importes4"]*(-1);
+            $est02["importes5"]=$est02["importes5"]*(-1);
+            $est02["importes6"]=$est02["importes6"]*(-1);
+            $est02["importes7"]=$est02["importes7"]*(-1);
+            $est02["importes8"]=$est02["importes8"]*(-1);
+            $est02["importes9"]=$est02["importes9"]*(-1);
+            $est02["importes10"]=$est02["importes10"]*(-1);
+            $est02["importes11"]=$est02["importes11"]*(-1);
+            $est02["importes12"]=$est02["importes12"]*(-1);                        
+        }
         
         if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
         if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
@@ -1800,6 +1832,10 @@
         $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
         $est04=mysql_fetch_assoc($resultEst04);
         
+        $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
+        $est05=mysql_fetch_assoc($resultEst05);        
+        
         $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
         $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
         $est02=mysql_fetch_assoc($resultEst02);
@@ -1808,18 +1844,18 @@
         $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
         $est03=mysql_fetch_assoc($resultEst03); 
         
-        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
-        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
-        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
-        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
-        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
-        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
-        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
-        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
-        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
-        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
-        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
-        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}        
+        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=($est02["importes1"]-$est05["importes1"]);}
+        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=($est02["importes2"]-$est05["importes2"]);}
+        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=($est02["importes3"]-$est05["importes3"]);}
+        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=($est02["importes4"]-$est05["importes4"]);}
+        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=($est02["importes5"]-$est05["importes5"]);}
+        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=($est02["importes6"]-$est05["importes6"]);}
+        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=($est02["importes7"]-$est05["importes7"]);}
+        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=($est02["importes8"]-$est05["importes8"]);}
+        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=($est02["importes9"]-$est05["importes9"]);}
+        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=($est02["importes10"]-$est05["importes10"]);}
+        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=($est02["importes11"]-$est05["importes11"]);}
+        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=($est02["importes12"]-$est05["importes12"]);}        
     }  
     
     
@@ -1882,18 +1918,18 @@
         $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
         $est03=mysql_fetch_assoc($resultEst03); 
         
-        if($buscames==1){ $estadoAcu[$indice]+=($est02["importes1"]-$est03["importes1"]); $estadoPer[$indice]+=($est02["importes1"]-$est05["importes1"]);}
-        if($buscames==2){ $estadoAcu[$indice]+=($est02["importes2"]-$est03["importes2"]); $estadoPer[$indice]+=($est02["importes2"]-$est05["importes2"]);}
-        if($buscames==3){ $estadoAcu[$indice]+=($est02["importes3"]-$est03["importes3"]); $estadoPer[$indice]+=($est02["importes3"]-$est05["importes3"]);}
-        if($buscames==4){ $estadoAcu[$indice]+=($est02["importes4"]-$est03["importes4"]); $estadoPer[$indice]+=($est02["importes4"]-$est05["importes4"]);}
-        if($buscames==5){ $estadoAcu[$indice]+=($est02["importes5"]-$est03["importes5"]); $estadoPer[$indice]+=($est02["importes5"]-$est05["importes5"]);}
-        if($buscames==6){ $estadoAcu[$indice]+=($est02["importes6"]-$est03["importes6"]); $estadoPer[$indice]+=($est02["importes6"]-$est05["importes6"]);}
-        if($buscames==7){ $estadoAcu[$indice]+=($est02["importes7"]-$est03["importes7"]); $estadoPer[$indice]+=($est02["importes7"]-$est05["importes7"]);}
-        if($buscames==8){ $estadoAcu[$indice]+=($est02["importes8"]-$est03["importes8"]); $estadoPer[$indice]+=($est02["importes8"]-$est05["importes8"]);}
-        if($buscames==9){ $estadoAcu[$indice]+=($est02["importes9"]-$est03["importes9"]); $estadoPer[$indice]+=($est02["importes9"]-$est05["importes9"]);}
-        if($buscames==10){ $estadoAcu[$indice]+=($est02["importes10"]-$est03["importes10"]); $estadoPer[$indice]+=($est02["importes10"]-$est05["importes10"]);}
-        if($buscames==11){ $estadoAcu[$indice]+=($est02["importes11"]-$est03["importes11"]); $estadoPer[$indice]+=($est02["importes11"]-$est05["importes11"]);}
-        if($buscames==12){ $estadoAcu[$indice]+=($est02["importes12"]-$est03["importes12"]); $estadoPer[$indice]+=($est02["importes12"]-$est05["importes12"]);}               
+        if($buscames==1){ $estadoAcu[$indice]+=((-1)*$est03["importes1"]); $estadoPer[$indice]+=($est02["importes1"]-$est05["importes1"]);}
+        if($buscames==2){ $estadoAcu[$indice]+=((-1)*$est03["importes2"]); $estadoPer[$indice]+=($est02["importes2"]-$est05["importes2"]);}
+        if($buscames==3){ $estadoAcu[$indice]+=((-1)*$est03["importes3"]); $estadoPer[$indice]+=($est02["importes3"]-$est05["importes3"]);}
+        if($buscames==4){ $estadoAcu[$indice]+=((-1)*$est03["importes4"]); $estadoPer[$indice]+=($est02["importes4"]-$est05["importes4"]);}
+        if($buscames==5){ $estadoAcu[$indice]+=((-1)*$est03["importes5"]); $estadoPer[$indice]+=($est02["importes5"]-$est05["importes5"]);}
+        if($buscames==6){ $estadoAcu[$indice]+=((-1)*$est03["importes6"]); $estadoPer[$indice]+=($est02["importes6"]-$est05["importes6"]);}
+        if($buscames==7){ $estadoAcu[$indice]+=((-1)*$est03["importes7"]); $estadoPer[$indice]+=($est02["importes7"]-$est05["importes7"]);}
+        if($buscames==8){ $estadoAcu[$indice]+=((-1)*$est03["importes8"]); $estadoPer[$indice]+=($est02["importes8"]-$est05["importes8"]);}
+        if($buscames==9){ $estadoAcu[$indice]+=((-1)*$est03["importes9"]); $estadoPer[$indice]+=($est02["importes9"]-$est05["importes9"]);}
+        if($buscames==10){ $estadoAcu[$indice]+=((-1)*$est03["importes10"]); $estadoPer[$indice]+=($est02["importes10"]-$est05["importes10"]);}
+        if($buscames==11){ $estadoAcu[$indice]+=((-1)*$est03["importes11"]); $estadoPer[$indice]+=($est02["importes11"]-$est05["importes11"]);}
+        if($buscames==12){ $estadoAcu[$indice]+=((-1)*$est03["importes12"]); $estadoPer[$indice]+=($est02["importes12"]-$est05["importes12"]);}               
     }     
     
     $indice++;

@@ -44,7 +44,7 @@
                         <div class="col-md-12 titulopagina" style="margin-top: 125px;">Reporte Estado de Resultados</div>
                         <div class="col-md-12 subtitulopagina">Generar Reporte</div>
                     
-                        <div class="col-md-9 contiene_entrada" style="padding: 0px">
+                        <div class="col-md-7 contiene_entrada" style="padding: 0px">
                             <div class="col-md-12 titulo_entrada">Nombre de la Empresa</div>
                             <div class="col-md-12">
                             <select id="empresa" name="empresa" class="selectpicker show-tick" data-live-search="true" data-width="100%" required="required">
@@ -94,7 +94,41 @@
                                ?>
                             </select>                                                        
                             </div>
-                        </div>                                                      
+                        </div> 
+                        
+                        <div class="col-md-2 contiene_entrada" style="padding: 0px; margin-left: -15px">
+                            <div class="col-md-12 titulo_entrada">Mes Limite</div>
+                            <div class="col-md-12">
+                            <?php 
+                                $meses=array();
+                                $meses[1]="Enero";
+                                $meses[2]="Febrero";
+                                $meses[3]="Marzo";
+                                $meses[4]="Abril";
+                                $meses[5]="Mayo";
+                                $meses[6]="Junio";
+                                $meses[7]="Julio";
+                                $meses[8]="Agosto";
+                                $meses[8]="Septiembre";
+                                $meses[10]="Octubre";
+                                $meses[11]="Noviembre";
+                                $meses[12]="Diciembre";                                                                                            
+                            ?>
+                            <select id="mes" name="mes" class="selectpicker show-tick" data-live-search="true" data-width="100%" required="required">                                
+                                <?php
+                                    for($i=1;$i<13;$i++){
+                                        if($_GET["mes"]==$i){
+                                            echo "<option selected='selected' value='".$i."'>".$meses[$i]."</option>";
+                                        }else{
+                                            echo "<option value='".$i."'>".$meses[$i]."</option>";
+                                        }
+                                        
+                                    }
+                                
+                                ?>                                                               
+                            </select>                                                        
+                            </div>
+                        </div>                        
                         
                         <div class="col-md-1 contiene_entrada" style="margin-left: -15px">
                             <div class="col-md-12 titulo_entrada" style="color: #ffffff">h</div>

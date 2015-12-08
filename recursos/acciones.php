@@ -105,7 +105,8 @@
         $resultEmpresa=mysql_query($sqlEmpresa,$con) or die(mysql_error());
         if(mysql_num_rows($resultEmpresa)>0){
             $empresa = mysql_fetch_assoc($resultEmpresa);  
-            $out = shell_exec('"C:\Users\Lakhsmi Angarita\Desktop\contadoras\jobs\jobrazones\jobrazones_run.bat" --context_param iporigen="localhost" --context_param puertoorigen="1433" --context_param usuarioorigen="sa" --context_param passwordorigen="Jcglobal2012" --context_param basedatosorigen="'.$empresa["basedatos"].'" --context_param ipdestino="localhost" --context_param puertodestino="3306" --context_param usuariodestino="root" --context_param passwordestino="" --context_param basedatosdestino="razonesfinancieras" --context_param iddestino="'.$empresa["idempresa"].'"'); 
+            //$out = shell_exec('"C:\Users\Lakhsmi Angarita\Desktop\contadoras\jobs\jobrazones\jobrazones_run.bat" --context_param iporigen="localhost" --context_param puertoorigen="1433" --context_param usuarioorigen="sa" --context_param passwordorigen="Jcglobal2012" --context_param basedatosorigen="'.$empresa["basedatos"].'" --context_param ipdestino="localhost" --context_param puertodestino="3306" --context_param usuariodestino="root" --context_param passwordestino="" --context_param basedatosdestino="razonesfinancieras" --context_param iddestino="'.$empresa["idempresa"].'"'); 
+            $out = shell_exec('"C:\Users\Lakhsmi Angarita\Desktop\contadoras\jobs\jobrazones\jobrazones_run.bat" --context_param iporigen="192.168.1.253" --context_param puertoorigen="49172" --context_param usuarioorigen="nelly" --context_param passwordorigen="Jcglobal2015" --context_param basedatosorigen="'.$empresa["basedatos"].'" --context_param ipdestino="localhost" --context_param puertodestino="3306" --context_param usuariodestino="root" --context_param passwordestino="" --context_param basedatosdestino="razonesfinancieras" --context_param iddestino="'.$empresa["idempresa"].'"'); 
             //echo $out;            
         }
 	?>
@@ -182,7 +183,7 @@
         $mensaje="Reporte Generado Satisfactoriamente";       
     ?>
         <script type="text/javascript">            
-            window.open("../estadoderesultados.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>",'_blank');            
+            window.open("../estadoderesultados.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>",'_blank');            
             alert("<?php echo $mensaje; ?>");
             location.href="../reporteestadoderesultados.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>";                
         </script>            
