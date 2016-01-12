@@ -68,6 +68,10 @@
                         <div class="col-md-12"><input type="text" class="form-control" value="<?php echo $fila["basedatos"]; ?>"  id="basedatos" name="basedatos" maxlength="60" required="required" /></div>
                     </div>
                     <div class="col-md-12 contiene_entrada">
+                        <div class="col-md-12 titulo_entrada">Representante Legal</div>
+                        <div class="col-md-12"><input type="text" class="form-control" value="<?php echo $fila["representante"]; ?>"  id="representante" name="representante" maxlength="200" required="required" /></div>
+                    </div>                        
+                    <div class="col-md-12 contiene_entrada">
                         <div class="col-md-12"><button type="submit" class="btn btn-default">Submit</button></div>                        
                     </div>
                     </form>

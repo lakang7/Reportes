@@ -29,7 +29,7 @@
     /*Insertar Empresa*/
     if($_GET["tarea"]==2){
         $con =  Conexion();
-        $sql_insertEmpresa = "insert into empresa (idempresa,nombre,basedatos) values ('".$_POST["identificador"]."','".$_POST["nombre"]."','".$_POST["basedatos"]."');";
+        $sql_insertEmpresa = "insert into empresa (idempresa,nombre,basedatos,representante) values ('".$_POST["identificador"]."','".$_POST["nombre"]."','".$_POST["basedatos"]."','".$_POST["representante"]."');";
 	$result_insertEmpresa = mysql_query($sql_insertEmpresa,$con) or die(mysql_error());	        
         mysql_close($con);  
         
@@ -44,7 +44,7 @@
     /*Editar Empresa*/
     if($_GET["tarea"]==3){
         $con =  Conexion();
-        $sql_updateEmpresa="update empresa set idempresa='".$_POST["identificador"]."', nombre='".$_POST["nombre"]."', basedatos='".$_POST["basedatos"]."' where idempresa='".$_GET["id"]."'";
+        $sql_updateEmpresa="update empresa set idempresa='".$_POST["identificador"]."', nombre='".$_POST["nombre"]."', basedatos='".$_POST["basedatos"]."', representante='".$_POST["representante"]."' where idempresa='".$_GET["id"]."'";
 	$result_updateEmpresa = mysql_query($sql_updateEmpresa,$con) or die(mysql_error());	        
         mysql_close($con);
 	?>
@@ -185,7 +185,7 @@
         <script type="text/javascript">            
             window.open("../estadoderesultados.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>",'_blank');            
             alert("<?php echo $mensaje; ?>");
-            location.href="../reporteestadoderesultados.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>";                
+            location.href="../reporteestadoderesultados.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"]; ?>";                
         </script>            
     <?php
     }     

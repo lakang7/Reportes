@@ -97,6 +97,7 @@ CREATE TABLE empresa (
     nombre varchar(60) not null,
     logo varchar(60) not null,
     basedatos varchar(100) not null,
+    representante varchar(200) not null,
     PRIMARY KEY (idempresa)
 );
 

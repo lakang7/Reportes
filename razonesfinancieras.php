@@ -1699,6 +1699,16 @@
         $pdf->Line(153,(35+(($fila*5)-7)), 200,(35+(($fila*5)-7)));
         $pdf->Line(53,(35+(($fila*5)-7)), 100,(35+(($fila*5)-7)));        
     }
+    
+    $pdf->SetFont('Helvetica', '', 8);    
+    $pdf->Line(35,260,95,260);
+    $pdf->SetXY(35, 261);   
+    $pdf->Cell(60, 4,"Lcda. Nelly Galicia Aguilar", 0, 1, 'C', 0, '', 0);    
+    $pdf->Line(115,260,175,260);
+    $pdf->SetXY(115, 261);   
+    $pdf->Cell(60, 4,$Empresa["representante"], 0, 1, 'C', 0, '', 0);  
+    $pdf->SetXY(115, 265);     
+    $pdf->Cell(60, 4,"Representante Legal", 0, 1, 'C', 0, '', 0);    
 
     $pdf->SetFont('Helvetica', '', 7);
     $pdf->SetTextColor(126,130,109);
@@ -2213,6 +2223,17 @@
     columna3($pdf, $fila,"          Utilidad o pérdida neta", number_format(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])-($estadoPer[8])-($estadoPer[9])),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7]-$estadoPer[8]-$estadoPer[9])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])-($estadoAcu[8])-($estadoAcu[9])),2), round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7]-$estadoAcu[8]-$estadoAcu[9])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
     $pdf->SetFont('Helvetica', '', 8);      
     
+    $pdf->SetFont('Helvetica', '', 8);
+    $pdf->Line(35,260,95,260);
+    $pdf->SetXY(35, 261);   
+    $pdf->Cell(60, 4,"Lcda. Nelly Galicia Aguilar", 0, 1, 'C', 0, '', 0);    
+    $pdf->Line(115,260,175,260);
+    $pdf->SetXY(115, 261);   
+    $pdf->Cell(60, 4,$Empresa["representante"], 0, 1, 'C', 0, '', 0);  
+    $pdf->SetXY(115, 265); 
+    $pdf->Cell(60, 4,"Representante Legal", 0, 1, 'C', 0, '', 0);    
+    
+    
     $pdf->SetFont('Helvetica', '', 7);
     $pdf->SetTextColor(126,130,109);
     $pdf->Text(10,277,"Creado por GAAG Desarrollo Empresarial");
@@ -2458,7 +2479,7 @@
     $pdf->Circle(105,135,18.9,$angcalcula,360);
     $pdf->Circle(105,135,19,$angcalcula,360);
     
-    
+           
     $pdf->SetFont('Helvetica', '', 7);
     $pdf->SetTextColor(126,130,109);
     $pdf->Text(10,277,"Creado por GAAG Desarrollo Empresarial");
@@ -2658,7 +2679,7 @@
         
         $sqlCue="select * from cuenta where idempresa='".$bempresa."' and codigo='".$bcuenta."' ";
         $resutlCue=mysql_query($sqlCue,$con) or die(mysql_error());
-        $Cuenta = mysql_fetch_assoc($resutlCue); 
+        $Cuenta = mysql_fetch_assoc($resutlCue);               
         
         $sqlSal="select * from saldo where idempresa='".$bempresa."' and ejercicio ='".$Eje["idejercicio"]."' and idcuenta='".$Cuenta["idcuenta"]."' and tipo='".$tipo."'";
         $resutlSal=mysql_query($sqlSal,$con) or die(mysql_error());
@@ -2822,6 +2843,8 @@
         $pdf->Line(10,236,200,236);
         $pdf->Line(10,242,200,242);
         
+        $acum01=0;
+        $acum02=0;
         $columna=25;
         $pdf->SetFont('Helvetica', '', 7);
         for($i=0;$i<12;$i++){
@@ -2831,13 +2854,23 @@
 
             if($i<$mescalculando){
                 $pdf->SetXY($columna,230);
-                $pdf->Cell(14.5,6,number_format(round($uno[$i],0)), 0, 1, 'C', 0, '', 1);                
+                $pdf->Cell(13.3,6,number_format(round($uno[$i],0)), 0, 1, 'C', 0, '', 1);  
+                $acum01+=$uno[$i];
                 $pdf->SetXY($columna,236);
-                $pdf->Cell(14.5,6,number_format(round($dos[$i],0)), 0, 1, 'C', 0, '', 1);                
+                $pdf->Cell(13.3,6,number_format(round($dos[$i],0)), 0, 1, 'C', 0, '', 1);
+                $acum02+=$dos[$i];
             }
             
-            $columna+=14.5;
+            $columna+=13.3;
         }
+        
+        $pdf->Line($columna,224,$columna,242);
+        $pdf->SetXY($columna,224);
+        $pdf->Cell(13.3,6,"Total", 0, 1, 'C', 0, '', 1);
+        $pdf->SetXY($columna,230);
+        $pdf->Cell(13.3,6,number_format(round($acum01,0)), 0, 1, 'C', 0, '', 1);
+        $pdf->SetXY($columna,236);
+        $pdf->Cell(13.3,6,number_format(round($acum02,0)), 0, 1, 'C', 0, '', 1);        
         
         $pdf->SetXY(10,230);
         $pdf->Cell(14.5,6,$reducido01,0, 1, 'C', 0, '', 1);     
@@ -2991,21 +3024,34 @@
         $pdf->Line(10,236,200,236);
         $pdf->Line(10,242,200,242);
         
+        $acum01=0;
+        $acum02=0;
         $columna=25;
         $pdf->SetFont('Helvetica', '', 7);
         for($i=0;$i<12;$i++){
-            $pdf->Line($columna,224,$columna,242);                      
-            $pdf->SetXY($columna,224);                
-            $pdf->Cell(14.5,6,$me[$i], 0, 1, 'C', 0, '', 1);
-            $pdf->SetXY($columna,230);
-            $pdf->Cell(14.5,6,number_format(round($uno[$i],0)), 0, 1, 'C', 0, '', 1);
-            if($i<$mescalculando){
-                $pdf->SetXY($columna,236);
-                $pdf->Cell(14.5,6,number_format(round($dos[$i],0)), 0, 1, 'C', 0, '', 1);                
-            }
-            
-            $columna+=14.5;
+                $pdf->Line($columna,224,$columna,242);            
+                $pdf->SetXY($columna,224);
+                $pdf->Cell(13.3,6,$me[$i], 0, 1, 'C', 0, '', 1);                                
+                $pdf->SetXY($columna,230);
+                $pdf->Cell(13.3,6,number_format(round($uno[$i],0)), 0, 1, 'C', 0, '', 1);
+                $acum01+=$uno[$i];
+                if($i<$mescalculando){
+                    $pdf->SetXY($columna,236);                    
+                    $pdf->Cell(13.3,6,number_format(round($dos[$i],0)), 0, 1, 'C', 0, '', 1); 
+                    $acum02+=$dos[$i];
+                }                                                                          
+            $columna+=13.3;
         }
+               
+        $pdf->Line($columna,224,$columna,242);
+        $pdf->SetXY($columna,224);
+        $pdf->Cell(13.3,6,"Total", 0, 1, 'C', 0, '', 1);
+        $pdf->SetXY($columna,230);
+        $pdf->Cell(13.3,6,number_format(round($acum01,0)), 0, 1, 'C', 0, '', 1);
+        $pdf->SetXY($columna,236);
+        $pdf->Cell(13.3,6,number_format(round($acum02,0)), 0, 1, 'C', 0, '', 1); 
+                    
+                        
         
         $pdf->SetXY(10,230);
         $pdf->Cell(14.5,6,($anocalculado-1),0, 1, 'C', 0, '', 1);     

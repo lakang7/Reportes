@@ -70,29 +70,36 @@
                         <div class="col-md-2 contiene_entrada" style="padding: 0px; margin-left: -15px">
                             <div class="col-md-12 titulo_entrada">Año</div>
                             <div class="col-md-12">
+                                <select id="anno" name="anno" class="selectpicker show-tick" data-live-search="true" data-width="100%" required="required">
                                 <?php
                                     $periodos=array();
                                     $periodos[0]=2014;
                                     $periodos[1]=2015;
                                     $periodos[2]=2016;
                                     $periodos[3]=2017;
-                                ?>
-                            <select id="anno" name="anno" class="selectpicker show-tick" data-live-search="true" data-width="100%" required="required">
-                                <?php
-                                    for($i=0;$i<count($periodos);$i++){
-                                        if($_GET["anno"]==$periodos[$i]){
-                                            echo "<option selected='selected' value='".$periodos[$i]."'>".$periodos[$i]."</option>"; 
-                                        }else{
+                                   // print_r($_GET);
+                                    if(empty($_GET["anno"])){
+                                        //echo "no existe";
+                                        for($i=0;$i<count($periodos);$i++){
                                             $hoy = getdate();                                            
                                             if($hoy["year"]==$periodos[$i]){
                                                 echo "<option selected='selected' value='".$periodos[$i]."'>".$periodos[$i]."</option>"; 
                                             }else{
                                                 echo "<option value='".$periodos[$i]."'>".$periodos[$i]."</option>";
-                                            }                                            
+                                            }  
+                                        }
+                                    }else{
+                                        //echo "existe";
+                                        for($i=0;$i<count($periodos);$i++){
+                                            if($_GET["anno"]==$periodos[$i]){
+                                                echo "<option selected='selected' value='".$periodos[$i]."'>".$periodos[$i]."</option>"; 
+                                            }else{
+                                                echo "<option value='".$periodos[$i]."'>".$periodos[$i]."</option>";
+                                            }                                       
                                         }                                        
-                                    }                                
-                               ?>
-                            </select>                                                        
+                                    }
+                                ?>
+                                </select>                                                         
                             </div>
                         </div> 
                         
@@ -109,7 +116,7 @@
                                 $meses[6]="Junio";
                                 $meses[7]="Julio";
                                 $meses[8]="Agosto";
-                                $meses[8]="Septiembre";
+                                $meses[9]="Septiembre";
                                 $meses[10]="Octubre";
                                 $meses[11]="Noviembre";
                                 $meses[12]="Diciembre";                                                                                            
