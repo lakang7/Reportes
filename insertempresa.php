@@ -62,7 +62,15 @@
                     <div class="col-md-12 contiene_entrada">
                         <div class="col-md-12 titulo_entrada">Representante Legal</div>
                         <div class="col-md-12"><input type="text" class="form-control"  id="representante" name="representante" maxlength="200" required="required" /></div>
-                    </div>                        
+                    </div>         
+                    <div class="col-md-12 contiene_entrada">
+                        <div class="col-md-12 titulo_entrada">Valor para Rotacion de Cobros</div>
+                        <div class="col-md-12"><input type="text" class="form-control"  id="valor1" name="valor1" maxlength="5" required="required" /></div>
+                    </div> 
+                    <div class="col-md-12 contiene_entrada">
+                        <div class="col-md-12 titulo_entrada">Valor para Meses de Recuperacion de Cobros</div>
+                        <div class="col-md-12"><input type="text" class="form-control"  id="valor2" name="valor2" maxlength="5" required="required" /></div>
+                    </div>                         
                     <div class="col-md-12 contiene_entrada">
                         <div class="col-md-12"><button type="submit" class="btn btn-default">Submit</button></div>                        
                     </div>

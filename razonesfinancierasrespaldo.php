@@ -1019,8 +1019,6 @@
     
     $pdf->AddPage('P', 'A4');   
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
-    $extension=explode(".",$Empresa["logo"]);
-    $pdf->Image('logos/'.$Empresa["logo"], 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
     $pdf->Text(9, 26, 'Estado de Situación Financiera '.$Empresa["nombre"]." ".$meses[($buscames-1)].' '.$buscaano);  
@@ -1705,7 +1703,7 @@
     $pdf->SetFont('Helvetica', '', 8);    
     $pdf->Line(35,260,95,260);
     $pdf->SetXY(35, 261);   
-    $pdf->Cell(60, 4," L.C. Nelly Galicia Aguilar", 0, 1, 'C', 0, '', 0);    
+    $pdf->Cell(60, 4,"Lcda. Nelly Galicia Aguilar", 0, 1, 'C', 0, '', 0);    
     $pdf->Line(115,260,175,260);
     $pdf->SetXY(115, 261);   
     $pdf->Cell(60, 4,$Empresa["representante"], 0, 1, 'C', 0, '', 0);  
@@ -1724,7 +1722,6 @@
     $pdf->AddPage('P', 'A4');
     
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
-    $pdf->Image('logos/'.$Empresa["logo"], 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
     $pdf->Text(9, 26, 'Estado de Resultados '.$Empresa["nombre"]." ".$meses[($buscames-1)].' '.$buscaano);
@@ -1913,8 +1910,7 @@
     $estadoAcu[$indice]=0;        
     
     $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=17";
-    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());
-    $cuentaEspecial=0;
+    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
     while ($est01=mysql_fetch_assoc($resultEst01)) { 
         $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
         $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
@@ -1932,177 +1928,18 @@
         $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
         $est03=mysql_fetch_assoc($resultEst03); 
         
-        if($buscames==1){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes1"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes1"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                 
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes1"]);  
-            }                     
-            $estadoPer[$indice]+=($est02["importes1"]-$est05["importes1"]);            
-        }
-        
-        if($buscames==2){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes2"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes2"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes2"]);
-            }                      
-            $estadoPer[$indice]+=($est02["importes2"]-$est05["importes2"]);            
-        }
-        
-        if($buscames==3){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes3"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes3"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                 
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes3"]);
-            }                      
-            $estadoPer[$indice]+=($est02["importes3"]-$est05["importes3"]);            
-        }
-        
-        if($buscames==4){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes4"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes4"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes4"]);
-            }                      
-            $estadoPer[$indice]+=($est02["importes4"]-$est05["importes4"]);            
-        }
-        
-        if($buscames==5){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes5"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes5"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes5"]); 
-            }                     
-            $estadoPer[$indice]+=($est02["importes5"]-$est05["importes5"]);            
-        }
-        
-        if($buscames==6){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes6"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes6"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                 
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes6"]); 
-            }                      
-            $estadoPer[$indice]+=($est02["importes6"]-$est05["importes6"]);            
-        }
-        
-        if($buscames==7){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes7"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes7"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                
-            }else{
-              $estadoAcu[$indice]+=((-1)*$est03["importes7"]);  
-            }                      
-            $estadoPer[$indice]+=($est02["importes7"]-$est05["importes7"]);
-            
-        }
-        
-        if($buscames==8){
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes8"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes8"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes8"]);                                
-            }                        
-            $estadoPer[$indice]+=($est02["importes8"]-$est05["importes8"]); 
-        }
-            
-        if($buscames==9){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes9"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes9"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes9"]);
-            }                         
-            $estadoPer[$indice]+=($est02["importes9"]-$est05["importes9"]);            
-        }
-                        
-        if($buscames==10){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes10"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes10"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes10"]); 
-            }            
-            $estadoPer[$indice]+=($est02["importes10"]-$est05["importes10"]);            
-        }
-        
-        if($buscames==11){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes11"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes11"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                                 
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes11"]);
-            }             
-            $estadoPer[$indice]+=($est02["importes11"]-$est05["importes11"]);            
-        }
-        
-        
-        if($buscames==12){ 
-            if($buscaempresa==3 || $buscaempresa==6){
-                if($cuentaEspecial==0){
-                    $estadoAcu[$indice]+=($est03["importes12"]);
-                }else if($cuentaEspecial==1){
-                    $estadoAcu[$indice]-=($est03["importes12"]);
-                    $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                 
-            }else{
-                $estadoAcu[$indice]+=((-1)*$est03["importes12"]);                
-            }          
-            $estadoPer[$indice]+=($est02["importes12"]-$est05["importes12"]);            
-        }               
-    
-        $cuentaEspecial++;
+        if($buscames==1){ $estadoAcu[$indice]+=((-1)*$est03["importes1"]); $estadoPer[$indice]+=($est02["importes1"]-$est05["importes1"]);}
+        if($buscames==2){ $estadoAcu[$indice]+=((-1)*$est03["importes2"]); $estadoPer[$indice]+=($est02["importes2"]-$est05["importes2"]);}
+        if($buscames==3){ $estadoAcu[$indice]+=((-1)*$est03["importes3"]); $estadoPer[$indice]+=($est02["importes3"]-$est05["importes3"]);}
+        if($buscames==4){ $estadoAcu[$indice]+=((-1)*$est03["importes4"]); $estadoPer[$indice]+=($est02["importes4"]-$est05["importes4"]);}
+        if($buscames==5){ $estadoAcu[$indice]+=((-1)*$est03["importes5"]); $estadoPer[$indice]+=($est02["importes5"]-$est05["importes5"]);}
+        if($buscames==6){ $estadoAcu[$indice]+=((-1)*$est03["importes6"]); $estadoPer[$indice]+=($est02["importes6"]-$est05["importes6"]);}
+        if($buscames==7){ $estadoAcu[$indice]+=((-1)*$est03["importes7"]); $estadoPer[$indice]+=($est02["importes7"]-$est05["importes7"]);}
+        if($buscames==8){ $estadoAcu[$indice]+=((-1)*$est03["importes8"]); $estadoPer[$indice]+=($est02["importes8"]-$est05["importes8"]);}
+        if($buscames==9){ $estadoAcu[$indice]+=((-1)*$est03["importes9"]); $estadoPer[$indice]+=($est02["importes9"]-$est05["importes9"]);}
+        if($buscames==10){ $estadoAcu[$indice]+=((-1)*$est03["importes10"]); $estadoPer[$indice]+=($est02["importes10"]-$est05["importes10"]);}
+        if($buscames==11){ $estadoAcu[$indice]+=((-1)*$est03["importes11"]); $estadoPer[$indice]+=($est02["importes11"]-$est05["importes11"]);}
+        if($buscames==12){ $estadoAcu[$indice]+=((-1)*$est03["importes12"]); $estadoPer[$indice]+=($est02["importes12"]-$est05["importes12"]);}               
     }     
     
     $indice++;
@@ -2333,45 +2170,7 @@
         if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
     }     
        
-          
-    $indice++;
-    $estadoNom[$indice]="PTU";
-    $estadoPer[$indice]=0;
-    $estadoAcu[$indice]=0;    
-    
-    $sqlEst01="select * from asociaclave where idempresa='".$buscaempresa."' and idclave=28";
-    $resultEst01=mysql_query($sqlEst01,$con) or die(mysql_error());    
-    while ($est01=mysql_fetch_assoc($resultEst01)) { 
-        $sqlEst04="select * from cuenta where idempresa='".$buscaempresa."' and codigo='".$est01["codigo"]."' ";
-        $resultEst04=mysql_query($sqlEst04,$con) or die(mysql_error());
-        $est04=mysql_fetch_assoc($resultEst04);
-        
-        $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
-        $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
-        $est02=mysql_fetch_assoc($resultEst02);
-        
-        $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
-        $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
-        $est05=mysql_fetch_assoc($resultEst05);        
-        
-        $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
-        $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
-        $est03=mysql_fetch_assoc($resultEst03); 
-        
-        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
-        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
-        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
-        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
-        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
-        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
-        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
-        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
-        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
-        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
-        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
-        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
-    }    
-    
+                
     function columna3($pdf,$fila,$texto01,$texto02,$texto03,$texto04,$texto05,$inicial){
         $ali="R";
         if($inicial==1){
@@ -2414,21 +2213,20 @@
     columna3($pdf, $fila,"          Utilidad o pérdida antes de impuestos a la utilidad", number_format(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])),2),round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
     $pdf->SetFont('Helvetica', '', 8);     
     columna3($pdf, $fila,$estadoNom[8], number_format($estadoPer[8],2),round((($estadoPer[8]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[8],2), round((($estadoAcu[8]*100)/$estadoAcu[0]),2)." %",0);$fila++;    
-    columna3($pdf, $fila,$estadoNom[11], number_format($estadoPer[11],2),round((($estadoPer[11]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[11],2), round((($estadoAcu[11]*100)/$estadoAcu[0]),2)." %",0);$fila++;
     $pdf->SetFont('Helvetica', 'B', 8);
     $pdf->Line(108,(35+(($fila*5)-5)), 200,(35+(($fila*5)-5)));
-    columna3($pdf, $fila,"          Utilidad o pérdida antes de las operaciones discontinuadas", number_format(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])-($estadoPer[8])-($estadoPer[11])),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7]-$estadoPer[8]-$estadoPer[11])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])-($estadoAcu[8])-($estadoAcu[11])),2), round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7]-$estadoAcu[8]-$estadoAcu[11])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
+    columna3($pdf, $fila,"          Utilidad o pérdida antes de las operaciones discontinuadas", number_format(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])-($estadoPer[8])),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7]-$estadoPer[8])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])-($estadoAcu[8])),2), round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7]-$estadoAcu[8])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
     $pdf->SetFont('Helvetica', '', 8);   
     columna3($pdf, $fila,$estadoNom[9], number_format($estadoPer[9],2),round((($estadoPer[9]*100)/$estadoPer[0]),2)." %", number_format($estadoAcu[9],2), round((($estadoAcu[9]*100)/$estadoAcu[0]),2)." %",0);$fila++;    
     $pdf->SetFont('Helvetica', 'B', 8);
     $pdf->Line(108,(35+(($fila*5)-5)), 200,(35+(($fila*5)-5)));
-    columna3($pdf, $fila,"          Utilidad o pérdida neta", number_format(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])-($estadoPer[8])-($estadoPer[11])-($estadoPer[9])),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7]-$estadoPer[8]-$estadoPer[11]-$estadoPer[9])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])-($estadoAcu[8])-($estadoAcu[11])-($estadoAcu[9])),2), round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7]-$estadoAcu[8]-$estadoAcu[11]-$estadoAcu[9])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
+    columna3($pdf, $fila,"          Utilidad o pérdida neta", number_format(((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3])-($estadoPer[4])-($estadoPer[5])-($estadoPer[6])-($estadoPer[7])-($estadoPer[8])-($estadoPer[9])),2),round((((($estadoPer[0]-$estadoPer[1]-abs($estadoPer[10]))-$estadoPer[2]-$estadoPer[3]-$estadoPer[4]-$estadoPer[5]-$estadoPer[6]-$estadoPer[7]-$estadoPer[8]-$estadoPer[9])*100)/$estadoPer[0]),2)." %", number_format(((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3])-($estadoAcu[4])-($estadoAcu[5])-($estadoAcu[6])-($estadoAcu[7])-($estadoAcu[8])-($estadoAcu[9])),2), round((((($estadoAcu[0]-$estadoAcu[1]-abs($estadoAcu[10]))-$estadoAcu[2]-$estadoAcu[3]-$estadoAcu[4]-$estadoAcu[5]-$estadoAcu[6]-$estadoAcu[7]-$estadoAcu[8]-$estadoAcu[9])*100)/$estadoAcu[0]),2)." %",0);$fila+=2;    
     $pdf->SetFont('Helvetica', '', 8);      
     
     $pdf->SetFont('Helvetica', '', 8);
     $pdf->Line(35,260,95,260);
     $pdf->SetXY(35, 261);   
-    $pdf->Cell(60, 4,"L.C. Nelly Galicia Aguilar", 0, 1, 'C', 0, '', 0);    
+    $pdf->Cell(60, 4,"Lcda. Nelly Galicia Aguilar", 0, 1, 'C', 0, '', 0);    
     $pdf->Line(115,260,175,260);
     $pdf->SetXY(115, 261);   
     $pdf->Cell(60, 4,$Empresa["representante"], 0, 1, 'C', 0, '', 0);  
@@ -2452,7 +2250,6 @@
     $pdf->AddPage('P', 'A4');
     
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
-    $pdf->Image('logos/'.$Empresa["logo"], 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);    
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
     $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');
@@ -2469,38 +2266,10 @@
     $cuentaOK=0;
     $cuentaFA=0;
     $angulo=0;
-    
-   /* print_r($razonesporca);
-    echo "</br>";
-    print_r($valoresporra);
-    echo "</br></br>Nuevas Listas";*/
-    
-    $nuevaLista1 = array();
-    $nuevaLista2 = array();
-    
-    for($i=0;$i<$totalcategorias;$i++){
-        $nuevaLista1[$i]="";
-        $nuevaLista2[$i]="";
-        $temporal1= explode("-",$razonesporca[$i]);
-        $temporal2= explode(";",$valoresporra[$i]);
-        for($j=0;$j<count($temporal1);$j++){
-            if($temporal2[$j]!=0 && $temporal1[$j]!=10 && $temporal1[$j]!=15){
-                $nuevaLista1[$i]=$nuevaLista1[$i].$temporal1[$j]."-";
-                $nuevaLista2[$i]=$nuevaLista2[$i].$temporal2[$j].";";
-            }
-        }
-    }
-    
-    /*print_r($nuevaLista1);
-    echo "</br>";
-    print_r($nuevaLista2);  */  
-    
     for($i=0;$i<$totalcategorias;$i++){
         $pdf->SetFont('Helvetica', '', 8);
-        //$listarazones = explode("-",$razonesporca[$i]);
-        //$listavalores = explode(";",$valoresporra[$i]);
-        $listarazones = explode("-",$nuevaLista1[$i]);
-        $listavalores = explode(";",$nuevaLista2[$i]);        
+        $listarazones = explode("-",$razonesporca[$i]);
+        $listavalores = explode(";",$valoresporra[$i]);
         for($j=0;$j<(count($listarazones)-1);$j++){
             
             $sqlRazon = "select * from razonfinanciera where idrazonfinanciera='".$listarazones[$j]."'";
@@ -2508,10 +2277,6 @@
             $raz=mysql_fetch_assoc($resutlRazon);            
             $pdf->StartTransform();
             $pdf->Rotate(($angulo*7.2), 105, 135);
-            
-            if($raz["tipo"]==1){
-                $listavalores[$j]=$listavalores[$j]*100;
-            }            
             
             if($raz["evaluacion"]==0){
                 if((double)$listavalores[$j]>=1){
@@ -2559,35 +2324,21 @@
                 }                 
             }  
             
-            if($raz["evaluacion"]==9){ 
-                
-                if((double)$listavalores[$j]==0){
-                    
+            if($raz["evaluacion"]==9){
+                if((double)$listavalores[$j]<= $Empresa["extra1"]){
                     $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(125, 190, 17));
                 }else{
-                    if((double)$listavalores[$j]>= $Empresa["extra1"]){
-                        $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(125, 190, 17));
-                    }else{
-                        $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(208, 0, 10));
-                    }                     
-                }                                                
+                    $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(208, 0, 10));
+                }                 
             } 
             
             if($raz["evaluacion"]==10){
-                if((double)$listavalores[$j]<= $Empresa["extra2"]){
+                if((double)$listavalores[$j]>= $Empresa["extra2"]){
                     $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(125, 190, 17));
                 }else{
                     $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(208, 0, 10));
                 }                 
-            }  
-            
-            if($raz["evaluacion"]==11){
-                if((double)$listavalores[$j]>=0 && (double)$listavalores[$j]<=1){
-                    $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(125, 190, 17));
-                }else{
-                    $pdf->Polygon(array(156.715,129.565,157, 135,163, 135,162.682,128.937), 'F', array($style1), array(208, 0, 10));
-                }                 
-            }             
+            }            
             
             if($raz["evaluacion"]==1){
                 if((double)$listavalores[$j]>0){
@@ -2740,22 +2491,6 @@
                 }                
             }   
             if($raz["evaluacion"]==9){
-                
-                if((double)$listavalores[$j]==0){
-                    $cuentaOK++;
-                    $pdf->Text(105,135, '                                                                    O');                    
-                }else{
-                    if((double)$listavalores[$j] >= $Empresa["extra1"]){
-                        $cuentaOK++;
-                        $pdf->Text(105,135, '                                                                    O');
-                    }else{
-                        $cuentaFA++;
-                        $pdf->Text(105,135, '                                                                    X');
-                    }                                         
-                }               
-            } 
-            
-            if($raz["evaluacion"]==10){
                 if((double)$listavalores[$j] <= $Empresa["extra1"]){
                     $cuentaOK++;
                     $pdf->Text(105,135, '                                                                    O');
@@ -2763,18 +2498,17 @@
                     $cuentaFA++;
                     $pdf->Text(105,135, '                                                                    X');
                 }                
-            }   
+            } 
             
-            if($raz["evaluacion"]==11){
-                if((double)$listavalores[$j] >= 0 && (double)$listavalores[$j] <= 1){
+            if($raz["evaluacion"]==10){
+                if((double)$listavalores[$j] >= $Empresa["extra1"]){
                     $cuentaOK++;
                     $pdf->Text(105,135, '                                                                    O');
                 }else{
                     $cuentaFA++;
                     $pdf->Text(105,135, '                                                                    X');
                 }                
-            }             
-            
+            }            
             if($raz["evaluacion"]==1){
                 if((double)$listavalores[$j]>0){
                     $cuentaOK++;
@@ -2873,7 +2607,6 @@
     
     $pdf->AddPage('P', 'A4');    
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
-    $pdf->Image('logos/'.$Empresa["logo"], 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);
     $pdf->SetLineStyle(array('color' => array(0,0,0)));
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
@@ -2988,13 +2721,10 @@
                 $pdf->Text(148,$posiciony+4,"> 3.5 %");
             }  
             if($Raz["evaluacion"]==9){
-                $pdf->Text(148,$posiciony+4,">= ".$Empresa["extra1"]);
+                $pdf->Text(148,$posiciony+4,"<= ".$Empresa["extra1"]);
             }  
             if($Raz["evaluacion"]==10){
-                $pdf->Text(148,$posiciony+4,"<= ".$Empresa["extra2"]);
-            } 
-            if($Raz["evaluacion"]==11){
-                $pdf->Text(144.5,$posiciony+4,">=0 & <=1");
+                $pdf->Text(148,$posiciony+4,">= ".$Empresa["extra2"]);
             }            
             if($Raz["evaluacion"]==1){
                 $pdf->Text(148,$posiciony+4,"> 0");
@@ -3065,27 +2795,14 @@
                 }                                
             }  
             if($Raz["evaluacion"]==9){
-                if((double)$lisval[$j]==0){
-                    $pdf->SetFillColor(125, 190, 17);
-                }else{
-                    if($lisval[$j]>= $Empresa["extra1"]){
-                        $pdf->SetFillColor(125, 190, 17);
-                    }else{
-                        $pdf->SetFillColor(208, 0, 10);
-                    }                    
-                }
-                
-                                
-            }  
-            if($Raz["evaluacion"]==10){
-                if($lisval[$j]<= $Empresa["extra2"]){
+                if($lisval[$j]<= $Empresa["extra1"]){
                     $pdf->SetFillColor(125, 190, 17);
                 }else{
                     $pdf->SetFillColor(208, 0, 10);
                 }                                
             }  
-            if($Raz["evaluacion"]==11){
-                if($lisval[$j]>= 0 && $lisval[$j]<= 1){
+            if($Raz["evaluacion"]==10){
+                if($lisval[$j]>= $Empresa["extra2"]){
                     $pdf->SetFillColor(125, 190, 17);
                 }else{
                     $pdf->SetFillColor(208, 0, 10);
@@ -3137,7 +2854,6 @@
    
     $pdf->AddPage('P', 'A4');   
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
-    $pdf->Image('logos/'.$Empresa["logo"], 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
     $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');  
@@ -3553,7 +3269,6 @@
     
     $pdf->AddPage('P', 'A4');   
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
-    $pdf->Image('logos/'.$Empresa["logo"], 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);    
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
     $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');        
@@ -3571,7 +3286,6 @@
     
     $pdf->AddPage('P', 'A4');   
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
-    $pdf->Image('logos/'.$Empresa["logo"], 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);    
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
     $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');        
@@ -3588,7 +3302,6 @@
     
     $pdf->AddPage('P', 'A4');   
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
-    $pdf->Image('logos/'.$Empresa["logo"], 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);    
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
     $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');        
@@ -3605,7 +3318,6 @@
     
     $pdf->AddPage('P', 'A4');   
     $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
-    $pdf->Image('logos/'.$Empresa["logo"], 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);    
     $pdf->Line(10, 25, 200, 25);
     $pdf->SetFont('Helvetica', '', 10);
     $pdf->Text(9, 26, 'Resumen de Indicadores Financieros');        

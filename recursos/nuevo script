@@ -91,6 +91,7 @@ insert into clave (nombre) values("Participación en subsidiarias y asociadas");
 insert into clave (nombre) values("Partidas no ordinarias");
 insert into clave (nombre) values("Operaciones discontinuadas");
 insert into clave (nombre) values("Costo Integral de Financiamiento");
+insert into clave (nombre) values("PTU");
 
 CREATE TABLE empresa (
     idempresa mediumint(8) unsigned not null,
@@ -98,6 +99,8 @@ CREATE TABLE empresa (
     logo varchar(60) not null,
     basedatos varchar(100) not null,
     representante varchar(200) not null,
+    extra1 integer not null,
+    extra2 integer not null,
     PRIMARY KEY (idempresa)
 );
 
