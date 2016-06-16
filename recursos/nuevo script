@@ -428,3 +428,56 @@ CREATE TABLE movimiento (
     tipomovimiento mediumint(8) unsigned not null,
     PRIMARY KEY (idempresa,idmovimiento)
 );
+
+/------------------------------*Nuevas Tablas*-------------------------------------------/
+
+CREATE TABLE tipoagrupacion (
+    idtipoagrupacion mediumint(8) unsigned not null,
+    nombre varchar(60) not null,
+    posicion integer not null,
+    lado integer not null,
+    PRIMARY KEY (idtipoagrupacion)    
+);
+
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(1,"Activo Circulante",1,1);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(2,"Activo Fijo",2,1);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(3,"Pasivo a Corto Plazo",3,2);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(4,"Pasivo a Largo Plazo",4,2);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(5,"Capital",5,2);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(6,"Utilidad o Perdida del Ejercicio",6,2);
+
+CREATE TABLE agrupacion (
+    idagrupacion mediumint(8) unsigned auto_increment,
+    idempresa mediumint(8) unsigned not null,
+    idtipoagrupacion mediumint(8) unsigned not null,
+    nombre varchar(60) not null,
+    PRIMARY KEY (idagrupacion),
+    FOREIGN KEY (idempresa) REFERENCES empresa(idempresa) ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY (idtipoagrupacion) REFERENCES tipoagrupacion(idtipoagrupacion) ON UPDATE CASCADE ON DELETE RESTRICT        
+);
+
+CREATE TABLE agrupacioncuentas (
+    idagrupacioncuentas mediumint(8) unsigned auto_increment,
+    idagrupacion mediumint(8) unsigned not null,
+    idempresa mediumint(8) unsigned not null,
+    idcuenta mediumint(8) unsigned not null,
+    posicion integer not null,
+    signo integer not null,
+    tipo integer not null,
+    PRIMARY KEY (idagrupacioncuentas),
+    FOREIGN KEY (idagrupacion) REFERENCES agrupacion(idagrupacion) ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY (idempresa,idcuenta) REFERENCES cuenta(idempresa,idcuenta) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE enasociacion (
+    idenasociacion mediumint(8) unsigned auto_increment,
+    idempresa mediumint(8) unsigned null,
+    idcuenta mediumint(8) unsigned null,
+    idagrupacion mediumint(8) unsigned null,
+    posicion integer not null,
+    signo integer not null,
+    tipo integer not null, 
+    PRIMARY KEY (idenasociacion),     
+    FOREIGN KEY (idempresa,idcuenta) REFERENCES cuenta(idempresa,idcuenta) ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY (idagrupacion) REFERENCES agrupacion(idagrupacion) ON UPDATE CASCADE ON DELETE RESTRICT   
+);

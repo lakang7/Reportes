@@ -1710,7 +1710,10 @@
     $pdf->SetXY(115, 261);   
     $pdf->Cell(60, 4,$Empresa["representante"], 0, 1, 'C', 0, '', 0);  
     $pdf->SetXY(115, 265);     
-    $pdf->Cell(60, 4,"Representante Legal", 0, 1, 'C', 0, '', 0);    
+    $pdf->Cell(60, 4,"Representante Legal", 0, 1, 'C', 0, '', 0); 
+    
+    $pdf->SetXY(35, 265);     
+    $pdf->Cell(60, 4,"Los  Estados Financieros no ha sido dictaminados", 0, 1, 'C', 0, '', 0);    
 
     $pdf->SetFont('Helvetica', '', 7);
     $pdf->SetTextColor(126,130,109);
@@ -1927,11 +1930,11 @@
         $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
         $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
         $est05=mysql_fetch_assoc($resultEst05);         
-        
+       
         $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
         $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
         $est03=mysql_fetch_assoc($resultEst03); 
-        
+
         if($buscames==1){ 
             if($buscaempresa==3 || $buscaempresa==6){
                 if($cuentaEspecial==0){
@@ -1939,6 +1942,8 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes1"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes1"]);
                 }                 
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes1"]);  
@@ -1953,6 +1958,8 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes2"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes2"]);
                 }                
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes2"]);
@@ -1967,7 +1974,9 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes3"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
-                }                 
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes3"]);
+                }               
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes3"]);
             }                      
@@ -1981,6 +1990,8 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes4"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes4"]);
                 }                
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes4"]);
@@ -1995,6 +2006,8 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes5"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes5"]);
                 }                
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes5"]); 
@@ -2009,6 +2022,8 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes6"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes6"]);
                 }                 
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes6"]); 
@@ -2023,6 +2038,8 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes7"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes7"]);
                 }                
             }else{
               $estadoAcu[$indice]+=((-1)*$est03["importes7"]);  
@@ -2038,6 +2055,8 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes8"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes8"]);
                 }
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes8"]);                                
@@ -2052,6 +2071,8 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes9"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes9"]);
                 }                
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes9"]);
@@ -2066,6 +2087,8 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes10"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes10"]);
                 }                
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes10"]); 
@@ -2080,13 +2103,15 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes11"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes11"]);
                 }                                 
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes11"]);
             }             
             $estadoPer[$indice]+=($est02["importes11"]-$est05["importes11"]);            
         }
-        
+          
         
         if($buscames==12){ 
             if($buscaempresa==3 || $buscaempresa==6){
@@ -2095,12 +2120,14 @@
                 }else if($cuentaEspecial==1){
                     $estadoAcu[$indice]-=($est03["importes12"]);
                     $estadoAcu[$indice]=($estadoAcu[$indice]*-1);
+                }else if($cuentaEspecial==2){
+                    $estadoAcu[$indice]-=($est03["importes12"]);
                 }                 
             }else{
                 $estadoAcu[$indice]+=((-1)*$est03["importes12"]);                
-            }          
+            }                      
             $estadoPer[$indice]+=($est02["importes12"]-$est05["importes12"]);            
-        }               
+        }        
     
         $cuentaEspecial++;
     }     
@@ -2435,6 +2462,8 @@
     $pdf->SetXY(115, 265); 
     $pdf->Cell(60, 4,"Representante Legal", 0, 1, 'C', 0, '', 0);    
     
+    $pdf->SetXY(35, 265);     
+    $pdf->Cell(60, 4,"Los  Estados Financieros no ha sido dictaminados", 0, 1, 'C', 0, '', 0);     
     
     $pdf->SetFont('Helvetica', '', 7);
     $pdf->SetTextColor(126,130,109);
