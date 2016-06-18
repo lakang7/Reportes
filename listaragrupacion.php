@@ -60,7 +60,7 @@
                                     <tr>
                                         <th style="width: 5%">ID</th>
                                         <th style="width: 27%">Nombre</th>
-                                        <th style="width: 30%">Base de Datos</th>
+                                        <th style="width: 30%">Tipo de Agrupación</th>
                                         <th style="width: 33%">Acciones</th>
                                     </tr>
                                 </thead>
