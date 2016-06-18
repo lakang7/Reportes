@@ -263,6 +263,24 @@
                 echo $_POST["seleccionados".$tipo["idtipoagrupacion"]]."</br>";
             }                            
         }        
-    }    
+    } 
+    
+    
+    /*Generación de Reporte Balance General*/
+    if($_GET["tarea"]==16){
+        $mensaje="";       
+        if($_POST["opcion"]==1){
+            $mensaje="Generacion Satisfactoria de Reporte";
+        }else{
+            $mensaje="Envio Satisfactorio de Reporte";
+        }
+    ?>
+        <script type="text/javascript">            
+            window.open("../balancegeneral.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>",'_blank');            
+            alert("<?php echo $mensaje; ?>");
+            location.href="../reportebalancegeneral.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>";                
+        </script>            
+    <?php
+    }     
     
 ?>
