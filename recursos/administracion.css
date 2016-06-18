@@ -55,3 +55,69 @@
     font-weight: bold;
     margin-top: 10px;
 }
+
+.cajaseleccion{
+    border: 1px solid #CCCCCC; 
+    padding: 0px; 
+    height: 305px; 
+    overflow-y: scroll    
+}
+
+.cajaseleccionderecha{
+    border: 1px solid #CCCCCC; 
+    padding: 0px; 
+    min-height: 305px; 
+    //overflow-y: scroll    
+}
+
+.elementoseleccion{
+    padding-top: 1ex; 
+    padding-bottom: 1ex; 
+    border-bottom: 1px solid #CCCCCC; 
+    cursor: pointer;    
+}
+
+.elementoseleccionmayor{
+    padding-top: 1ex; 
+    padding-bottom: 1ex; 
+    border-bottom: 1px solid #CCCCCC; 
+    cursor: pointer; 
+    font-weight: bold;
+}
+
+.lineapequena{
+    padding: 0px; 
+    font-size: 1.5ex;
+}
+
+.lineagrande{
+    padding: 0px; 
+}
+
+
+.caja{
+    padding: 0px; 
+    height: auto;     
+}
+
+.cajaseleccionarriba{
+    border: 1px solid #CCCCCC; 
+    padding: 0px; 
+    height: 150px; 
+    overflow-y: scroll    
+}
+
+.cajaseleccionabajo{
+    border: 1px solid #CCCCCC; 
+    padding: 0px; 
+    height: 150px; 
+    overflow-y: scroll;
+
+}
+
+.cajaselecciond{
+    border: 1px solid #CCCCCC; 
+    padding: 0px; 
+    min-height: 330px;
+    margin-top: 22px;
+}

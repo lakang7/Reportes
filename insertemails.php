@@ -55,7 +55,7 @@
                     <div class="col-md-12 contiene_entrada">
                         <div class="col-md-12 titulo_entrada">Nombre de la Empresa</div>
                         <div class="col-md-12">
-                        <select id="empresa" name="empresa" class="selectpicker show-tick" data-live-search="true" data-width="100%" required="required">
+                            <select id="empresa"  name="empresa" class="selectpicker show-tick" data-live-search="true" data-width="100%" required="required">
                             <?php
                                 $con=Conexion();
                                 $sql_listaEMPRESA="select * from empresa order by nombre";

@@ -198,5 +198,71 @@
                 location.href="../index.php";
             </script>
         <?php        
-    }     
+    }
+    
+    
+    /*Insertar Agrupacion*/
+    if($_GET["tarea"]==13){
+        $con =  Conexion();
+        $sql_insertAgrupacion = "insert into agrupacion (idempresa,idtipoagrupacion,nombre) values ('".$_POST["empresa"]."','".$_POST["tipoagrupacion"]."','".$_POST["nombre"]."');";
+	$result_insertAgrupacion = mysql_query($sql_insertAgrupacion,$con) or die(mysql_error());	        
+                
+        $sql_ultimaAGRUPACION = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'razonesfinancieras' AND TABLE_NAME = 'agrupacion';";
+        $result_ultimaAGRUPACION = mysql_query($sql_ultimaAGRUPACION, $con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($result_ultimaAGRUPACION);
+        $indice = intval($fila["AUTO_INCREMENT"]);
+        $indice--; 
+        
+        $posicion=1;
+        $lista01 = explode("_", $_POST["seleccionados"]);
+        for($i=0;$i<count($lista01);$i++){
+            if($lista01[$i]!=""){
+                $lista02 = explode("-",$lista01[$i]);
+                $sql_insertRelacion="insert into agrupacioncuentas (idagrupacion,idempresa,idcuenta,posicion,signo,tipo) values(".$indice.",".$_POST["empresa"].",".$lista02[0].",".$posicion.",1,".$lista02[1].")";
+                $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
+                $posicion++;
+            }
+        }
+        mysql_close($con);  
+        ?>
+            <script type="text/javascript" language="JavaScript" >
+                alert("Agrupación Registrada Satisfactoriamente.");
+                location.href="../listaragrupacion.php?id=<?php echo $_POST["empresa"]; ?>";
+            </script>
+        <?php                                  
+    } 
+    
+    /*Eliminar Agrupacion*/
+    if($_GET["tarea"]==14){
+        $con =  Conexion();
+        $sqlAgrupacion="select * from agrupacion where idagrupacion='".$_GET["id"]."'";
+        $resultAgrupacion = mysql_query($sqlAgrupacion, $con) or die(mysql_error());
+        $agrupacion = mysql_fetch_assoc($resultAgrupacion); 
+        
+        $sqlDeteleRelacion="delete from agrupacioncuentas where idagrupacion='".$_GET["id"]."'";
+        $resultDeteleRelacion = mysql_query($sqlDeteleRelacion, $con) or die(mysql_error());
+        
+        $sqlDeleteAgrupacion="delete from agrupacion where idagrupacion='".$_GET["id"]."'";
+        $resultDeteleAgrupacion = mysql_query($sqlDeleteAgrupacion, $con) or die(mysql_error());        
+        mysql_close($con);
+        ?>
+            <script type="text/javascript" language="JavaScript" >
+                alert("Agrupación Eliminada Satisfactoriamente.");
+                location.href="../listaragrupacion.php?id=<?php echo $agrupacion["idempresa"]; ?>";
+            </script>
+        <?php                        
+    }    
+    
+    /*Insertar Estructura balance generel*/
+    if($_GET["tarea"]==15){
+        $con = Conexion();
+        $sqlTipos="select * from tipoagrupacion order by idtipoagrupacion";
+        $resultTipos=mysql_query($sqlTipos,$con) or die(mysql_error()); 
+        if(mysql_num_rows($resultTipos)>0){
+            while ($tipo = mysql_fetch_assoc($resultTipos)) {
+                echo $_POST["seleccionados".$tipo["idtipoagrupacion"]]."</br>";
+            }                            
+        }        
+    }    
+    
 ?>
