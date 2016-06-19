@@ -52,8 +52,8 @@
                         </div>
                         <div class="col-md-12 subtitulopagina">
                             Crear Nuevo Elemento +
-                            <input type="hidden" id="empresa" name="empresa" value="<?php echo $_GET["idempresa"] ?>" />
-                            <input type="hidden" id="seleccionados" name="seleccionados" value="" />
+                            <input type="text" id="empresa" name="empresa" value="<?php echo $_GET["idempresa"] ?>" />
+                            <input type="text" id="seleccionados" name="seleccionados" value="" />
                         </div>
                         
                     <div class="col-md-12 contiene_entrada" style="padding: 0px">
@@ -120,7 +120,7 @@
                         <script type="text/javascript">
                             function seleccionaizq(id){
                                 var valor=document.getElementById("seleccionados").value;
-                                document.getElementById("seleccionados").value=valor+"_"+id+"-1";
+                                document.getElementById("seleccionados").value=valor+"_"+id+"-1-1";
                                 $("#cajaderecha").load("recursos/ajax.php", {tarea:1, seleccionados: document.getElementById("seleccionados").value , empresa: document.getElementById("empresa").value}, function(){
                                     $("#izq"+id).remove();
                                 });
@@ -146,6 +146,7 @@
                             
                             function cambiatipo(idcuenta){
                                 var selecciono = document.getElementById("tipo"+idcuenta).value;
+                                var signo = document.getElementById("signo"+idcuenta).value;
                                 var valor=document.getElementById("seleccionados").value;
                                 var lista = valor.split("_");
                                 var nuevovalor="";
@@ -153,7 +154,7 @@
                                     if(lista[i]!=""){
                                         var aux = lista[i].split("-");
                                         if(aux[0]==idcuenta){  
-                                            nuevovalor=nuevovalor+"_"+aux[0]+"-"+selecciono;                                            
+                                            nuevovalor=nuevovalor+"_"+aux[0]+"-"+selecciono+"-"+signo;                                            
                                         }else{
                                             nuevovalor=nuevovalor+"_"+lista[i];
                                         }
@@ -161,6 +162,25 @@
                                 }                                 
                                 document.getElementById("seleccionados").value=nuevovalor;                                                                                                                                
                             }
+                            
+                            function cambiasigno(idcuenta){
+                                var selecciono = document.getElementById("tipo"+idcuenta).value;
+                                var signo = document.getElementById("signo"+idcuenta).value;
+                                var valor=document.getElementById("seleccionados").value;
+                                var lista = valor.split("_");
+                                var nuevovalor="";
+                                for(var i=0;i<lista.length;i++){
+                                    if(lista[i]!=""){
+                                        var aux = lista[i].split("-");
+                                        if(aux[0]==idcuenta){  
+                                            nuevovalor=nuevovalor+"_"+aux[0]+"-"+selecciono+"-"+signo;                                            
+                                        }else{
+                                            nuevovalor=nuevovalor+"_"+lista[i];
+                                        }
+                                    }
+                                }                                 
+                                document.getElementById("seleccionados").value=nuevovalor;                                                                                                                                
+                            }                            
                             
                             function subir(clave){
                                 var indice=-1;

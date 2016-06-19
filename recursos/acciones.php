@@ -218,7 +218,11 @@
         for($i=0;$i<count($lista01);$i++){
             if($lista01[$i]!=""){
                 $lista02 = explode("-",$lista01[$i]);
-                $sql_insertRelacion="insert into agrupacioncuentas (idagrupacion,idempresa,idcuenta,posicion,signo,tipo) values(".$indice.",".$_POST["empresa"].",".$lista02[0].",".$posicion.",1,".$lista02[1].")";
+                $sqlcuenta="select * from cuenta where idempresa='".$_POST["empresa"]."' and idcuenta='".$lista02[0]."'";
+                $resultcuenta = mysql_query($sqlcuenta,$con) or die(mysql_error());
+                $cuenta = mysql_fetch_assoc($resultcuenta);  
+                
+                $sql_insertRelacion="insert into agrupacioncuentas (idagrupacion,idempresa,codigocuenta,posicion,signo,tipo) values(".$indice.",".$_POST["empresa"].",".$cuenta["codigo"].",".$posicion.",".$lista02[2].",".$lista02[1].")";
                 $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
                 $posicion++;
             }
@@ -260,7 +264,33 @@
         $resultTipos=mysql_query($sqlTipos,$con) or die(mysql_error()); 
         if(mysql_num_rows($resultTipos)>0){
             while ($tipo = mysql_fetch_assoc($resultTipos)) {
-                echo $_POST["seleccionados".$tipo["idtipoagrupacion"]]."</br>";
+                //echo $_POST["seleccionados".$tipo["idtipoagrupacion"]]."</br>";
+                $listaAUX = explode("_",$_POST["seleccionados".$tipo["idtipoagrupacion"]]);
+                $posicion=1;
+                for($i=0;$i<count($listaAUX);$i++){
+                    if($listaAUX[$i]!=""){
+                        $listaSUB = explode("-",$listaAUX[$i]);
+                        $sqlinsertEstructura="";
+                        if($listaSUB[0]=="c"){
+                            $sqlcuenta="select * from cuenta where idempresa='".$_POST["empresa"]."' and idcuenta='".$listaSUB[1]."'";
+                            //echo $sqlcuenta."</br>";
+                            $resultcuenta = mysql_query($sqlcuenta,$con) or die(mysql_error());
+                            $cuenta = mysql_fetch_assoc($resultcuenta);                            
+                            
+                            $sqlinsertEstructura="insert into enasociacion (idempresa,codigocuenta,idtipoagrupacion,posicion,signo,tipo,tipoelemento) values(".$_POST["empresa"].",'".$cuenta["codigo"]."',".$tipo["idtipoagrupacion"].",".$posicion.",1,".$listaSUB[2].",'c')";
+                            $resultinsertEstructura = mysql_query($sqlinsertEstructura,$con) or die(mysql_error());
+                            
+                        }else if($listaSUB[0]=="a"){
+                            
+                            $sqlinsertEstructura="insert into enasociacion (idempresa,idagrupacion,idtipoagrupacion,posicion,signo,tipoelemento) values(".$_POST["empresa"].",".$listaSUB[1].",".$tipo["idtipoagrupacion"].",".$posicion.",1,'a')";
+                            $resultinsertEstructura = mysql_query($sqlinsertEstructura,$con) or die(mysql_error());                            
+                            
+                        }
+                        $posicion++;
+                    }
+                    
+                    
+                }
             }                            
         }        
     } 

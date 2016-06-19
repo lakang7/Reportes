@@ -15,6 +15,14 @@
                     echo "<div class='col-md-12 lineapequena' >".$cuenta["codigo"]."</div>";
                     echo "<div class='col-md-12 lineagrande' >".$cuenta["nombre"]."</div>";
                     echo "<div class='col-md-12 lineapequena'>";
+                    echo "<div class='col-md-1' style='padding:0px; margin-right:15px'>";
+                        if($aux[2]==1){
+                            echo "<select onchange=cambiasigno(".$cuenta["idcuenta"].") name='signo".$cuenta["idcuenta"]."' id='signo".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>+</option><option value='2'>-</option></select>";
+                        }
+                        if($aux[2]==2){
+                            echo "<select onchange=cambiasigno(".$cuenta["idcuenta"].") name='signo".$cuenta["idcuenta"]."' id='signo".$cuenta["idcuenta"]."' style='float:left'><option value='1' >+</option><option value='2' selected>-</option></select>";
+                        }                        
+                    echo "</div>";
                     echo "<div class='col-md-3' style='padding:0px'>";
                     if($aux[1]==1){
                         echo "<select onchange=cambiatipo(".$cuenta["idcuenta"].") name='tipo".$cuenta["idcuenta"]."' id='tipo".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
@@ -36,6 +44,14 @@
                     echo "<div class='col-md-12 lineapequena' >".$cuenta["codigo"]."</div>";
                     echo "<div class='col-md-12 lineagrande' >".$cuenta["nombre"]."</div>";
                     echo "<div class='col-md-12 lineapequena'>";
+                    echo "<div class='col-md-1' style='padding:0px; margin-right:15px'>";
+                        if($aux[2]==1){
+                            echo "<select onchange=cambiasigno(".$cuenta["idcuenta"].") name='signo".$cuenta["idcuenta"]."' id='signo".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>+</option><option value='2'>-</option></select>";
+                        }
+                        if($aux[2]==2){
+                            echo "<select onchange=cambiasigno(".$cuenta["idcuenta"].") name='signo".$cuenta["idcuenta"]."' id='signo".$cuenta["idcuenta"]."' style='float:left'><option value='1' >+</option><option value='2' selected>-</option></select>";
+                        }                         
+                    echo "</div>";                    
                     echo "<div class='col-md-3' style='padding:0px'>";
                     if($aux[1]==1){
                         echo "<select onchange=cambiatipo(".$cuenta["idcuenta"].") name='tipo".$cuenta["idcuenta"]."' id='tipo".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
