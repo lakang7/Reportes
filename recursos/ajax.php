@@ -115,7 +115,7 @@
                         echo "<div class='col-md-12 elementoseleccionmayor' id='der-".$_POST["panel"]."-".$cuenta["idcuenta"]."' name='der-".$_POST["panel"]."-".$cuenta["idcuenta"]."'>";
                         echo "<div class='col-md-12 lineapequena' >".$cuenta["codigo"]."</div>";
                         echo "<div class='col-md-12 lineagrande' >".$cuenta["nombre"]."</div>";
-                        echo "<div class='col-md-12 lineapequena'>";
+                        echo "<div class='col-md-12 lineapequena'>";                        
                         echo "<div class='col-md-3' style='padding:0px'>";
                         if($aux[2]==1){
                             echo "<select onchange=cambiatipo(".$cuenta["idcuenta"].",".$_POST["panel"].") name='tipo-".$_POST["panel"]."-".$cuenta["idcuenta"]."' id='tipo-".$_POST["panel"]."-".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
