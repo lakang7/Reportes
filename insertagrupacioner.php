@@ -41,19 +41,19 @@
                     <?php Menu(); ?>
                 </div>
                 <div class="col-md-9">
-                    <form method="post" id="form_CREARfambotanica" action="recursos/acciones.php?tarea=13">
+                    <form method="post" id="form_CREARfambotanica" action="recursos/acciones.php?tarea=17">
                         
-                        <div class="col-md-12 titulopagina" style="margin-top: 125px;">Agrupación de Cuentas</div>
+                        <div class="col-md-12 titulopagina" style="margin-top: 125px;">Agrupación de Cuentas Estado de Resultados</div>
                         <div class="col-md-12">
                             <div class="btn-group" role="group" aria-label="...">
-                            <button type="button" onclick=redirigir("insertagrupacion.php?idempresa=<?php echo $_GET["idempresa"]; ?>") class="btn btn-default boton">Crear Nuevo Elemento +</button>
-                            <button type="button" onclick=redirigir("listaragrupacion.php?id=<?php echo $_GET["idempresa"]; ?>")  class="btn btn-default boton">Listar Elementos</button>
+                            <button type="button" onclick=redirigir("insertagrupacioner.php?idempresa=<?php echo $_GET["idempresa"]; ?>") class="btn btn-default boton">Crear Nuevo Elemento +</button>
+                            <button type="button" onclick=redirigir("listaragrupacioner.php?id=<?php echo $_GET["idempresa"]; ?>")  class="btn btn-default boton">Listar Elementos</button>
                             </div>
                         </div>
                         <div class="col-md-12 subtitulopagina">
                             Crear Nuevo Elemento +
-                            <input type="hidden" id="empresa" name="empresa" value="<?php echo $_GET["idempresa"] ?>" />
-                            <input type="hidden" id="seleccionados" name="seleccionados" value="" />
+                            <input type="text" id="empresa" name="empresa" value="<?php echo $_GET["idempresa"] ?>" />
+                            <input type="text" id="seleccionados" name="seleccionados" value="" />
                         </div>
                         
                     <div class="col-md-12 contiene_entrada" style="padding: 0px">
@@ -67,11 +67,11 @@
                             <select id="tipoagrupacion"  name="tipoagrupacion" class="selectpicker show-tick" data-live-search="true" data-width="92%" required="required">
                             <?php
                                 $con=Conexion();
-                                $sql_listaAGRUPACION="select * from tipoagrupacion order by idtipoagrupacion";
+                                $sql_listaAGRUPACION="select * from tipoagrupacionest order by idtipoagrupacionest";
                                 $result_listaAGRUPACION=mysql_query($sql_listaAGRUPACION,$con) or die(mysql_error());
                                 if(mysql_num_rows($result_listaAGRUPACION)>0){
                                     while ($fila = mysql_fetch_assoc($result_listaAGRUPACION)) {
-                                        echo "<option value='".$fila["idtipoagrupacion"]."'>".$fila["nombre"]."</option>";
+                                        echo "<option value='".$fila["idtipoagrupacionest"]."'>".$fila["nombre"]."</option>";
                                     }
                                 }
                                 mysql_close($con);
@@ -120,8 +120,8 @@
                         <script type="text/javascript">
                             function seleccionaizq(id){
                                 var valor=document.getElementById("seleccionados").value;
-                                document.getElementById("seleccionados").value=valor+"_"+id+"-1-1";
-                                $("#cajaderecha").load("recursos/ajax.php", {tarea:1, seleccionados: document.getElementById("seleccionados").value , empresa: document.getElementById("empresa").value}, function(){
+                                document.getElementById("seleccionados").value=valor+"_"+id+"-1-1-1";
+                                $("#cajaderecha").load("recursos/ajax.php", {tarea:6, seleccionados: document.getElementById("seleccionados").value , empresa: document.getElementById("empresa").value}, function(){
                                     $("#izq"+id).remove();
                                 });
                             }
@@ -144,8 +144,9 @@
                                 });                                
                             }
                             
-                            function cambiatipo(idcuenta){
-                                var selecciono = document.getElementById("tipo"+idcuenta).value;
+                            function cambiatipo01(idcuenta){
+                                var seleccionop = document.getElementById("tipop"+idcuenta).value;
+                                var seleccionoa = document.getElementById("tipoa"+idcuenta).value;
                                 var signo = document.getElementById("signo"+idcuenta).value;
                                 var valor=document.getElementById("seleccionados").value;
                                 var lista = valor.split("_");
@@ -154,7 +155,7 @@
                                     if(lista[i]!=""){
                                         var aux = lista[i].split("-");
                                         if(aux[0]==idcuenta){  
-                                            nuevovalor=nuevovalor+"_"+aux[0]+"-"+selecciono+"-"+signo;                                            
+                                            nuevovalor=nuevovalor+"_"+aux[0]+"-"+seleccionop+"-"+signo+"-"+seleccionoa;                                            
                                         }else{
                                             nuevovalor=nuevovalor+"_"+lista[i];
                                         }
@@ -163,8 +164,9 @@
                                 document.getElementById("seleccionados").value=nuevovalor;                                                                                                                                
                             }
                             
-                            function cambiasigno(idcuenta){
-                                var selecciono = document.getElementById("tipo"+idcuenta).value;
+                            function cambiatipo02(idcuenta){
+                                var seleccionop = document.getElementById("tipop"+idcuenta).value;
+                                var seleccionoa = document.getElementById("tipoa"+idcuenta).value;
                                 var signo = document.getElementById("signo"+idcuenta).value;
                                 var valor=document.getElementById("seleccionados").value;
                                 var lista = valor.split("_");
@@ -173,7 +175,27 @@
                                     if(lista[i]!=""){
                                         var aux = lista[i].split("-");
                                         if(aux[0]==idcuenta){  
-                                            nuevovalor=nuevovalor+"_"+aux[0]+"-"+selecciono+"-"+signo;                                            
+                                            nuevovalor=nuevovalor+"_"+aux[0]+"-"+seleccionop+"-"+signo+"-"+seleccionoa;                                            
+                                        }else{
+                                            nuevovalor=nuevovalor+"_"+lista[i];
+                                        }
+                                    }
+                                }                                 
+                                document.getElementById("seleccionados").value=nuevovalor;                                                                                                                                
+                            }                            
+                            
+                            function cambiasigno(idcuenta){
+                                var seleccionop = document.getElementById("tipop"+idcuenta).value;
+                                var seleccionoa = document.getElementById("tipoa"+idcuenta).value;
+                                var signo = document.getElementById("signo"+idcuenta).value;
+                                var valor=document.getElementById("seleccionados").value;
+                                var lista = valor.split("_");
+                                var nuevovalor="";
+                                for(var i=0;i<lista.length;i++){
+                                    if(lista[i]!=""){
+                                        var aux = lista[i].split("-");
+                                        if(aux[0]==idcuenta){  
+                                            nuevovalor=nuevovalor+"_"+aux[0]+"-"+seleccionop+"-"+signo+"-"+seleccionoa;                                            
                                         }else{
                                             nuevovalor=nuevovalor+"_"+lista[i];
                                         }
@@ -206,7 +228,7 @@
                                     }
                                 }
                                 document.getElementById("seleccionados").value=nuevovalor;
-                                $("#cajaderecha").load("recursos/ajax.php", {tarea:1, seleccionados: document.getElementById("seleccionados").value , empresa: document.getElementById("empresa").value}, function(){});
+                                $("#cajaderecha").load("recursos/ajax.php", {tarea:6, seleccionados: document.getElementById("seleccionados").value , empresa: document.getElementById("empresa").value}, function(){});
                             }
                             
                             function bajar(clave){
@@ -234,7 +256,7 @@
                                     document.getElementById("seleccionados").value=nuevovalor;
                                 }
                                 
-                                $("#cajaderecha").load("recursos/ajax.php", {tarea:1, seleccionados: document.getElementById("seleccionados").value , empresa: document.getElementById("empresa").value}, function(){});                                
+                                $("#cajaderecha").load("recursos/ajax.php", {tarea:6, seleccionados: document.getElementById("seleccionados").value , empresa: document.getElementById("empresa").value}, function(){});                                
                             }
                             
                         </script>

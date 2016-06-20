@@ -221,7 +221,9 @@
                 $sqlcuenta="select * from cuenta where idempresa='".$_POST["empresa"]."' and idcuenta='".$lista02[0]."'";
                 $resultcuenta = mysql_query($sqlcuenta,$con) or die(mysql_error());
                 $cuenta = mysql_fetch_assoc($resultcuenta);  
-                
+                if($lista02[2]==2){
+                    $lista02[2]=-1;
+                }
                 $sql_insertRelacion="insert into agrupacioncuentas (idagrupacion,idempresa,codigocuenta,posicion,signo,tipo) values(".$indice.",".$_POST["empresa"].",".$cuenta["codigo"].",".$posicion.",".$lista02[2].",".$lista02[1].")";
                 $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
                 $posicion++;
@@ -287,9 +289,7 @@
                             
                         }
                         $posicion++;
-                    }
-                    
-                    
+                    }                                        
                 }
             }                            
         }        
@@ -311,6 +311,62 @@
             location.href="../reportebalancegeneral.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>";                
         </script>            
     <?php
-    }     
+    }
+    
+    if($_GET["tarea"]==17){
+        $con =  Conexion();
+        $sql_insertAgrupacion = "insert into agrupacionest (idempresa,idtipoagrupacionest,nombre) values ('".$_POST["empresa"]."','".$_POST["tipoagrupacion"]."','".$_POST["nombre"]."');";
+	$result_insertAgrupacion = mysql_query($sql_insertAgrupacion,$con) or die(mysql_error());	        
+                
+        $sql_ultimaAGRUPACION = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'razonesfinancieras' AND TABLE_NAME = 'agrupacionest';";
+        $result_ultimaAGRUPACION = mysql_query($sql_ultimaAGRUPACION, $con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($result_ultimaAGRUPACION);
+        $indice = intval($fila["AUTO_INCREMENT"]);
+        $indice--; 
+        
+        $posicion=1;
+        $lista01 = explode("_", $_POST["seleccionados"]);
+        for($i=0;$i<count($lista01);$i++){
+            if($lista01[$i]!=""){
+                $lista02 = explode("-",$lista01[$i]);
+                $sqlcuenta="select * from cuenta where idempresa='".$_POST["empresa"]."' and idcuenta='".$lista02[0]."'";
+                $resultcuenta = mysql_query($sqlcuenta,$con) or die(mysql_error());
+                $cuenta = mysql_fetch_assoc($resultcuenta);  
+                if($lista02[2]==2){
+                    $lista02[2]=-1;
+                }
+                $sql_insertRelacion="insert into agrupacioncuentasest (idagrupacionest,idempresa,codigocuenta,posicion,signo,tipop,tipoa) values(".$indice.",".$_POST["empresa"].",".$cuenta["codigo"].",".$posicion.",".$lista02[2].",".$lista02[1].",".$lista02[3].")";
+                $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
+                $posicion++;
+            }
+        }
+        mysql_close($con);  
+        ?>
+            <script type="text/javascript" language="JavaScript" >
+                alert("Agrupación Estado de Resultados Registrada Satisfactoriamente.");
+                location.href="../listaragrupacioner.php?id=<?php echo $_POST["empresa"]; ?>";
+            </script>
+        <?php                                                 
+    }
+    
+    /*Insertar Estructura Estado de Resultados*/
+    if($_GET["tarea"]==18){
+        $con = Conexion();
+        $sqlTipos="select * from tipoagrupacionest order by idtipoagrupacionest";
+        $resultTipos=mysql_query($sqlTipos,$con) or die(mysql_error()); 
+        if(mysql_num_rows($resultTipos)>0){
+            while ($tipo = mysql_fetch_assoc($resultTipos)) {
+                $listaAUX = explode("_",$_POST["seleccionados".$tipo["idtipoagrupacionest"]]);                
+                $posicion=1;
+                for($i=0;$i<count($listaAUX);$i++){
+                    if($listaAUX[$i]!=""){                        
+                        $sqlinsertEstructura="insert into enasociacioner (idtipoagrupacionest,idagrupacionest,posicion,signo) values('".$tipo["idtipoagrupacionest"]."','".$listaAUX[$i]."','".$posicion."','-1')";
+                        $resultinsertEstructura = mysql_query($sqlinsertEstructura,$con) or die(mysql_error());                                                
+                        $posicion++;                        
+                    }   
+                }                
+            }
+        }
+    }
     
 ?>

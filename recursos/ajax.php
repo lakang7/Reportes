@@ -239,7 +239,153 @@
                 }
             }                                    
         }                        
-    }       
+    }
+    
+    
+    
+    if($_POST["tarea"]==6){
+        $listaSeleccionados= explode("_",$_POST["seleccionados"]);
+        for($i=0;$i<count($listaSeleccionados);$i++){
+            if($listaSeleccionados[$i]!=""){                
+                $aux=explode("-",$listaSeleccionados[$i]);
+                $sqlCuenta="select * from cuenta where idempresa='".$_POST["empresa"]."' and idcuenta='".$aux[0]."'";
+                $resultCuenta=mysql_query($sqlCuenta,$con) or die(mysql_error());
+                $cuenta = mysql_fetch_assoc($resultCuenta); 
+                if($cuenta["ctamayor"]==1){
+                    echo "<div class='col-md-12 elementoseleccionmayor' id='der".$cuenta["idcuenta"]."' name='der".$cuenta["idcuenta"]."'>";
+                    echo "<div class='col-md-12 lineapequena' >".$cuenta["codigo"]."</div>";
+                    echo "<div class='col-md-12 lineagrande' >".$cuenta["nombre"]."</div>";
+                    echo "<div class='col-md-12 lineapequena'>";
+                    echo "<div class='col-md-1' style='padding:0px; margin-right:15px'>";
+                        if($aux[2]==1){
+                            echo "<select onchange=cambiasigno(".$cuenta["idcuenta"].") name='signo".$cuenta["idcuenta"]."' id='signo".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>+</option><option value='2'>-</option></select>";
+                        }
+                        if($aux[2]==2){
+                            echo "<select onchange=cambiasigno(".$cuenta["idcuenta"].") name='signo".$cuenta["idcuenta"]."' id='signo".$cuenta["idcuenta"]."' style='float:left'><option value='1' >+</option><option value='2' selected>-</option></select>";
+                        }                        
+                    echo "</div>";
+                    
+                    echo "<div class='col-md-3' style='padding:0px'>";
+                    if($aux[1]==1){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
+                    }
+                    if($aux[1]==2){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option></select>";
+                    }
+                    if($aux[1]==3){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option></select>";
+                    }                                        
+                    echo "</div>";
+                    
+                    echo "<div class='col-md-3' style='padding:0px'>";
+                    if($aux[3]==1){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
+                    }
+                    if($aux[3]==2){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option></select>";
+                    }
+                    if($aux[3]==3){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option></select>";
+                    }                                        
+                    echo "</div>";                    
+                    
+                    
+                    echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=subir(".$cuenta["idcuenta"].")>SUBIR</div>";
+                    echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=bajar(".$cuenta["idcuenta"].")>BAJAR</div>";
+                    echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=seleccionader(".$cuenta["idcuenta"].")>ElIMINAR</div>";
+                    echo "</div>";                    
+                    echo "</div>";                                                 
+                }else{
+                    echo "<div class='col-md-12 elementoseleccion' id='der".$cuenta["idcuenta"]."' name='der".$cuenta["idcuenta"]."'>";
+                    echo "<div class='col-md-12 lineapequena' >".$cuenta["codigo"]."</div>";
+                    echo "<div class='col-md-12 lineagrande' >".$cuenta["nombre"]."</div>";
+                    echo "<div class='col-md-12 lineapequena'>";
+                    echo "<div class='col-md-1' style='padding:0px; margin-right:15px'>";
+                        if($aux[2]==1){
+                            echo "<select onchange=cambiasigno(".$cuenta["idcuenta"].") name='signo".$cuenta["idcuenta"]."' id='signo".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>+</option><option value='2'>-</option></select>";
+                        }
+                        if($aux[2]==2){
+                            echo "<select onchange=cambiasigno(".$cuenta["idcuenta"].") name='signo".$cuenta["idcuenta"]."' id='signo".$cuenta["idcuenta"]."' style='float:left'><option value='1' >+</option><option value='2' selected>-</option></select>";
+                        }                         
+                    echo "</div>";                    
+                    echo "<div class='col-md-3' style='padding:0px'>";
+                    if($aux[1]==1){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
+                    }
+                    if($aux[1]==2){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option></select>";
+                    }
+                    if($aux[1]==3){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option></select>";
+                    }                                        
+                    echo "</div>";
+                    
+                    echo "<div class='col-md-3' style='padding:0px'>";
+                    if($aux[3]==1){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
+                    }
+                    if($aux[3]==2){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option></select>";
+                    }
+                    if($aux[3]==3){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option></select>";
+                    }                                        
+                    echo "</div>";                      
+                    
+                    echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=subir(".$cuenta["idcuenta"].")>SUBIR</div>";
+                    echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=bajar(".$cuenta["idcuenta"].")>BAJAR</div>";
+                    echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=seleccionader(".$cuenta["idcuenta"].")>ELIMINAR</div>";
+                    echo "</div>";                     
+                    echo "</div>";                                                
+                }
+            }            
+        }
+    }
+    
+    
+    if($_POST["tarea"]==7){
+        $listaSeleccionados= explode("_",$_POST["seleccionados"]);
+        for($i=0;$i<count($listaSeleccionados);$i++){
+            if($listaSeleccionados[$i]!=""){                                  
+                $sqlAgrupacion="select * from agrupacionest where idempresa='".$_POST["empresa"]."' and idagrupacionest='".$listaSeleccionados[$i]."'";
+                $resultAgrupacion=mysql_query($sqlAgrupacion,$con) or die(mysql_error());
+                $agrupacion = mysql_fetch_assoc($resultAgrupacion); 
+                echo "<div class='col-md-12 elementoseleccion' id='der-".$_POST["panel"]."-".$agrupacion["idagrupacionest"]."' name='der-".$_POST["panel"]."-".$agrupacion["idagrupacionest"]."'>";
+                echo "<div class='col-md-12 lineapequena' >AGRUPACION</div>";
+                echo "<div class='col-md-12 lineagrande' >".$agrupacion["nombre"]."</div>";
+                echo "<div class='col-md-12 lineapequena'>";                        
+                echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=subir(".$agrupacion["idagrupacionest"].",".$_POST["panel"].")>SUBIR</div>";
+                echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=bajar(".$agrupacion["idagrupacionest"].",".$_POST["panel"].")>BAJAR</div>";
+                echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=seleccionaderc(".$agrupacion["idagrupacionest"].",".$_POST["panel"].")>ElIMINAR</div>";
+                echo "</div>";                    
+                echo "</div>";                                                                                                                                                                                                
+            }
+        }
+    } 
+    
+    if($_POST["tarea"]==8){
+        $listaSeleccionados= explode("_",$_POST["seleccionados"]);
+        $sql_listaAgrupacion="select * from agrupacionest where idempresa='".$_POST["empresa"]."' and idtipoagrupacionest='".$_POST["panel"]."' order by trim(nombre)";
+        $result_listaAgrupacion=mysql_query($sql_listaAgrupacion,$con) or die(mysql_error());                                                                                 
+        if(mysql_num_rows($result_listaAgrupacion)>0){
+            while ($agrupacion = mysql_fetch_assoc($result_listaAgrupacion)) {
+                $band=0;
+                for($i=0;$i<count($listaSeleccionados);$i++){
+                    if($listaSeleccionados[$i]!=""){
+                        if($listaSeleccionados[$i]==$agrupacion["idagrupacionest"]){
+                            $band=1;
+                        }                        
+                    }                                            
+                }
+                if($band==0){                                        
+                    echo "<div class='col-md-12 elementoseleccion' id='izqc-".$_POST["panel"]."-".$agrupacion["idagrupacionest"]."' name='izqc-".$_POST["panel"]."-".$agrupacion["idagrupacionest"]."' onclick=seleccionaizqc(".$agrupacion["idagrupacionest"].",".$_POST["panel"].")>";
+                    echo "<div class='col-md-12 lineapequena'>AGRUPACION</div>";
+                    echo "<div class='col-md-12 lineagrande'>".$agrupacion["nombre"]."</div>";
+                    echo "</div>";                                         
+                }
+            }   
+        }
+    }    
     
     mysql_close($con);
 

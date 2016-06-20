@@ -483,3 +483,52 @@ CREATE TABLE enasociacion (
     FOREIGN KEY (idagrupacion) REFERENCES agrupacion(idagrupacion) ON UPDATE CASCADE ON DELETE RESTRICT,  
     FOREIGN KEY (idtipoagrupacion) REFERENCES tipoagrupacion(idtipoagrupacion) ON UPDATE CASCADE ON DELETE RESTRICT
 );
+
+CREATE TABLE tipoagrupacionest (
+    idtipoagrupacionest mediumint(8) unsigned not null,
+    nombre varchar(60) not null,
+    posicion integer not null,
+    PRIMARY KEY (idtipoagrupacionest)    
+);
+
+insert into tipoagrupacionest (idtipoagrupacionest,nombre,posicion) values(1,"Utilidad o Perdida Bruta",1);
+insert into tipoagrupacionest (idtipoagrupacionest,nombre,posicion) values(2,"Utilidad o Perdida en Operacion",2);
+insert into tipoagrupacionest (idtipoagrupacionest,nombre,posicion) values(3,"Utilidad o pérdida antes de impuestos a la utilidad ",3);
+insert into tipoagrupacionest (idtipoagrupacionest,nombre,posicion) values(4,"Utilidad o pérdida antes de las operaciones discontinuadas",4);
+insert into tipoagrupacionest (idtipoagrupacionest,nombre,posicion) values(5,"Utilidad o pérdida neta",5);
+
+CREATE TABLE agrupacionest (
+    idagrupacionest mediumint(8) unsigned auto_increment,
+    idempresa mediumint(8) unsigned not null,
+    idtipoagrupacionest mediumint(8) unsigned not null,
+    nombre varchar(60) not null,
+    PRIMARY KEY (idagrupacionest),
+    FOREIGN KEY (idempresa) REFERENCES empresa(idempresa) ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY (idtipoagrupacionest) REFERENCES tipoagrupacionest(idtipoagrupacionest) ON UPDATE CASCADE ON DELETE RESTRICT        
+);
+
+
+CREATE TABLE agrupacioncuentasest (
+    idagrupacioncuentasest mediumint(8) unsigned auto_increment,
+    idagrupacionest mediumint(8) unsigned not null,
+    idempresa mediumint(8) unsigned not null,
+    codigocuenta varchar(30) not null,        
+    posicion integer not null,
+    signo integer not null,
+    tipop integer not null,
+    tipoa integer not null,
+    PRIMARY KEY (idagrupacioncuentasest),
+    FOREIGN KEY (idagrupacionest) REFERENCES agrupacionest(idagrupacionest) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+
+CREATE TABLE enasociacioner (
+    idenasociacioner mediumint(8) unsigned auto_increment,
+    idtipoagrupacionest mediumint(8) unsigned null,
+    idagrupacionest mediumint(8) unsigned null,   
+    posicion integer not null,
+    signo integer not null,    
+    PRIMARY KEY (idenasociacioner),     
+    FOREIGN KEY (idagrupacionest) REFERENCES agrupacionest(idagrupacionest) ON UPDATE CASCADE ON DELETE RESTRICT,  
+    FOREIGN KEY (idtipoagrupacionest) REFERENCES tipoagrupacionest(idtipoagrupacionest) ON UPDATE CASCADE ON DELETE RESTRICT
+);
