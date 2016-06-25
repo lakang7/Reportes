@@ -92,6 +92,8 @@
                                                 echo "<li><a href='editarempresa.php?id=".$fila["idempresa"]."'><span class='glyphicon glyphicon-pencil' aria-hidden='true' style='margin-right: 5px;'></span>Editar</a></li>";
                                                 echo "<li><a href='listaragrupacion.php?id=".$fila["idempresa"]."'><span class='glyphicon glyphicon-th' aria-hidden='true' style='margin-right: 5px;'></span>Agrupaciones</a></li>";
                                                 echo "<li><a href='estructurabalancegeneral.php?id=".$fila["idempresa"]."'><span class='glyphicon glyphicon-th-list' aria-hidden='true' style='margin-right: 5px;'></span>Estructura Balance General</a></li>";
+                                                echo "<li><a href='listaragrupacioner.php?id=".$fila["idempresa"]."'><span class='glyphicon glyphicon-th' aria-hidden='true' style='margin-right: 5px;'></span>Agrupaciones Estado de Resultados</a></li>";
+                                                echo "<li><a href='estructuraestadoresultados.php?id=".$fila["idempresa"]."'><span class='glyphicon glyphicon-th-list' aria-hidden='true' style='margin-right: 5px;'></span>Estructura Estado de Resultados</a></li>";
                                                 echo "<li onclick=confirmar(\"".trim($fila["idempresa"])."\")><a href='#'><span class='glyphicon glyphicon-remove' aria-hidden='true' style='margin-right: 5px;'></span>Eliminar</a></li>";
                                                 echo "</ul>";
                                                 echo "</div>";                                                                                                               
