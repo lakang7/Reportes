@@ -430,13 +430,35 @@ CREATE TABLE movimiento (
 );
 
 /------------------------------*Nuevas Tablas*-------------------------------------------/
+CREATE TABLE estadosfinancieros(
+    idestadofinanciero  mediumint(8) unsigned auto_increment,
+    nombre varchar(100) not null,
+    PRIMARY KEY (idestadofinanciero)
+);
+
+insert into estadosfinancieros (nombre) values("Balance General");
+
+CREATE TABLE estructuraestadofinanciero(
+    idestructura mediumint(8) unsigned auto_increment,
+    idestadofinanciero mediumint(8) unsigned not null,
+    nombre varchar(60) not null,
+    PRIMARY KEY (idestructura),
+    FOREIGN KEY (idestadofinanciero) REFERENCES empresa(idempresa) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(1,"Activo");
+insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(2,"Pasivo");
+insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(3,"Capital");
+insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(4,"Utilidad");
 
 CREATE TABLE tipoagrupacion (
     idtipoagrupacion mediumint(8) unsigned not null,
     nombre varchar(60) not null,
     posicion integer not null,
     lado integer not null,
-    PRIMARY KEY (idtipoagrupacion)    
+    idestructura mediumint(8) unsigned not null,
+    PRIMARY KEY (idtipoagrupacion),
+    FOREIGN KEY (idestructura) REFERENCES estructuraestadofinanciero(idestructura) ON UPDATE CASCADE ON DELETE RESTRICT  
 );
 
 insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(1,"Activo Circulante",1,1);
