@@ -86,6 +86,11 @@ $Y=50;
 $vectorSaldo[]=0;
 $vectorY[]=0;
 $vectorX[]=0;
+
+$vectorTotalX[]=0;
+$vectorTotalY[]=0;
+$vectorTotal[]=0;
+
 $sumatotalagrupacion=0;
 $sumapasivocapital=0;
 $sumacapital=0;
@@ -96,17 +101,21 @@ crearEncabezadoPorcentajes($pdf);
 
 for ($ciclo=1;$ciclo<=$maxestructura;$ciclo++){
     $sumatotalagrupacion=0;
+    $contador=0;
     $nombreestructura = fncnombreestructura($ciclo,$idestadofinanciero);
     if ($ciclo==2){ $X=110; $Y=50; };
     crearEncabezado($pdf, $nombreestructura,$X,$Y);
     $Y=crearEstructura($pdf,$idempresa,$ciclo,$X,$Y);
-    if ($ciclo>1){ $sumapasivocapital+=$sumatotalagrupacion;} else {$sumacapital=$sumatotalagrupacion;}
+    if ($ciclo==1){$sumacapital=$sumatotalagrupacion;} else {$sumapasivocapital+=$sumatotalagrupacion;} 
     totalesxcuerpo($pdf, $X+5, $Y+30,$ciclo, $sumatotalagrupacion,$sumacapital,$sumapasivocapital, $nombreestructura);
     $Y+=+25;
 }    
 
 function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
     $con = Conexion();
+    global $vectorTotalX;           
+    global $vectorTotalY;
+    global $vectorTotal;
     global $vectorY;           
     global $vectorX;
     global $vectorSaldo;
@@ -114,6 +123,7 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
     $sumatotal =0;
     $maxestructuraagrupacion=fncmaxestructuraagrupacion($idestructura);
     $minestructuraagrupacion=fncminestructuraagrupacion($idestructura);
+    global $contador;
     for ($idtipoagrupacion=$minestructuraagrupacion;$idtipoagrupacion<=$maxestructuraagrupacion;$idtipoagrupacion++){
         $i = 0;
         $sumatotal =0;
@@ -187,24 +197,26 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
         $pdf->SetXY($X+35,$Y);
         $pdf->Cell(30, 4, number_format($suma,2), 0, 1, "R", 0, '', 0);
         $pdf->SetFont('Helvetica', '', 7);    
+        
+        $contador++;              
+        $vectorTotalX[$contador]=$X;
+        $vectorTotalY[$contador]=$Y;
+        $vectorTotal[$contador]=$suma;
+
         for($j=1;$j<=$i;$j++){
             $sumatotal+=$vectorSaldo[$j];
-        }
-        
+        }       
         for($r=1;$r<=$i;$r++){
             $pdf->SetXY($vectorX[$r]+20,$vectorY[$r]-18);
             $pdf->Cell(3,40,number_format(($vectorSaldo[$r]/$sumatotal)*100,2). " %" , 0, 1, "R", 0, '', 0);
             if ($r==$i){
               $pdf->SetFont('Helvetica', 'I', 7);  
-              $pdf->SetXY($vectorX[$r]- 7,$vectorY[$r]+10);
+              $pdf->SetXY($vectorX[$r]-4,$vectorY[$r]+10);
               $pdf->Cell(30, 4, "100.00 %" , 0, 1, "R", 0, '', 0);
               $pdf->SetFont('Helvetica', '', 7);
             }
-
         }
-
     }
-
     return $Y;
 }
 
@@ -217,6 +229,20 @@ function crearEncabezado($pdf, $nombreestructura,$X,$Y){
 }
 
 function totalesxcuerpo($pdf,$X,$Y,$ciclo,$sumatotalagrupacion,$sumacapital,$sumapasivocapital,$nombreestructura){
+    global $maxestructura;
+    global $contador;
+    global $vectorTotal;
+    global $vectorTotalX;
+    global $vectorTotalY;
+
+    for($r=1;$r<=$contador;$r++){
+        $pdf->SetFont('Helvetica', 'I', 7);
+        $pdf->SetXY($vectorTotalX[$r]+52,$vectorTotalY[$r]);
+        $pdf->Cell(40,4,number_format( ($vectorTotal[$r]/ $sumatotalagrupacion)*100,2) . " %", 0, 1, "R", 0, '', 0);
+        $pdf->SetFont('Helvetica', '', 7);
+    }
+
+
     if ($ciclo>1){
         $pdf->SetXY($X-5,$Y-18);
         $pdf->SetFont('Helvetica', 'B', 8);
@@ -224,8 +250,10 @@ function totalesxcuerpo($pdf,$X,$Y,$ciclo,$sumatotalagrupacion,$sumacapital,$sum
         $pdf->Cell(40,4, strtoupper("Total ". $nombreestructura),0,1,"L",0,'',0); 
         $pdf->SetXY($X+20,$Y-18);
         $pdf->Cell(40,4,number_format($sumatotalagrupacion,2), 0, 1, "R", 0, '', 0);
+        $pdf->SetXY($X+75,$Y-18);
+        $pdf->Cell(15, 3,"100 %", 0, 1, 'C', 0, '', 0);
     }
-    if ($ciclo==4) {
+    if ($ciclo==$maxestructura) {
         $pdf->Line($X-60, $Y-2, $X-15 , $Y-2);
         $pdf->Line($X-60, $Y+6, $X-15 , $Y+6);
         $pdf->SetXY($X-105,$Y);
@@ -233,6 +261,9 @@ function totalesxcuerpo($pdf,$X,$Y,$ciclo,$sumatotalagrupacion,$sumacapital,$sum
         $pdf->Cell(40,4, strtoupper("Total Activo"),0,1,"L",0,'',0); 
         $pdf->SetXY($X-80,$Y);
         $pdf->Cell(40,4,number_format($sumacapital,2), 0, 1, "R", 0, '', 0);
+        $pdf->SetXY($X-25,$Y);
+        $pdf->Cell(15, 3,"100 %", 0, 1, 'C', 0, '', 0);
+
         
         $pdf->Line($X+40, $Y-2, $X+85 , $Y-2);
         $pdf->Line($X+40, $Y+6, $X+85 , $Y+6);
@@ -240,6 +271,8 @@ function totalesxcuerpo($pdf,$X,$Y,$ciclo,$sumatotalagrupacion,$sumacapital,$sum
         $pdf->Cell(40,4, strtoupper("Total Pasivo y Capital"),0,1,"L",0,'',0); 
         $pdf->SetXY($X+20,$Y);
         $pdf->Cell(40,4,number_format($sumapasivocapital,2), 0, 1, "R", 0, '', 0);
+        $pdf->SetXY($X+75,$Y);
+        $pdf->Cell(15, 3,"100 %", 0, 1, 'C', 0, '', 0);
     }
     $pdf->SetFont('Helvetica', '', 7);
 }
@@ -273,7 +306,6 @@ function crearEncabezadoPorcentajes ($pdf){
     $pdf->Cell(15, 3,"integrales", 0, 1, 'C', 0, '', 0);
     $pdf->SetXY(190, 44);
     $pdf->Cell(15, 3,"en ralación", 0, 1, 'C', 0, '', 0);     
-
 }
 
 $pdf->Output('Listado Empresas.pdf', 'I');

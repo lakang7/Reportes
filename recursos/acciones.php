@@ -224,7 +224,7 @@
                 if($lista02[2]==2){
                     $lista02[2]=-1;
                 }
-                $sql_insertRelacion="insert into agrupacioncuentas (idagrupacion,idempresa,codigocuenta,posicion,signo,tipo) values(".$indice.",".$_POST["empresa"].",".$cuenta["codigo"].",".$posicion.",".$lista02[2].",".$lista02[1].")";
+                $sql_insertRelacion="insert into agrupacioncuentas (idagrupacion,idempresa,codigocuenta,posicion,signo,tipo) values('".$indice."','".$_POST["empresa"]."','".$cuenta["codigo"]."',".$posicion.",".$lista02[2].",".$lista02[1].")";
                 $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
                 $posicion++;
             }
@@ -368,5 +368,40 @@
             }
         }
     }
+    
+    /*Editar Agrupacion*/
+    if($_GET["tarea"]==19){
+        $con =  Conexion();
+        
+        $sqlUpdateAgrupacion="update agrupacion set idtipoagrupacion='".$_POST["tipoagrupacion"]."', nombre='".$_POST["nombre"]."' where idagrupacion='".$_GET["id"]."'";        
+	$resultUpdateAgrupacion = mysql_query($sqlUpdateAgrupacion,$con) or die(mysql_error());	                        
+        
+        $sqldeleteRelacion="delete from agrupacioncuentas where idagrupacion='".$_GET["id"]."'";
+        $resultdeleteRelacion = mysql_query($sqldeleteRelacion,$con) or die(mysql_error());	
+        
+        $posicion=1;
+        $lista01 = explode("_", $_POST["seleccionados"]);
+        for($i=0;$i<count($lista01);$i++){
+            if($lista01[$i]!=""){
+                $lista02 = explode("-",$lista01[$i]);
+                $sqlcuenta="select * from cuenta where idempresa='".$_POST["empresa"]."' and idcuenta='".$lista02[0]."'";
+                $resultcuenta = mysql_query($sqlcuenta,$con) or die(mysql_error());
+                $cuenta = mysql_fetch_assoc($resultcuenta);  
+                if($lista02[2]==2){
+                    $lista02[2]=-1;
+                }
+                $sql_insertRelacion="insert into agrupacioncuentas (idagrupacion,idempresa,codigocuenta,posicion,signo,tipo) values('".$_GET["id"]."','".$_POST["empresa"]."','".$cuenta["codigo"]."',".$posicion.",".$lista02[2].",".$lista02[1].")";
+                $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
+                $posicion++;
+            }
+        }
+        mysql_close($con);  
+        ?>
+            <script type="text/javascript" language="JavaScript" >
+                alert("Agrupación Editada Satisfactoriamente.");
+                location.href="../listaragrupacion.php?id=<?php echo $_POST["empresa"]; ?>";
+            </script>
+        <?php                                 
+    }     
     
 ?>

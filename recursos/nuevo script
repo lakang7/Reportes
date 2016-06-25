@@ -448,8 +448,8 @@ CREATE TABLE estructuraestadofinanciero(
 
 insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(1,"Activo");
 insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(2,"Pasivo");
-insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(3,"Capital");
-insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(4,"Utilidad");
+insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(3,"Capital Y Utilidad");
+
 
 CREATE TABLE tipoagrupacion (
     idtipoagrupacion mediumint(8) unsigned not null,
@@ -461,13 +461,13 @@ CREATE TABLE tipoagrupacion (
     FOREIGN KEY (idestructura) REFERENCES estructuraestadofinanciero(idestructura) ON UPDATE CASCADE ON DELETE RESTRICT  
 );
 
-insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(1,"Activo Circulante",1,1);
-insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(2,"Activo Fijo",2,1);
-insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(3,"Diferido",3,1);
-insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(4,"Pasivo a Corto Plazo",4,2);
-insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(5,"Pasivo a Largo Plazo",5,2);
-insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(6,"Capital",6,2);
-insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado) values(7,"Utilidad o Perdida del Ejercicio",7,2);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado,idestructura) values(1,"Activo Circulante",1,1,1);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado,idestructura) values(2,"Activo Fijo",2,1,1);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado,idestructura) values(3,"Diferido",3,1,1);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado,idestructura) values(4,"Pasivo a Corto Plazo",4,2,2);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado,idestructura) values(5,"Pasivo a Largo Plazo",5,2,2);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado,idestructura) values(6,"Capital",6,2,3);
+insert into tipoagrupacion (idtipoagrupacion,nombre,posicion,lado,idestructura) values(7,"Utilidad o Perdida del Ejercicio",7,2,3);
 
 CREATE TABLE agrupacion (
     idagrupacion mediumint(8) unsigned auto_increment,
