@@ -12,7 +12,9 @@
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('listarempresa.php')>Empresas</div>";
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('listaremails.php')>Receptores de Correo</div>";
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('reportebalancegeneral.php') >Reporte Balance General</div>";
+        echo "<div class='col-md-12 itemMenu' onclick=redirigir('reportebalancegeneralcomp_pantalla.php') >Reporte Balance General Comparativo</div>";
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('reporteestadoderesultados_pantalla.php') >Reporte Estado de Resultado Mensualizado</div>";
+        echo "<div class='col-md-12 itemMenu' onclick=redirigir('reporteestadoderesultados_pantalla_anual.php') style='border-bottom: 1px solid #CCCCCC' >Reporte Estado de Resultados Anualizado</div>";
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('reporterazonesfinancieras.php') >Reporte Razones Financieras</div>";
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('reporteestadoderesultados.php') style='border-bottom: 1px solid #CCCCCC' >Reporte Estado de Resultados</div>";
     }        
@@ -36,13 +38,11 @@
     {
         $con = Conexion();
         $sqlselect="select * from saldo where idempresa= '" . $idempresa . "' and idcuenta = '" . $idcuenta . "' and ejercicio = '" . $idejercicio . "' and tipo= '" . $tipo."'";                         
-        //echo $sqlselect."</br>";
         $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
         $fila = mysql_fetch_assoc($resultselect);
         $saldo=0;
         switch ($mes)
         {
-            
             case 1: $saldo = $fila["importes1"]; break;
             case 2: $saldo = $fila["importes2"]; break;
             case 3: $saldo = $fila["importes3"]; break;
@@ -56,7 +56,6 @@
             case 11: $saldo = $fila["importes11"]; break;
             case 12: $saldo = $fila["importes12"]; break;
         }
-            
         return $saldo;
     }
     function fncbuscaridejercicio($idempresa, $anno)
@@ -84,7 +83,15 @@
         $fila = mysql_fetch_assoc($resultselect);
         return $fila["nombre"];
      }
-    
+    function fncnombresubagrupacionest ($IdAgrupacionEst)
+    {
+        $con = Conexion();
+        $sqlselect="select nombre from agrupacionest where IdAgrupacionEst= " . $IdAgrupacionEst;
+        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($resultselect);
+        return $fila["nombre"];
+    }
+     
     function fncnombresubagrupacion ($posicion)
     {
         $con = Conexion();
@@ -96,6 +103,13 @@
     function fncnombreagrupacion($idagrupacion){
         $con = Conexion();
         $sqlselect="select nombre from agrupacion where idagrupacion= " . $idagrupacion;
+        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($resultselect);
+        return $fila["nombre"];        
+    }
+    function fncnombreagrupacionest($idagrupacion){
+        $con = Conexion();
+        $sqlselect="select nombre from agrupacionest where idagrupacionest= " . $idagrupacion;
         $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
         $fila = mysql_fetch_assoc($resultselect);
         return $fila["nombre"];        
@@ -114,6 +128,15 @@
         $fila = mysql_fetch_assoc($resultselect);
         return $fila["maximo"];        
     }
+
+    function fncminestructestadofinan($idestadofinanciero){
+        $con = Conexion();
+        $sqlselect="select min(idestructura) minimo from estructuraestadofinanciero where idestadofinanciero= '" . $idestadofinanciero."'";
+        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($resultselect);
+        return $fila["minimo"];        
+    }
+    
     function fncmaxestructuraagrupacion($idestructura){
         $con = Conexion();
         $sqlselect="select max(idtipoagrupacion) maximo from tipoagrupacion where idestructura= " . $idestructura;
@@ -121,9 +144,10 @@
         $fila = mysql_fetch_assoc($resultselect);
         return $fila["maximo"];        
     }
+    
     function fncminestructuraagrupacion($idestructura){
-        $con = Conexion();
-        $sqlselect="select min(idtipoagrupacion) minimo from tipoagrupacion where idestructura= " . $idestructura;
+        $con = Conexion();        
+        $sqlselect="select min(idtipoagrupacion)  minimo from  tipoagrupacion where idestructura= " . $idestructura;
         $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
         $fila = mysql_fetch_assoc($resultselect);
         return $fila["minimo"];        
@@ -135,5 +159,47 @@
         $fila = mysql_fetch_assoc($resultselect);
         return $fila["nombre"];        
     }
+    
+    function fncIdTipoAgrupacionEst($idestructura){
+        $con = Conexion();
+        $sqlselect="select idtipoagrupacionest from tipoagrupacionest where idestructura= " . $idestructura;
+        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($resultselect);
+        return $fila["idtipoagrupacionest"];        
+    }
         
-?>
+    function fncmaxestructaasociacion($idtipoagrupacionest){
+        $con = Conexion();
+        $sqlselect="select max(idagrupacionest) maximo from enasociacioner where idtipoagrupacionest= '" . $idtipoagrupacionest."'";
+        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($resultselect);
+        return $fila["maximo"];        
+    }
+
+    function fncminestructaasociacion($idtipoagrupacionest){
+        $con = Conexion();
+        $sqlselect="select min(idagrupacionest) minimo from enasociacioner where idtipoagrupacionest= '" . $idtipoagrupacionest."'";
+        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($resultselect);
+        return $fila["minimo"];        
+    }   
+
+    function fncNombreTipoAgrupacionEst($idtipoagrupacionest){
+        $con = Conexion();
+        $sqlselect="select nombre from tipoagrupacionest where idtipoagrupacionest= " . $idtipoagrupacionest;
+        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($resultselect);
+        return $fila["nombre"];        
+    }
+ 
+    function fnctipoparcial($idagrupacioncuentasest){
+        $con = Conexion();
+        $sqlselect="select tipop from agrupacioncuentasest where idagrupacioncuentasest= " . $idagrupacioncuentasest;
+        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($resultselect);
+        return $fila["tipop"];        
+    }
+    function fncformatonumero($numero,$decimales){
+        return round(number_format($numero,$decimales),0);
+    }
+ ?>

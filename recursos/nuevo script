@@ -439,16 +439,16 @@ CREATE TABLE estadosfinancieros(
 insert into estadosfinancieros (nombre) values("Balance General");
 
 CREATE TABLE estructuraestadofinanciero(
-    idestructura mediumint(8) unsigned auto_increment,
+    idestructura mediumint(8) unsigned not null,
     idestadofinanciero mediumint(8) unsigned not null,
     nombre varchar(60) not null,
-    PRIMARY KEY (idestructura),
+    PRIMARY KEY (idestructura,idestadofinanciero),
     FOREIGN KEY (idestadofinanciero) REFERENCES empresa(idempresa) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(1,"Activo");
-insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(2,"Pasivo");
-insert into estructuraestadofinanciero (idestadofinanciero,nombre) values(3,"Capital Y Utilidad");
+insert into estructuraestadofinanciero (idestructura,idestadofinanciero,nombre) values(1,1,"Activo");
+insert into estructuraestadofinanciero (idestructura,idestadofinanciero,nombre) values(2,1,"Pasivo");
+insert into estructuraestadofinanciero (idestructura,idestadofinanciero,nombre) values(3,1,"Capital Y Utilidad");
 
 
 CREATE TABLE tipoagrupacion (

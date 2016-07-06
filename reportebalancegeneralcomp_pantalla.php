@@ -21,7 +21,7 @@ if (!isset($_SESSION['administrador'])){
         <link rel="stylesheet" href="recursos/dist/css/bootstrap-select.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="recursos/dist/js/bootstrap-select.js"></script>        
-        <title>Generar | Reporte Estado de Resultados Mensualizado</title>
+        <title>Generar | Reporte Balance General Comparativo</title>
         <script type="text/javascript" language="JavaScript" >
             function redirigir(direccion){
                 location.href=direccion;
@@ -41,8 +41,8 @@ if (!isset($_SESSION['administrador'])){
                     <?php Menu(); ?>
                 </div>
                 <div class="col-md-9">
-                    <form method="post" id="form_CREARfambotanica" action="recursos/acciones.php?tarea=22">
-                        <div class="col-md-12 titulopagina" style="margin-top: 125px;">Reporte Estado de Resultados Mensualizado</div>
+                    <form method="post" id="form_CREARfambotanica" action="recursos/acciones.php?tarea=23">
+                        <div class="col-md-12 titulopagina" style="margin-top: 125px;">Reporte Balance General Comparativo</div>
                         <div class="col-md-12 subtitulopagina">Generar Reporte</div>
                     
                         <div class="col-md-7 contiene_entrada" style="padding: 0px">
@@ -69,7 +69,7 @@ if (!isset($_SESSION['administrador'])){
                         </div>        
                         
                         <div class="col-md-2 contiene_entrada" style="padding: 0px; margin-left: -15px">
-                            <div class="col-md-12 titulo_entrada">Año</div>
+                            <div class="col-md-12 titulo_entrada">Año 1</div>
                             <div class="col-md-12">
                                 <select id="anno" name="anno" class="selectpicker show-tick" data-live-search="true" data-width="100%" required="required">
                                 <?php
@@ -103,9 +103,8 @@ if (!isset($_SESSION['administrador'])){
                                 </select>                                                         
                             </div>
                         </div> 
-                        
-                        <div class="col-md-2 contiene_entrada" style="padding: 0px; margin-left: -15px">
-                            <div class="col-md-12 titulo_entrada">Mes</div>
+                         <div class="col-md-2 contiene_entrada" style="padding: 0px; margin-left: -15px">
+                            <div class="col-md-12 titulo_entrada">Mes 1</div>
                             <div class="col-md-12">
                             <?php 
                                 $meses=array();
@@ -137,7 +136,78 @@ if (!isset($_SESSION['administrador'])){
                             </select>                                                        
                             </div>
                         </div>                        
-                        
+                         <div class="col-md-2 contiene_entrada" style="padding: 0px; margin-left: 480px">
+                            <div class="col-md-12 titulo_entrada">Año 2</div>
+                            <div class="col-md-12">
+                                <select id="anno" name="anno2" class="selectpicker show-tick" data-live-search="true" data-width="100%" required="required">
+                                <?php
+                                    /*$anoactual = date("Y") +1;
+                                    $periodos=array();
+                                    for($i=4;$i<=0;$i--){
+                                         $periodos[$i]=$anoactual-$i;
+                                    }*/
+                                    $periodos[0]=2014;
+                                    $periodos[1]=2015;
+                                    $periodos[2]=2016;
+                                    $periodos[3]=2017;
+                                   // print_r($_GET);
+                                    if(empty($_GET["anno2"])){
+                                        //echo "no existe";
+                                        for($i=0;$i<count($periodos);$i++){
+                                            $hoy = getdate();                                            
+                                            if($hoy["year"]==$periodos[$i]){
+                                                echo "<option selected='selected' value='".$periodos[$i]."'>".$periodos[$i]."</option>"; 
+                                            }else{
+                                                echo "<option value='".$periodos[$i]."'>".$periodos[$i]."</option>";
+                                            }  
+                                        }
+                                    }else{
+                                        //echo "existe";
+                                        for($i=0;$i<count($periodos);$i++){
+                                            if($_GET["anno2"]==$periodos[$i]){
+                                                echo "<option selected='selected' value='".$periodos[$i]."'>".$periodos[$i]."</option>"; 
+                                            }else{
+                                                echo "<option value='".$periodos[$i]."'>".$periodos[$i]."</option>";
+                                            }                                       
+                                        }                                        
+                                    }
+                                ?>
+                                </select>                                                         
+                            </div>
+                        </div> 
+                        <div class="col-md-2 contiene_entrada" style="padding: 0px; margin-left: -15px">
+                            <div class="col-md-12 titulo_entrada">Mes 2</div>
+                            <div class="col-md-12">
+                            <?php 
+                                $meses=array();
+                                $meses[1]="Enero";
+                                $meses[2]="Febrero";
+                                $meses[3]="Marzo";
+                                $meses[4]="Abril";
+                                $meses[5]="Mayo";
+                                $meses[6]="Junio";
+                                $meses[7]="Julio";
+                                $meses[8]="Agosto";
+                                $meses[9]="Septiembre";
+                                $meses[10]="Octubre";
+                                $meses[11]="Noviembre";
+                                $meses[12]="Diciembre";                                                                                            
+                            ?>
+                            <select id="mes" name="mes2" class="selectpicker show-tick" data-live-search="true" data-width="100%" required="required">                                
+                                <?php
+                                    for($i=1;$i<13;$i++){
+                                        if($_GET["mes2"]==$i){
+                                            echo "<option selected='selected' value='".$i."'>".$meses[$i]."</option>";
+                                        }else{
+                                            echo "<option value='".$i."'>".$meses[$i]."</option>";
+                                        }
+                                        
+                                    }
+                                
+                                ?>                                                               
+                            </select>                                                        
+                            </div>
+                        </div>                                  
                         <div class="col-md-1 contiene_entrada" style="margin-left: -15px">
                             <div class="col-md-12 titulo_entrada" style="color: #ffffff">h</div>
                             <button type="submit" class="btn btn-default">Submit</button>                       

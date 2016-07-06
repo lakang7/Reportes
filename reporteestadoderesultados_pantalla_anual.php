@@ -21,7 +21,7 @@ if (!isset($_SESSION['administrador'])){
         <link rel="stylesheet" href="recursos/dist/css/bootstrap-select.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="recursos/dist/js/bootstrap-select.js"></script>        
-        <title>Generar | Reporte Estado de Resultados Mensualizado</title>
+        <title>Generar | Reporte Estado de Resultados Anualizado</title>
         <script type="text/javascript" language="JavaScript" >
             function redirigir(direccion){
                 location.href=direccion;
@@ -41,8 +41,8 @@ if (!isset($_SESSION['administrador'])){
                     <?php Menu(); ?>
                 </div>
                 <div class="col-md-9">
-                    <form method="post" id="form_CREARfambotanica" action="recursos/acciones.php?tarea=22">
-                        <div class="col-md-12 titulopagina" style="margin-top: 125px;">Reporte Estado de Resultados Mensualizado</div>
+                    <form method="post" id="form_CREARfambotanica" action="recursos/acciones.php?tarea=24">
+                        <div class="col-md-12 titulopagina" style="margin-top: 125px;">Reporte Estado de Resultados Anualizado</div>
                         <div class="col-md-12 subtitulopagina">Generar Reporte</div>
                     
                         <div class="col-md-7 contiene_entrada" style="padding: 0px">
@@ -105,7 +105,7 @@ if (!isset($_SESSION['administrador'])){
                         </div> 
                         
                         <div class="col-md-2 contiene_entrada" style="padding: 0px; margin-left: -15px">
-                            <div class="col-md-12 titulo_entrada">Mes</div>
+                            <div class="col-md-12 titulo_entrada">Mes Limite</div>
                             <div class="col-md-12">
                             <?php 
                                 $meses=array();

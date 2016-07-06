@@ -7,6 +7,8 @@ require_once("funciones/funciones.php");
 /*Captura de Parametros*/
 $anno = $_GET["anno"];
 $mes  = $_GET["mes"];
+$anno2 = $_GET["anno2"];
+$mes2  = $_GET["mes2"];
 $idestadofinanciero = 1;
 
 /*Consultas de Base de Datos*/
@@ -39,7 +41,7 @@ $pdf->AddPage('P', 'A4');
 $pdf->Image('recursos/logo300px.jpg', 65, 100, 75, 31, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
 $pdf->Line(30, 140, 180, 140);
 $pdf->SetFont('Helvetica', '', 16);
-$pdf->Text(30, 143, 'Resumen de Balance General');
+$pdf->Text(30, 143, 'Resumen de Balance General Comparativo');
 $pdf->Line(30, 153, 180, 153);
 
 $pdf->SetFont('Helvetica', '', 8);    
@@ -61,17 +63,18 @@ $pdf->SetTextColor(126,130,109);
 $pdf->Text(30, 189, 'Periodo en Revisión');    
 $pdf->SetFont('Helvetica', '', 12);
 $pdf->SetTextColor(0,0,0);    
-$pdf->Text(30, 194,retornames($_GET["mes"]).' '.$_GET["anno"]);
+$pdf->Text(30, 195,"Fecha 1: " . retornames($_GET["mes"]).' '.$_GET["anno"] );
+$pdf->Text(30, 200,"Fecha 2: " . retornames($_GET["mes2"]).' '.$_GET["anno2"]);
 
 $pdf->SetFont('Helvetica', '', 8);
 $pdf->SetTextColor(126,130,109);    
-$pdf->Text(30, 203, 'Creado el');     
+$pdf->Text(30, 210, 'Creado el');     
 $pdf->SetFont('Helvetica', '', 9);
 $pdf->SetTextColor(0,0,0);  
 $diadate=date("d");
 $mesdate=date("m");
 $anodate=date("Y");
-$pdf->Text(30, 208,$diadate." de ". retornames(intval($mesdate))." de ".$anodate);
+$pdf->Text(30, 215,$diadate." de ". retornames(intval($mesdate))." de ".$anodate);
 
 $pdf->AddPage('P', 'A4');   
 $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
@@ -92,8 +95,11 @@ $vectorTotalY[]=0;
 $vectorTotal[]=0;
 
 $sumatotalagrupacion=0;
+$sumatotalagrupacion2=0;
 $sumapasivocapital=0;
+$sumapasivocapital2=0;
 $sumacapital=0;
+$sumacapital2=0;
 $maxestructura = fncmaxestructestadofinan($idestadofinanciero);
 
 crearEncabezadoPorcentajes($pdf);
@@ -101,13 +107,20 @@ crearEncabezadoPorcentajes($pdf);
 
 for ($ciclo=1;$ciclo<=$maxestructura;$ciclo++){
     $sumatotalagrupacion=0;
+    $sumatotalagrupacion2=0;
     $contador=0;
     $nombreestructura = fncnombreestructura($ciclo,$idestadofinanciero);
-    if ($ciclo==2){ $X=110; $Y=50; };
+    if ($ciclo==2){ $X=110; $Y=50;};
     crearEncabezado($pdf, $nombreestructura,$X,$Y);
     $Y=crearEstructura($pdf,$idempresa,$ciclo,$X,$Y);
-    if ($ciclo==1){$sumacapital=$sumatotalagrupacion;} else {$sumapasivocapital+=$sumatotalagrupacion;} 
-    totalesxcuerpo($pdf, $X+5, $Y+30,$ciclo, $sumatotalagrupacion,$sumacapital,$sumapasivocapital, $nombreestructura);
+    if ($ciclo==1){
+        $sumacapital =$sumatotalagrupacion;
+        $sumacapital2=$sumatotalagrupacion2;
+    } else {
+        $sumapasivocapital  +=$sumatotalagrupacion;
+        $sumapasivocapital2 +=$sumatotalagrupacion2;
+    } 
+    totalesxcuerpo($pdf, $X+5, $Y+30,$ciclo, $sumatotalagrupacion, $sumatotalagrupacion2, $sumacapital,$sumacapital2, $sumapasivocapital,$sumapasivocapital2, $nombreestructura);
     $Y+=25;
 }    
 
@@ -120,6 +133,7 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
     global $vectorX;
     global $vectorSaldo;
     global $sumatotalagrupacion;
+    global $sumatotalagrupacion2;
     $sumatotal =0;
     $maxestructuraagrupacion=fncmaxestructuraagrupacion($idestructura);
     $minestructuraagrupacion=fncminestructuraagrupacion($idestructura);
@@ -127,7 +141,9 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
     for ($idtipoagrupacion=$minestructuraagrupacion;$idtipoagrupacion<=$maxestructuraagrupacion;$idtipoagrupacion++){
         $i = 0;
         $sumatotal =0;
-        $suma=0;        
+        $sumatotal2 =0;
+        $suma=0;
+        $suma2=0;        
         $Y+=10;       
         $pdf->SetFont('Helvetica', 'I', 7);
         $pdf->SetXY($X,$Y);
@@ -139,6 +155,7 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
         if(mysql_num_rows($resultselect)>0){
             do{
                 $sumaxagrupacion=0;
+                $sumaxagrupacion2=0;
                 $tipoelemento = $fila["tipoelemento"];
                 $idagrupacion = $fila["idagrupacion"];
                 if ($tipoelemento == "a"){
@@ -149,19 +166,26 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
                         do{                            
                             $codigocuenta = $filaagrup["codigocuenta"];
                             $saldocuenta = 0;
-                            $saldocuenta = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $filaagrup["signo"];
-                            if ($saldocuenta<>0) {
+                            $saldocuenta2 = 0;
+                            $saldocuenta  = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $filaagrup["signo"];
+                            $saldocuenta2 = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno2"]),$_GET["mes2"],1) * $filaagrup["signo"];
+                            if ($saldocuenta<>0 Or $saldocuenta2<>0) {
                                 $sumaxagrupacion+=$saldocuenta;
                                 $suma+=$saldocuenta;
                                 $sumatotalagrupacion+=$saldocuenta;
+                                $sumaxagrupacion2+=$saldocuenta2;
+                                $suma2+=$saldocuenta2;
+                                $sumatotalagrupacion2+=$saldocuenta2;                                
                             }
                         } while ($filaagrup = mysql_fetch_assoc($resultselectagrup));
-                        if ($sumaxagrupacion>0){
+                        if ($sumaxagrupacion>0 Or $sumaxagrupacion2>0){
                             $Y+=5;
                             $pdf->SetXY($X+5,$Y);
                             $pdf->Cell(30, 4,fncnombreagrupacion($idagrupacion) , 0, 1, "L", 0, '', 0);
                             $pdf->SetXY($X+35,$Y);                            
                             $pdf->Cell(30, 4,number_format($sumaxagrupacion,2), 0, 1, "R", 0, '', 0);
+                            $pdf->SetXY($X+60,$Y);                            
+                            $pdf->Cell(30, 4,number_format($sumaxagrupacion2,2), 0, 1, "R", 0, '', 0);
                             $i+=1;
                             $vectorSaldo[$i] = $sumaxagrupacion;
                             $vectorY[$i]     = $Y;
@@ -171,11 +195,14 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
                     }                          
                 }elseif (($tipoelemento == "c")){
                     $codigocuenta = $fila["codigocuenta"];
-                    $saldocuenta = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $fila["signo"];
-                        if ($saldocuenta<>0) {
+                    $saldocuenta  = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $fila["signo"];
+                    $saldocuenta2 = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno2"]),$_GET["mes2"],1) * $fila["signo"];
+                    
+                        if ($saldocuenta<>0 Or $saldocuenta2<>0 ) {
                         $Y+=5;
                         $i+=1;
                         $sumatotalagrupacion+=$saldocuenta;
+                        $sumatotalagrupacion2+=$saldocuenta2;
                         $vectorSaldo[$i] = $saldocuenta;
                         $vectorX[$i] = $X+55;
                         $vectorY[$i] = $Y;
@@ -183,7 +210,11 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
                         $pdf->Cell(30, 4,fncnombrecuenta(fncbuscaridcuenta($idempresa,$codigocuenta)) , 0, 1, "L", 0, '', 0);
                         $pdf->SetXY($X+35,$Y);                            
                         $pdf->Cell(30, 4,number_format($saldocuenta,2), 0, 1, "R", 0, '', 0);
+                        $pdf->SetXY($X+60,$Y);                            
+                        $pdf->Cell(30, 4,number_format($saldocuenta,2), 0, 1, "R", 0, '', 0);
+
                         $suma+=$saldocuenta;
+                        $suma2+=$saldocuenta2;
                     }
                 }                
             } while ($fila = mysql_fetch_assoc($resultselect));
@@ -196,6 +227,8 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
         $pdf->Cell(30, 4, "Total " . fncnombresubagrupacion  ($idtipoagrupacion), 0, 1, "L", 0, '', 0);
         $pdf->SetXY($X+35,$Y);
         $pdf->Cell(30, 4, number_format($suma,2), 0, 1, "R", 0, '', 0);
+        $pdf->SetXY($X+60,$Y);
+        $pdf->Cell(30, 4, number_format($suma2,2), 0, 1, "R", 0, '', 0);
         $pdf->SetFont('Helvetica', '', 7);    
         
         $contador++;              
@@ -206,16 +239,6 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
         for($j=1;$j<=$i;$j++){
             $sumatotal+=$vectorSaldo[$j];
         }       
-        for($r=1;$r<=$i;$r++){
-            $pdf->SetXY($vectorX[$r]+20,$vectorY[$r]-18);
-            $pdf->Cell(3,40,number_format(($vectorSaldo[$r]/$sumatotal)*100,2). " %" , 0, 1, "R", 0, '', 0);
-            if ($r==$i){
-              $pdf->SetFont('Helvetica', 'I', 7);  
-              $pdf->SetXY($vectorX[$r]-7,$vectorY[$r]+10);
-              $pdf->Cell(30, 4, "100.00 %" , 0, 1, "R", 0, '', 0);
-              $pdf->SetFont('Helvetica', '', 7);
-            }
-        }
     }
     return $Y;
 }
@@ -228,19 +251,12 @@ function crearEncabezado($pdf, $nombreestructura,$X,$Y){
     $pdf->SetFont('Helvetica', '', 7);
 }
 
-function totalesxcuerpo($pdf,$X,$Y,$ciclo,$sumatotalagrupacion,$sumacapital,$sumapasivocapital,$nombreestructura){
+function totalesxcuerpo($pdf,$X,$Y,$ciclo,$sumatotalagrupacion,$sumatotalagrupacion2,$sumacapital,$sumacapital2,$sumapasivocapital,$sumapasivocapital2,$nombreestructura){
     global $maxestructura;
     global $contador;
     global $vectorTotal;
     global $vectorTotalX;
     global $vectorTotalY;
-
-    for($r=1;$r<=$contador;$r++){
-        $pdf->SetFont('Helvetica', 'I', 7);
-        $pdf->SetXY($vectorTotalX[$r]+52,$vectorTotalY[$r]);
-        $pdf->Cell(40,4,number_format( ($vectorTotal[$r]/ $sumatotalagrupacion)*100,2) . " %", 0, 1, "R", 0, '', 0);
-        $pdf->SetFont('Helvetica', '', 7);
-    }
 
 
     if ($ciclo>1){
@@ -250,8 +266,10 @@ function totalesxcuerpo($pdf,$X,$Y,$ciclo,$sumatotalagrupacion,$sumacapital,$sum
         $pdf->Cell(40,4, strtoupper("Total ". $nombreestructura),0,1,"L",0,'',0); 
         $pdf->SetXY($X+20,$Y-18);
         $pdf->Cell(40,4,number_format($sumatotalagrupacion,2), 0, 1, "R", 0, '', 0);
-        $pdf->SetXY($X+75,$Y-18);
-        $pdf->Cell(15, 3,"100 %", 0, 1, 'C', 0, '', 0);
+         $pdf->SetXY($X+45,$Y-18);
+        $pdf->Cell(40,4,number_format($sumatotalagrupacion2,2), 0, 1, "R", 0, '', 0);       
+        
+        
     }
     if ($ciclo==$maxestructura) {
         $pdf->Line($X-60, $Y-2, $X-15 , $Y-2);
@@ -261,8 +279,10 @@ function totalesxcuerpo($pdf,$X,$Y,$ciclo,$sumatotalagrupacion,$sumacapital,$sum
         $pdf->Cell(40,4, strtoupper("Total Activo"),0,1,"L",0,'',0); 
         $pdf->SetXY($X-80,$Y);
         $pdf->Cell(40,4,number_format($sumacapital,2), 0, 1, "R", 0, '', 0);
-        $pdf->SetXY($X-25,$Y);
-        $pdf->Cell(15, 3,"100 %", 0, 1, 'C', 0, '', 0);
+        $pdf->SetXY($X-55,$Y);
+        $pdf->Cell(40,4,number_format($sumacapital2,2), 0, 1, "R", 0, '', 0);       
+        
+        
 
         
         $pdf->Line($X+40, $Y-2, $X+85 , $Y-2);
@@ -271,41 +291,25 @@ function totalesxcuerpo($pdf,$X,$Y,$ciclo,$sumatotalagrupacion,$sumacapital,$sum
         $pdf->Cell(40,4, strtoupper("Total Pasivo y Capital"),0,1,"L",0,'',0); 
         $pdf->SetXY($X+20,$Y);
         $pdf->Cell(40,4,number_format($sumapasivocapital,2), 0, 1, "R", 0, '', 0);
-        $pdf->SetXY($X+75,$Y);
-        $pdf->Cell(15, 3,"100 %", 0, 1, 'C', 0, '', 0);
+        
+        $pdf->SetXY($X+45,$Y);
+        $pdf->Cell(40,4,number_format($sumapasivocapital2,2), 0, 1, "R", 0, '', 0);
+        
+        
     }
     $pdf->SetFont('Helvetica', '', 7);
 }
 
 function crearEncabezadoPorcentajes ($pdf){
-    $pdf->SetFont('Helvetica', '', 6);
-    $pdf->SetXY(75, 40);
-    $pdf->Cell(15, 3,"Porcientos", 0, 1, 'C', 0, '', 0); 
-    $pdf->SetXY(75, 42);
-    $pdf->Cell(15, 3,"integrales", 0, 1, 'C', 0, '', 0);
-    $pdf->SetXY(75, 44);
-    $pdf->Cell(15, 3,"de activos", 0, 1, 'C', 0, '', 0);
-    
-    $pdf->SetXY(90, 40);
-    $pdf->Cell(15, 3,"Porcientos", 0, 1, 'C', 0, '', 0); 
-    $pdf->SetXY(90, 42);
-    $pdf->Cell(15, 3,"integrales", 0, 1, 'C', 0, '', 0);
-    $pdf->SetXY(90, 44);
-    $pdf->Cell(15, 3,"en ralación", 0, 1, 'C', 0, '', 0);    
-    
-    $pdf->SetXY(175, 40);
-    $pdf->Cell(15, 3,"Porcientos", 0, 1, 'C', 0, '', 0); 
-    $pdf->SetXY(175, 42);
-    $pdf->Cell(15, 3,"integrales", 0, 1, 'C', 0, '', 0);
-    $pdf->SetXY(175, 44);
-    $pdf->Cell(15, 3,"de pasivos", 0, 1, 'C', 0, '', 0);
-    
-    $pdf->SetXY(190, 40);
-    $pdf->Cell(15, 3,"Porcientos", 0, 1, 'C', 0, '', 0); 
-    $pdf->SetXY(190, 42);
-    $pdf->Cell(15, 3,"integrales", 0, 1, 'C', 0, '', 0);
-    $pdf->SetXY(190, 44);
-    $pdf->Cell(15, 3,"en ralación", 0, 1, 'C', 0, '', 0);     
+    $pdf->SetFont('Helvetica', '', 7);
+    $pdf->SetXY(60, 40);
+    $pdf->Cell(15, 3, retornames($_GET["mes"]).' '.$_GET["anno"] , 0, 1, 'C', 0, '', 0); 
+    $pdf->SetXY(85, 40);
+    $pdf->Cell(15, 3,retornames($_GET["mes2"]).' '.$_GET["anno2"], 0, 1, 'C', 0, '', 0); 
+    $pdf->SetXY(160, 40);
+    $pdf->Cell(15, 3, retornames($_GET["mes"]).' '.$_GET["anno"] , 0, 1, 'C', 0, '', 0); 
+    $pdf->SetXY(185, 40);
+    $pdf->Cell(15, 3,retornames($_GET["mes2"]).' '.$_GET["anno2"], 0, 1, 'C', 0, '', 0); 
 }
 
 $pdf->Output('Listado Empresas.pdf', 'I');

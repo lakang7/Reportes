@@ -169,10 +169,7 @@
                     echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=seleccionadera(".$agrupacion["idagrupacion"].",".$_POST["panel"].")>ELIMINAR</div>";
                     echo "</div>";                     
                     echo "</div>";                                                           
-                }
-                
-                
-                
+                }                                                
             }
         }
     }

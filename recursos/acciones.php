@@ -262,11 +262,13 @@
     /*Insertar Estructura balance generel*/
     if($_GET["tarea"]==15){
         $con = Conexion();
+        $sqlElimina="delete from enasociacion where idempresa='".$_POST["empresa"]."'";
+        $resultElimina=mysql_query($sqlElimina,$con) or die(mysql_error());
+        
         $sqlTipos="select * from tipoagrupacion order by idtipoagrupacion";
         $resultTipos=mysql_query($sqlTipos,$con) or die(mysql_error()); 
         if(mysql_num_rows($resultTipos)>0){
             while ($tipo = mysql_fetch_assoc($resultTipos)) {
-                //echo $_POST["seleccionados".$tipo["idtipoagrupacion"]]."</br>";
                 $listaAUX = explode("_",$_POST["seleccionados".$tipo["idtipoagrupacion"]]);
                 $posicion=1;
                 for($i=0;$i<count($listaAUX);$i++){
@@ -335,7 +337,7 @@
                 if($lista02[2]==2){
                     $lista02[2]=-1;
                 }
-                $sql_insertRelacion="insert into agrupacioncuentasest (idagrupacionest,idempresa,codigocuenta,posicion,signo,tipop,tipoa) values(".$indice.",".$_POST["empresa"].",".$cuenta["codigo"].",".$posicion.",".$lista02[2].",".$lista02[1].",".$lista02[3].")";
+                $sql_insertRelacion="insert into agrupacioncuentasest (idagrupacionest,idempresa,codigocuenta,posicion,signo,tipop,tipoa) values(".$indice.",'".$_POST["empresa"]."','".$cuenta["codigo"]."','".$posicion."','".$lista02[2]."','".$lista02[1]."','".$lista02[3]."')";
                 $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
                 $posicion++;
             }
@@ -402,6 +404,97 @@
                 location.href="../listaragrupacion.php?id=<?php echo $_POST["empresa"]; ?>";
             </script>
         <?php                                 
+    } 
+    
+    /*Eliminar Agrupacion Estado de Resultados*/
+    if($_GET["tarea"]==20){
+        $con =  Conexion();
+        $sqlAgrupacion="select * from agrupacionest where idagrupacionest='".$_GET["id"]."'";
+        $resultAgrupacion = mysql_query($sqlAgrupacion, $con) or die(mysql_error());
+        $agrupacion = mysql_fetch_assoc($resultAgrupacion); 
+        
+        $sqlDeteleRelacion="delete from agrupacioncuentasest where idagrupacionest='".$_GET["id"]."'";
+        $resultDeteleRelacion = mysql_query($sqlDeteleRelacion, $con) or die(mysql_error());
+        
+        $sqlDeleteAgrupacion="delete from agrupacionest where idagrupacionest='".$_GET["id"]."'";
+        $resultDeteleAgrupacion = mysql_query($sqlDeleteAgrupacion, $con) or die(mysql_error());        
+        mysql_close($con);
+        ?>
+            <script type="text/javascript" language="JavaScript" >
+                alert("Agrupación Estado de Resultados Eliminada Satisfactoriamente.");
+                location.href="../listaragrupacioner.php?id=<?php echo $agrupacion["idempresa"]; ?>";
+            </script>
+        <?php                        
+    }    
+    
+    /*Editar agrupación Estado de Resultados*/
+    if($_GET["tarea"]==21){        
+        $con =  Conexion();        
+        $sql_deleteasociaciones="delete from agrupacioncuentasest where idagrupacionest='".$_GET["id"]."'";
+        $result_deleteasociaciones=mysql_query($sql_deleteasociaciones,$con) or die(mysql_error());        
+        $sql_updateagrupacion="update agrupacionest set idtipoagrupacionest='".$_POST["tipoagrupacion"]."', nombre='".$_POST["nombre"]."' where idagrupacionest='".$_GET["id"]."'";
+        $result_updateagrupacion = mysql_query($sql_updateagrupacion,$con) or die(mysql_error());	                               
+        $posicion=1;
+        
+        $lista01 = explode("_", $_POST["seleccionados"]);
+        for($i=0;$i<count($lista01);$i++){
+            if($lista01[$i]!=""){
+                $lista02 = explode("-",$lista01[$i]);
+                $sqlcuenta="select * from cuenta where idempresa='".$_POST["empresa"]."' and idcuenta='".$lista02[0]."'";
+                $resultcuenta = mysql_query($sqlcuenta,$con) or die(mysql_error());
+                $cuenta = mysql_fetch_assoc($resultcuenta);  
+                if($lista02[2]==2){
+                    $lista02[2]=-1;
+                }
+                $sql_insertRelacion="insert into agrupacioncuentasest (idagrupacionest,idempresa,codigocuenta,posicion,signo,tipop,tipoa) values('".$_GET["id"]."','".$_POST["empresa"]."','".$cuenta["codigo"]."','".$posicion."','".$lista02[2]."','".$lista02[1]."','".$lista02[3]."')";
+                //echo $sql_insertRelacion."</br>";
+                $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
+                $posicion++;
+            }
+        }
+        mysql_close($con);  
+        ?>
+            <script type="text/javascript" language="JavaScript" >
+                alert("Agrupación Estado de Resultados Editada Satisfactoriamente.");
+                location.href="../listaragrupacioner.php?id=<?php echo $_POST["empresa"]; ?>";
+            </script>
+        <?php                                                
+    } 
+    
+    
+        /*Generación de Reporte Estado de Resultados*/
+    if($_GET["tarea"]==22){
+        $mensaje="Reporte Generado Satisfactoriamente";       
+    ?>
+        <script type="text/javascript">            
+            window.open("../ReporteEstadodeResultados_Nuevo.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>",'_blank');            
+            alert("<?php echo $mensaje; ?>");
+            location.href="../reporteestadoderesultados_pantalla.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"]; ?>";                
+        </script>            
+    <?php
     }     
+    /*Generación de Reporte Balance General Comparativo*/
+    if($_GET["tarea"]==23){
+        $mensaje="Reporte Generado Satisfactoriamente";       
+    ?>
+        <script type="text/javascript">            
+            window.open("../balancegeneralcomparativo.php?empresa=<?php echo $_POST["empresa"]; ?>&anno2=<?php  echo $_POST["anno2"] ?>&anno=<?php echo $_POST["anno"] ?>&mes2=<?php echo $_POST["mes2"] ?>&mes=<?php echo $_POST["mes"] ?>",'_blank');            
+            alert("<?php echo $mensaje; ?>");
+            location.href="../reportebalancegeneralcomp_pantalla.php?empresa=<?php echo $_POST["empresa"]; ?>&anno2=<?php  echo $_POST["anno2"] ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes2"] ?>&mes=<?php echo $_POST["mes"]; ?>";                
+        </script>            
+    <?php
+    }  
+    /*Generación de Reporte Estado de resultados anualizados*/
+    if($_GET["tarea"]==24){
+        $mensaje="Reporte Generado Satisfactoriamente";       
+    ?>
+        <script type="text/javascript">            
+            window.open("../ReporteEstadodeResultados_Anual.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>",'_blank');            
+            alert("<?php echo $mensaje; ?>");
+            location.href="../reporteestadoderesultados_pantalla_anual.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"]; ?>";               
+        </script>            
+    <?php
+    }  
+
     
 ?>
