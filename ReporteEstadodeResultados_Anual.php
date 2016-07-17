@@ -88,7 +88,7 @@ $dif = $maxestructura-$minestructura;
 
 $Y=40;
 $X=10;
-
+$indice=0;
 
 crearEncabezado($pdf,$X,$Y,$_GET["mes"]);
 
@@ -98,9 +98,24 @@ crearEncabezado($pdf,$X,$Y,$_GET["mes"]);
 for ($idestructura=$minestructura;$idestructura<=$maxestructura;$idestructura++){
     $nombreestructura = fncnombreestructura($idestructura,$idestadofinanciero);
     $Y+=5;
+    $totalxx=0;
     crearEstructura($pdf,$idempresa,$idestructura,$_GET["mes"]);
     $Y+=5;
-    crearTotales($pdf,$idestructura-$dif+1,$X,$Y);
+    $idtipoagrupacionest= $idestructura-$dif+1;
+    $pdf->SetFont('Helvetica', 'B', 7);
+    $pdf->SetXY($X+2,$Y);
+    $pdf->Cell(30, 4,fncNombreTipoAgrupacionEst($idtipoagrupacionest) , 0, 1, "L", 0, '', 0);
+    for ($i=1;$i<=$_GET["mes"];$i++){
+        $resultado=0;
+        $resultado = number_format(crearTotales($pdf,$X,$Y,$_GET["mes"],$i),2);
+        echo "----total = " . $totalxx . "+" . $resultado;
+        $totalxx =  $totalxx + $resultado;
+    }
+    echo $totalagrupacion . "SALIO =" . $totalxx;
+    $pdf->SetXY(fncDevuelveXf($_GET["mes"]),$Y);
+    $pdf->Cell(30, 4,  number_format($totalagrupacion,2), 0, 1, "R", 0, '', 0);
+    $pdf->SetFont('Helvetica', '', 6);
+    
 }   
 $totalparcialxagrupacion=0;
 $totalsaldoxagrupacio=0;
@@ -142,18 +157,15 @@ function crearEstructura($pdf,$idempresa,$idestructura,$cantMeses)
                     $tipoa=$filaagrup["tipoa"];
                     $tipop=$filaagrup["tipop"];
                     $parcialcuenta  = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$numes,$tipop) * $filaagrup["signo"];
+                    //echo "Cuenta => " . fncbuscaridcuenta($idempresa,$codigocuenta) . " Saldo => " . $parcialcuenta. " /    ";
                     if ($restaxagrupacion==0){
                         $totalparcialxagrupacion = $parcialcuenta;
                     };      
                     if ($sumahaberxagrupacioncuenta==0){$sumahaberxagrupacioncuenta=$parcialcuenta;}
                     else{$sumahaberxagrupacioncuenta=$sumahaberxagrupacioncuenta-$parcialcuenta;}                
-                    //echo empty($restahaberxagrupacion[$numes]) . " " . $numes;
-                    //echo fncnombreagrupacionest($idagrupacionest) . " =".  $numes . " <> " . $codigocuenta . "#";
-                    if (empty($restahaberxagrupacion[$numes])){
-                        $restahaberxagrupacion[$numes]=$parcialcuenta;
-                    }else{ 
-                        $restahaberxagrupacion[$numes]=$restahaberxagrupacion[$numes]-$parcialcuenta;
-                    }  
+                    
+                    if (empty($restahaberxagrupacion[$numes])){$restahaberxagrupacion[$numes]=$parcialcuenta;}
+                    else{$restahaberxagrupacion[$numes]=$restahaberxagrupacion[$numes]-$parcialcuenta;}  
                 } while ($filaagrup = mysql_fetch_assoc($resultselectagrup));
                 $mes = retornames($numes); 
                 $pdf->SetXY($R,$Y);                           
@@ -180,19 +192,20 @@ function crearEncabezado($pdf,$X,$Y,$cantMeses){
 }
 
 
-function crearTotales($pdf,$idtipoagrupacionest,$X,$Y){
+function crearTotales($pdf,$X,$Y,$CantidadMeses,$mes){
     global $totalsaldoxagrupacion;
     global $totalparcialxagrupacion;
     global $restaxagrupacion;
     global $restahaberxagrupacion;
+    global $indice;
+    $indice+=1;
     $pdf->SetFont('Helvetica', 'B', 7);
-    $pdf->Line($X+75, $Y-1, $X+283, $Y-1);
-    $pdf->SetXY($X+2,$Y);
-    $pdf->Cell(30, 4,fncNombreTipoAgrupacionEst($idtipoagrupacionest) , 0, 1, "L", 0, '', 0);
+    $pdf->Line($X+75, $Y-1, $X + fncDevuelveXf($CantidadMeses)+3, $Y-1);
     $pdf->SetFont('Helvetica', 'B', 6);
-    $pdf->SetXY($X+60,$Y);                            
-    $pdf->Cell(30, 4,  number_format($restahaberxagrupacion[1],2), 0, 1, "R", 0, '', 0);
+    $pdf->SetXY(fncDevuelveXf($mes)-35,$Y);                            
+    $pdf->Cell(30, 4,  number_format($restahaberxagrupacion[$mes],2), 0, 1, "R", 0, '', 0);
     $pdf->SetFont('Helvetica', '', 6);
+    return $restahaberxagrupacion[$mes];
 }
 $pdf->Output('Listado Empresas.pdf', 'I');
 ?>

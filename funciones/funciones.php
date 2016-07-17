@@ -202,4 +202,120 @@
     function fncformatonumero($numero,$decimales){
         return round(number_format($numero,$decimales),0);
     }
+    
+    function fncPrimeramayuscula($cadena){
+        return ucfirst(strtolower(elimina_acentos($cadena)));
+    }
+    
+    function fncTieneSaldolaCategoria($idempresa,$idtipoagrupacion){
+        $con = Conexion();
+        $tienesaldo=false;
+        $sqlselect="select * from enasociacion where idempresa= " . $idempresa . " and idtipoagrupacion = " . $idtipoagrupacion . " order by posicion";                         
+        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($resultselect);
+        if(mysql_num_rows($resultselect)>0){
+            do{
+                $tipoelemento = $fila["tipoelemento"];
+                $idagrupacion = $fila["idagrupacion"];
+                if ($tipoelemento == "a"){
+                    $sqlselectagrup="select * from agrupacioncuentas where idempresa= " . $idempresa . " and idagrupacion = " . $idagrupacion;                         
+                    $resultselectagrup=mysql_query($sqlselectagrup,$con) or die(mysql_error());
+                    $filaagrup = mysql_fetch_assoc($resultselectagrup);                            
+                    if(mysql_num_rows($resultselectagrup)>0){
+                        do{                            
+                            $codigocuenta = $filaagrup["codigocuenta"];
+                            $saldocuenta = 0;
+                            $saldocuenta = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $filaagrup["signo"];
+                            if ($saldocuenta<>0) {$tienesaldo=true;}
+                        } while ($filaagrup = mysql_fetch_assoc($resultselectagrup));
+                    }                          
+                }elseif (($tipoelemento == "c")){
+                    $codigocuenta = $fila["codigocuenta"];
+                    $saldocuenta = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $fila["signo"];
+                        if ($saldocuenta<>0) {$tienesaldo=true;}
+                }                
+            } while ($fila = mysql_fetch_assoc($resultselect));
+        }
+        return $tienesaldo;
+    }
+
+    function elimina_acentos($text)
+    {
+        $text = htmlentities($text, ENT_QUOTES, 'UTF-8');
+        $text = strtolower($text);
+        $patron = array (
+            // Espacios, puntos y comas por guion
+            //'/[\., ]+/' => ' ',
+ 
+            // Vocales
+            '/\+/' => '',
+            '/&agrave;/' => 'a',
+            '/&egrave;/' => 'e',
+            '/&igrave;/' => 'i',
+            '/&ograve;/' => 'o',
+            '/&ugrave;/' => 'u',
+ 
+            '/&aacute;/' => 'a',
+            '/&eacute;/' => 'e',
+            '/&iacute;/' => 'i',
+            '/&oacute;/' => 'o',
+            '/&uacute;/' => 'u',
+ 
+            '/&acirc;/' => 'a',
+            '/&ecirc;/' => 'e',
+            '/&icirc;/' => 'i',
+            '/&ocirc;/' => 'o',
+            '/&ucirc;/' => 'u',
+ 
+            '/&atilde;/' => 'a',
+            '/&etilde;/' => 'e',
+            '/&itilde;/' => 'i',
+            '/&otilde;/' => 'o',
+            '/&utilde;/' => 'u',
+ 
+            '/&auml;/' => 'a',
+            '/&euml;/' => 'e',
+            '/&iuml;/' => 'i',
+            '/&ouml;/' => 'o',
+            '/&uuml;/' => 'u',
+ 
+            '/&auml;/' => 'a',
+            '/&euml;/' => 'e',
+            '/&iuml;/' => 'i',
+            '/&ouml;/' => 'o',
+            '/&uuml;/' => 'u',
+ 
+            // Otras letras y caracteres especiales
+            '/&aring;/' => 'a',
+            '/&ntilde;/' => 'n',
+ 
+            // Agregar aqui mas caracteres si es necesario
+ 
+        );
+ 
+        $text = preg_replace(array_keys($patron),array_values($patron),$text);
+        return $text;
+    }
+    
+    function fncDevuelveXf($CantidadMeses){
+        switch($CantidadMeses){
+            case 1: $Xf=105; break;
+            case 2: $Xf=120;  break;
+            case 3: $Xf=136;  break;
+            case 4: $Xf=151;  break;
+            case 5: $Xf=165;  break;
+            case 6: $Xf=179; break;
+            case 7: $Xf=193 ; break;
+            case 8: $Xf=207; break;
+            case 9: $Xf=223; break;
+            case 10: $Xf=243; break;
+            case 11: $Xf=259; break;
+            case 12: $Xf=278; break;     
+            }
+        return $Xf;
+    }
+    
+    
+    
+    
  ?>
