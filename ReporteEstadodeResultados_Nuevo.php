@@ -144,8 +144,6 @@ function crearEstructura($pdf,$idempresa,$idestructura)
                     $totalsaldoxagrupacion = $saldocuenta;
                     $totalparcialxagrupacion = $parcialcuenta;
                 };
-                if ($restaxagrupacion==0){$restaxagrupacion=$saldocuenta;}
-                else{$restaxagrupacion=$restaxagrupacion-$saldocuenta;}    
                 if ($sumaxagrupacioncuenta==0){$sumaxagrupacioncuenta=$saldocuenta;}
                 else{$sumaxagrupacioncuenta=$sumaxagrupacioncuenta-$saldocuenta;}             
                 if ($sumahaberxagrupacioncuenta==0){$sumahaberxagrupacioncuenta=$parcialcuenta;}
@@ -153,6 +151,9 @@ function crearEstructura($pdf,$idempresa,$idestructura)
                 if ($restahaberxagrupacion==0){$restahaberxagrupacion=$parcialcuenta;}
                 else{$restahaberxagrupacion=$restahaberxagrupacion-$parcialcuenta;}    
             } while ($filaagrup = mysql_fetch_assoc($resultselectagrup));
+            if ($restaxagrupacion==0){$restaxagrupacion=$totalsaldoxagrupacion;}
+            else{$restaxagrupacion=$restaxagrupacion-$totalsaldoxagrupacion;}    
+
         }
         $Y+=5;
         $pdf->SetXY($X,$Y);

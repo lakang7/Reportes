@@ -293,7 +293,14 @@
                         $posicion++;
                     }                                        
                 }
-            }                            
+            } 
+            
+            ?>
+            <script type="text/javascript">            
+                alert("Estructura de balance general editada satisfactoriamente");
+                location.href="../estructurabalancegeneral.php?id=<?php echo $_POST["empresa"]; ?>";                
+            </script>            
+            <?php                                    
         }        
     } 
     
@@ -354,6 +361,10 @@
     /*Insertar Estructura Estado de Resultados*/
     if($_GET["tarea"]==18){
         $con = Conexion();
+        
+        $sqlElimina="delete from enasociacioner where idempresa='".$_POST["empresa"]."'";
+        $resultElimina=mysql_query($sqlElimina,$con) or die(mysql_error());
+        
         $sqlTipos="select * from tipoagrupacionest order by idtipoagrupacionest";
         $resultTipos=mysql_query($sqlTipos,$con) or die(mysql_error()); 
         if(mysql_num_rows($resultTipos)>0){
@@ -362,13 +373,19 @@
                 $posicion=1;
                 for($i=0;$i<count($listaAUX);$i++){
                     if($listaAUX[$i]!=""){                        
-                        $sqlinsertEstructura="insert into enasociacioner (idtipoagrupacionest,idagrupacionest,posicion,signo) values('".$tipo["idtipoagrupacionest"]."','".$listaAUX[$i]."','".$posicion."','-1')";
+                        $sqlinsertEstructura="insert into enasociacioner (idtipoagrupacionest,idagrupacionest,posicion,signo,idempresa) values('".$tipo["idtipoagrupacionest"]."','".$listaAUX[$i]."','".$posicion."','-1','".$_POST["empresa"]."')";
                         $resultinsertEstructura = mysql_query($sqlinsertEstructura,$con) or die(mysql_error());                                                
                         $posicion++;                        
                     }   
                 }                
             }
         }
+        ?>
+            <script type="text/javascript" language="JavaScript" >
+                alert("Estructura del Estado de Resultados Editada Satisfactoriamente.");
+                location.href="../estructuraestadoresultados.php?id=<?php echo $_POST["empresa"]; ?>";
+            </script>
+        <?php        
     }
     
     /*Editar Agrupacion*/
@@ -496,5 +513,180 @@
     <?php
     }  
 
+    /*Generación de Notas Financieras*/
+    if($_GET["tarea"]==27){
+        
+        $mensaje="Reporte Generado Satisfactoriamente";       
+    ?>
+        <script type="text/javascript">            
+            window.open("../ReporteNotasFinancieras.php?empresa=<?php echo $_POST["empresa"]; ?>&anno2=<?php  echo $_POST["anno2"] ?>&anno=<?php echo $_POST["anno"] ?>&mes2=<?php echo $_POST["mes2"] ?>&mes=<?php echo $_POST["mes"] ?>",'_blank');            
+            alert("<?php echo $mensaje; ?>");
+            location.href="../PantallaNotasFinancieras.php?empresa=<?php echo $_POST["empresa"]; ?>&anno2=<?php  echo $_POST["anno2"] ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes2"] ?>&mes=<?php echo $_POST["mes"]; ?>";                
+        </script>            
+    <?php
+    }     
     
+    /*Generación de Reporte Presupuesto*/
+    if($_GET["tarea"]==50){
+        $mensaje="";       
+        if($_POST["opcion"]==1){
+            $mensaje="Generacion Satisfactoria de Reporte";
+        }else{
+            $mensaje="Envio Satisfactorio de Reporte";
+        }
+    ?>
+        <script type="text/javascript">            
+            window.open("../presupuesto.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>",'_blank');            
+            alert("<?php echo $mensaje; ?>");
+            location.href="../reportepresupuesto.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>";                
+        </script>            
+    <?php
+    }
+    
+    /*Actualizaciones especificas notas financieras*/
+    if($_GET["tarea"]==51){
+        $con =  Conexion();
+        $sql_updateESPECIFICO="update informacionempresa set txtActividades='".$_POST["actividades"]."', txtConstitucion='".$_POST["constitucion"]."', txtCapitalContable='".$_POST["capitalcontable"]."' where idempresa='".$_GET["id"]."'";
+        $result_updateESPECIFICO = mysql_query($sql_updateESPECIFICO,$con) or die(mysql_error()); 
+        
+        $sql_actuales="select count(*) as actuales from informacioncapital where idempresa='".$_GET["id"]."'";
+        $result_actuales = mysql_query($sql_actuales,$con) or die(mysql_error());                     
+        if(mysql_num_rows($result_actuales)>0){                        
+            $total=mysql_fetch_assoc($result_actuales); 
+            $sql_delete="delete from informacioncapital where idempresa='".$_GET["id"]."'";
+            $result_delete = mysql_query($sql_delete,$con) or die(mysql_error());
+            
+            for($i=1;$i<=($total["actuales"]+2);$i++){
+                if($_POST["tiposerie".$i]!="" && $_POST["numeroacciones".$i]!="" && $_POST["importe".$i]!=""){
+                    $sql_insertInformacioncapital="insert into informacioncapital (idempresa,ejercicio,tipoCapital,tipoSerie,nuAcciones,nuImporte) values('".$_GET["id"]."','".$_POST["ejercicio".$i]."','".$_POST["tipocapital".$i]."','".$_POST["tiposerie".$i]."','".$_POST["numeroacciones".$i]."','".$_POST["importe".$i]."')";
+                    $result_informacioncapital = mysql_query($sql_insertInformacioncapital,$con) or die(mysql_error()); 
+                }
+            }
+        }
+        
+        mysql_close($con);  
+    ?>
+        <script type="text/javascript">                                   
+            alert("Configuracion actualizada satisfactoriamente");
+            location.href="../notasfinancieras.php?idempresa=<?php echo $_GET["id"]; ?>";                
+        </script>            
+    <?php        
+    }    
+    
+    /*Actualizaciones generales notas financieras*/
+    if($_GET["tarea"]==52){
+        $con =  Conexion();
+        $sql_updateESPECIFICO="update informacionempresa set txtBasePresentacion='".$_POST["basep"]."', txtPoliticasContables='".$_POST["politicas"]."', txtImpuestosUtilidad='".$_POST["impuestos"]."', txtPronunciamientosContables='".$_POST["pronunciamientos"]."' where idempresa='0'";
+        $result_updateESPECIFICO = mysql_query($sql_updateESPECIFICO,$con) or die(mysql_error());        
+        mysql_close($con);  
+    ?>
+        <script type="text/javascript">                                   
+            alert("Configuracion actualizada satisfactoriamente");
+            location.href="../notasfinancierasgenerales.php";                
+        </script>            
+    <?php        
+    }      
+    
+    /*Eliminación Agrupacion Notas Financieras*/
+    if($_GET["tarea"]==53){
+        $con =  Conexion();
+        $sql_buscaEmpresa="select * from agrupacion_nf where idagrupacion='".$_GET["id"]."'";
+        $result_buscaEmpresa = mysql_query($sql_buscaEmpresa,$con) or die(mysql_error());
+        
+        if(mysql_num_rows($result_buscaEmpresa)>0){
+            $buscaEmpresa = mysql_fetch_assoc($result_buscaEmpresa);        
+        }
+                
+        
+        $sql_DELETE01="delete from agrupacioncuentas_nf where idagrupacion='".$_GET["id"]."'";
+        $result_DELETE01 = mysql_query($sql_DELETE01,$con) or die(mysql_error());        
+        $sql_DELETE02="delete from enasociacion_nf where idagrupacion='".$_GET["id"]."'";
+        $result_DELETE02 = mysql_query($sql_DELETE02,$con) or die(mysql_error()); 
+        $sql_DELETE03="delete from agrupacion_nf where idagrupacion='".$_GET["id"]."'";
+        $result_DELETE03 = mysql_query($sql_DELETE03,$con) or die(mysql_error());        
+        mysql_close($con);  
+    ?>
+        <script type="text/javascript">                                   
+            alert("Agrupación de Notas Financieras eliminada satisfactoriamente");
+            location.href="../listaragrupacionnf.php?id=<?php echo $buscaEmpresa["idempresa"]; ?>";                
+        </script>            
+    <?php        
+    }
+    
+    /*Insertar Agrupacion de Notas Financieras*/
+    if($_GET["tarea"]==54){
+        $con =  Conexion();
+        $sql_insertAgrupacion = "insert into agrupacion_nf (idempresa,idtipoagrupacion,nombre) values ('".$_POST["empresa"]."','1','".$_POST["nombre"]."');";
+	$result_insertAgrupacion = mysql_query($sql_insertAgrupacion,$con) or die(mysql_error());	        
+                
+        $sql_ultimaAGRUPACION = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'razonesfinancieras' AND TABLE_NAME = 'agrupacion_nf';";
+        $result_ultimaAGRUPACION = mysql_query($sql_ultimaAGRUPACION, $con) or die(mysql_error());
+        $fila = mysql_fetch_assoc($result_ultimaAGRUPACION);
+        $indice = intval($fila["AUTO_INCREMENT"]);
+        $indice--; 
+        
+        $sql_insertEnAsociacion="insert into enasociacion_nf (idempresa,idagrupacion,idtipoagrupacion,posicion,signo,tipoelemento) values('".$_POST["empresa"]."','".$indice."','1','".$indice."','1','a');";
+        $result_insertEnAsociacion = mysql_query($sql_insertEnAsociacion, $con) or die(mysql_error());        
+        
+        $posicion=1;
+        $lista01 = explode("_", $_POST["seleccionados"]);
+        for($i=0;$i<count($lista01);$i++){
+            if($lista01[$i]!=""){
+                $lista02 = explode("-",$lista01[$i]);
+                $sqlcuenta="select * from cuenta where idempresa='".$_POST["empresa"]."' and idcuenta='".$lista02[0]."'";
+                $resultcuenta = mysql_query($sqlcuenta,$con) or die(mysql_error());
+                $cuenta = mysql_fetch_assoc($resultcuenta);  
+                if($lista02[2]==2){
+                    $lista02[2]=-1;
+                }
+                $sql_insertRelacion="insert into agrupacioncuentas_nf (idagrupacion,idempresa,codigocuenta,posicion,signo,tipo) values('".$indice."','".$_POST["empresa"]."','".$cuenta["codigo"]."',".$posicion.",".$lista02[2].",".$lista02[1].")";
+                $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
+                
+
+                $posicion++;
+            }
+        }
+        mysql_close($con);  
+        ?>
+            <script type="text/javascript" language="JavaScript" >
+                alert("Agrupación Notas Financieras Registrada Satisfactoriamente.");
+                location.href="../listaragrupacionnf.php?id=<?php echo $_POST["empresa"]; ?>";
+            </script>
+        <?php                                  
+    }     
+    
+    /*Editar Agrupacion Notas Financieras*/
+    if($_GET["tarea"]==55){
+        $con =  Conexion();
+        
+        $sqlUpdateAgrupacion="update agrupacion_nf set nombre='".$_POST["nombre"]."' where idagrupacion='".$_GET["id"]."'";        
+	$resultUpdateAgrupacion = mysql_query($sqlUpdateAgrupacion,$con) or die(mysql_error());	                        
+        
+        $sqldeleteRelacion="delete from agrupacioncuentas_nf where idagrupacion='".$_GET["id"]."'";
+        $resultdeleteRelacion = mysql_query($sqldeleteRelacion,$con) or die(mysql_error());	
+        
+        $posicion=1;
+        $lista01 = explode("_", $_POST["seleccionados"]);
+        for($i=0;$i<count($lista01);$i++){
+            if($lista01[$i]!=""){
+                $lista02 = explode("-",$lista01[$i]);
+                $sqlcuenta="select * from cuenta where idempresa='".$_POST["empresa"]."' and idcuenta='".$lista02[0]."'";
+                $resultcuenta = mysql_query($sqlcuenta,$con) or die(mysql_error());
+                $cuenta = mysql_fetch_assoc($resultcuenta);  
+                if($lista02[2]==2){
+                    $lista02[2]=-1;
+                }
+                $sql_insertRelacion="insert into agrupacioncuentas_nf (idagrupacion,idempresa,codigocuenta,posicion,signo,tipo) values('".$_GET["id"]."','".$_POST["empresa"]."','".$cuenta["codigo"]."',".$posicion.",".$lista02[2].",".$lista02[1].")";
+                $result_insertRelacion = mysql_query($sql_insertRelacion, $con) or die(mysql_error());
+                $posicion++;
+            }
+        }
+        mysql_close($con);  
+        ?>
+            <script type="text/javascript" language="JavaScript" >
+                alert("Agrupación de Notas Financieras Editada Satisfactoriamente.");
+                location.href="../listaragrupacionnf.php?id=<?php echo $_POST["empresa"]; ?>";
+            </script>
+        <?php                                 
+    }     
 ?>

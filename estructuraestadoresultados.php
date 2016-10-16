@@ -46,14 +46,20 @@
                         <div class="col-md-12 titulopagina" style="margin-top: 125px;">Estructura Estado de Resultados</div>
 
                         <div class="col-md-12 subtitulopagina" style="padding-bottom: 20px">
-                            <input type="text" id="empresa" name="empresa" value="<?php echo $_GET["id"] ?>" />
+                            <input type="hidden" id="empresa" name="empresa" value="<?php echo $_GET["id"] ?>" />
                             <?php
                             $con = Conexion();
                             $sqlTipos="select * from tipoagrupacionest order by idtipoagrupacionest";
                             $resultTipos=mysql_query($sqlTipos,$con) or die(mysql_error()); 
                             if(mysql_num_rows($resultTipos)>0){
                                 while ($tipo = mysql_fetch_assoc($resultTipos)) {
-                                    echo "<input type='text' id='seleccionados".$tipo["idtipoagrupacionest"]."' name='seleccionados".$tipo["idtipoagrupacionest"]."' value=''/>";
+                                    $SQL_Enasociacioner="select * from enasociacioner where idempresa='".$_GET["id"]."' and idtipoagrupacionest='".$tipo["idtipoagrupacionest"]."'";
+                                    $result_Enasociacioner=mysql_query($SQL_Enasociacioner,$con) or die(mysql_error()); 
+                                    $concantena="";
+                                    while ($enasociacion = mysql_fetch_assoc($result_Enasociacioner)) {
+                                        $concantena=$concantena."_".$enasociacion["idagrupacionest"];
+                                    }
+                                    echo "<input type='hidden' id='seleccionados".$tipo["idtipoagrupacionest"]."' name='seleccionados".$tipo["idtipoagrupacionest"]."' value='".$concantena."'/>";
                                 }                            
                             }                            
                             ?>
@@ -76,10 +82,16 @@
                                     $result_listaAgrupacion=mysql_query($sql_listaAgrupaciones,$con) or die(mysql_error());                                                                                 
                                     if(mysql_num_rows($result_listaAgrupacion)>0){
                                         while ($agrupacion = mysql_fetch_assoc($result_listaAgrupacion)) {
-                                            echo "<div class='col-md-12 elementoseleccion' id='izqc-".$tipo["idtipoagrupacionest"]."-".$agrupacion["idagrupacionest"]."' name='izqc-".$tipo["idtipoagrupacionest"]."-".$agrupacion["idagrupacionest"]."' onclick=seleccionaizqc(".$agrupacion["idagrupacionest"].",".$tipo["idtipoagrupacionest"].")>";
-                                            echo "<div class='col-md-12 lineapequena'>AGRUPACION</div>";
-                                            echo "<div class='col-md-12 lineagrande'>".$agrupacion["nombre"]."</div>";
-                                            echo "</div>";                                                                                                                                           
+                                            
+                                            $SQL_Valida="select * from enasociacioner where idempresa='".$_GET["id"]."' and idagrupacionest='".$agrupacion["idagrupacionest"]."'";
+                                            $result_Valida=mysql_query($SQL_Valida,$con) or die(mysql_error()); 
+                                            if(mysql_num_rows($result_Valida)==0){
+                                                echo "<div class='col-md-12 elementoseleccion' id='izqc-".$tipo["idtipoagrupacionest"]."-".$agrupacion["idagrupacionest"]."' name='izqc-".$tipo["idtipoagrupacionest"]."-".$agrupacion["idagrupacionest"]."' onclick=seleccionaizqc(".$agrupacion["idagrupacionest"].",".$tipo["idtipoagrupacionest"].")>";
+                                                echo "<div class='col-md-12 lineapequena'>AGRUPACION</div>";
+                                                echo "<div class='col-md-12 lineagrande'>".$agrupacion["nombre"]."</div>";
+                                                echo "</div>";                                                 
+                                            }
+                                                                                                                                          
                                         }   
                                     }                                    
                                                                         
@@ -88,6 +100,25 @@
                                     echo "<div class='col-md-1'>";                                
                                     echo "</div>";
                                     echo "<div class='col-md-5 cajaselecciond' id='cajaderecha".$tipo["idtipoagrupacionest"]."'>";
+                                    $SQL_Enasociacioner="select * from enasociacioner where idempresa='".$_GET["id"]."' and idtipoagrupacionest='".$tipo["idtipoagrupacionest"]."'";
+                                    $result_Enasociacioner=mysql_query($SQL_Enasociacioner,$con) or die(mysql_error());
+                                    while ($enasociacion = mysql_fetch_assoc($result_Enasociacioner)) {
+                                                
+                                        $sqlAgrupacion="select * from agrupacionest where idempresa='".$_GET["id"]."' and idagrupacionest='".$enasociacion["idagrupacionest"]."'";
+                                        $resultAgrupacion=mysql_query($sqlAgrupacion,$con) or die(mysql_error());
+                                        $agrupacion = mysql_fetch_assoc($resultAgrupacion);
+                
+                                        echo "<div class='col-md-12 elementoseleccion' id='der-".$tipo["idtipoagrupacionest"]."-".$agrupacion["idagrupacionest"]."' name='der-".$tipo["idtipoagrupacionest"]."-".$agrupacion["idagrupacionest"]."'>";
+                                        echo "<div class='col-md-12 lineapequena' >AGRUPACION</div>";
+                                        echo "<div class='col-md-12 lineagrande' >".$agrupacion["nombre"]."</div>";
+                                        echo "<div class='col-md-12 lineapequena'>";                        
+                                        echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=subir(".$agrupacion["idagrupacionest"].",".$tipo["idtipoagrupacionest"].")>SUBIR</div>";
+                                        echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=bajar(".$agrupacion["idagrupacionest"].",".$tipo["idtipoagrupacionest"].")>BAJAR</div>";
+                                        echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=seleccionaderc(".$agrupacion["idagrupacionest"].",".$tipo["idtipoagrupacionest"].")>ElIMINAR</div>";
+                                        echo "</div>";                    
+                                        echo "</div>";                                         
+                                        
+                                    }
                                     echo "</div>";
                                     echo "</div>";                                                                                                          
                                 }

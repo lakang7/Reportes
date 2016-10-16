@@ -46,7 +46,7 @@
                         <div class="col-md-12 titulopagina" style="margin-top: 125px;">Estructura Balance General</div>
 
                         <div class="col-md-12 subtitulopagina" style="padding-bottom: 20px">
-                            <input type="text" id="empresa" name="empresa" value="<?php echo $_GET["id"] ?>" />
+                            <input type="hidden" id="empresa" name="empresa" value="<?php echo $_GET["id"] ?>" />
                             <?php
                             $con = Conexion();
                             $sqlTipos="select * from tipoagrupacion order by idtipoagrupacion";
@@ -69,7 +69,7 @@
                                             }                                            
                                         }
                                     }
-                                    echo "<input type='text' id='seleccionados".$tipo["idtipoagrupacion"]."' name='seleccionados".$tipo["idtipoagrupacion"]."' value='".$concatena."'/>";
+                                    echo "<input type='hidden' id='seleccionados".$tipo["idtipoagrupacion"]."' name='seleccionados".$tipo["idtipoagrupacion"]."' value='".$concatena."'/>";
                                 }                            
                             }                            
                             ?>

@@ -1924,14 +1924,17 @@
         $est04=mysql_fetch_assoc($resultEst04);
         
         $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+       // echo $sqlEst02."</br>";
         $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
         $est02=mysql_fetch_assoc($resultEst02);
         
         $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+       // echo $sqlEst05."</br>";
         $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
         $est05=mysql_fetch_assoc($resultEst05);         
        
         $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+       // echo $sqlEst03."</br>";
         $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
         $est03=mysql_fetch_assoc($resultEst03); 
 
@@ -2183,29 +2186,32 @@
         $est04=mysql_fetch_assoc($resultEst04);
         
         $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        //echo $sqlEst02."</br>";
         $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
         $est02=mysql_fetch_assoc($resultEst02);
         
         $sqlEst05="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=3 ";
+        //echo $sqlEst05."</br>";
         $resultEst05=mysql_query($sqlEst05,$con) or die(mysql_error());
         $est05=mysql_fetch_assoc($resultEst05);        
         
         $sqlEst03="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=1 ";
+        //echo $sqlEst03."</br>";
         $resultEst03=mysql_query($sqlEst03,$con) or die(mysql_error());
         $est03=mysql_fetch_assoc($resultEst03); 
         
-        if($buscames==1){ $estadoAcu[$indice]+=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
-        if($buscames==2){ $estadoAcu[$indice]+=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
-        if($buscames==3){ $estadoAcu[$indice]+=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
-        if($buscames==4){ $estadoAcu[$indice]+=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
-        if($buscames==5){ $estadoAcu[$indice]+=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
-        if($buscames==6){ $estadoAcu[$indice]+=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
-        if($buscames==7){ $estadoAcu[$indice]+=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
-        if($buscames==8){ $estadoAcu[$indice]+=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
-        if($buscames==9){ $estadoAcu[$indice]+=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
-        if($buscames==10){ $estadoAcu[$indice]+=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
-        if($buscames==11){ $estadoAcu[$indice]+=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
-        if($buscames==12){ $estadoAcu[$indice]+=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
+        if($buscames==1){ $estadoAcu[$indice]-=$est03["importes1"]; $estadoPer[$indice]+=$est02["importes1"];}
+        if($buscames==2){ $estadoAcu[$indice]-=$est03["importes2"]; $estadoPer[$indice]+=$est02["importes2"];}
+        if($buscames==3){ $estadoAcu[$indice]-=$est03["importes3"]; $estadoPer[$indice]+=$est02["importes3"];}
+        if($buscames==4){ $estadoAcu[$indice]-=$est03["importes4"]; $estadoPer[$indice]+=$est02["importes4"];}
+        if($buscames==5){ $estadoAcu[$indice]-=$est03["importes5"]; $estadoPer[$indice]+=$est02["importes5"];}
+        if($buscames==6){ $estadoAcu[$indice]-=$est03["importes6"]; $estadoPer[$indice]+=$est02["importes6"];}
+        if($buscames==7){ $estadoAcu[$indice]-=$est03["importes7"]; $estadoPer[$indice]+=$est02["importes7"];}
+        if($buscames==8){ $estadoAcu[$indice]-=$est03["importes8"]; $estadoPer[$indice]+=$est02["importes8"];}
+        if($buscames==9){ $estadoAcu[$indice]-=$est03["importes9"]; $estadoPer[$indice]+=$est02["importes9"];}
+        if($buscames==10){ $estadoAcu[$indice]-=$est03["importes10"]; $estadoPer[$indice]+=$est02["importes10"];}
+        if($buscames==11){ $estadoAcu[$indice]-=$est03["importes11"]; $estadoPer[$indice]+=$est02["importes11"];}
+        if($buscames==12){ $estadoAcu[$indice]-=$est03["importes12"]; $estadoPer[$indice]+=$est02["importes12"];}         
     }  
     
     $indice++;
@@ -2335,6 +2341,7 @@
         $est04=mysql_fetch_assoc($resultEst04);
         
         $sqlEst02="select * from saldo where idempresa='".$buscaempresa."' and ejercicio='".$buscaejercicio."' and idcuenta='".$est04["idcuenta"]."' and tipo=2 ";
+        //echo $sqlEst02."</br>";
         $resultEst02=mysql_query($sqlEst02,$con) or die(mysql_error());
         $est02=mysql_fetch_assoc($resultEst02);
         
