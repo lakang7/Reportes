@@ -52,8 +52,8 @@
                         </div>
                         <div class="col-md-12 subtitulopagina">
                             Crear Nuevo Elemento +
-                            <input type="text" id="empresa" name="empresa" value="<?php echo $_GET["idempresa"] ?>" />
-                            <input type="text" id="seleccionados" name="seleccionados" value="" />
+                            <input type="hidden" id="empresa" name="empresa" value="<?php echo $_GET["idempresa"] ?>" />
+                            <input type="hidden" id="seleccionados" name="seleccionados" value="" />
                         </div>
                         
                     <div class="col-md-12 contiene_entrada" style="padding: 0px">

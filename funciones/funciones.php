@@ -15,10 +15,10 @@
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('reportebalancegeneralcomp_pantalla.php') >Reporte Balance General Comparativo</div>";
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('reporteestadoderesultados_pantalla.php') >Reporte Estado de Resultado Mensualizado</div>";
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('reporteestadoderesultados_pantalla_anual.php') >Reporte Estado de Resultados Anualizado</div>";
-        echo "<div class='col-md-12 itemMenu' onclick=redirigir('reporterazonesfinancieras.php') >Reporte Razones Financieras</div>";
-        echo "<div class='col-md-12 itemMenu' onclick=redirigir('reporteestadoderesultados.php') >Reporte Estado de Resultados</div>";
+        echo "<div class='col-md-12 itemMenu' onclick=redirigir('reporterazonesfinancieras.php') >Reporte Razones Financieras</div>";        
         echo "<div class='col-md-12 itemMenu' onclick=redirigir('notasfinancierasgenerales.php') >Configuraciones Generales Notas Financieras</div>";
-        echo "<div class='col-md-12 itemMenu' onclick=redirigir('PantallaNotasFinancieras.php') style='border-bottom: 1px solid #CCCCCC' >Reporte Notas Financieras</div>";        
+        echo "<div class='col-md-12 itemMenu' onclick=redirigir('PantallaNotasFinancieras.php') >Reporte Notas Financieras</div>";        
+        echo "<div class='col-md-12 itemMenu' onclick=redirigir('reportepresupuesto.php') style='border-bottom: 1px solid #CCCCCC' >Reporte Presupuesto</div>"; 
     }        
     function retornames($busca){
         $mes[1]="Enero";

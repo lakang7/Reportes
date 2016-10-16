@@ -130,7 +130,15 @@ $Y+=15;
 
 for ($idagrupacion=fncminidagrupacion_nf($idempresa);$idagrupacion<=fncmaxidagrupacion_nf($idempresa);$idagrupacion++){
     if ($Y >= 250) {
-        $pdf->AddPage();
+        $pdf->AddPage('P', 'A4');   
+        $pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+        $extension=explode(".",$logo);
+        $pdf->Image('logos/'.$logo, 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);
+        $pdf->Line(10, 25, 200, 25);
+        $pdf->SetFont('Helvetica', '', 10);
+        $pdf->Text(9, 26, 'Notas Financieras '.$nombre." a: " . retornames($mes). ' ' .$anno);  
+        $pdf->SetFont('Helvetica', '', 7);
+        
         $Y=25;
     };
     $Y+=15;
@@ -246,7 +254,14 @@ $pdf->SetXY($X,$Y);
 $pdf->WriteHTML('<P ALIGN="left">' . str_replace("X_FECHA_X",retornames($mes) . " de " . $anno ,fnctxtImpuestosUtilidad($idempresa)) . '</P>'); 
 
 
-$pdf->AddPage();
+$pdf->AddPage('P', 'A4');   
+$pdf->Image('recursos/logo300px.jpg', 10, 10, 30, 12.8, 'JPG', 'http://www.gaagdesarrolloempresarial.com', '', true, 150, '', false, false, 0, false, false, false);
+$extension=explode(".",$logo);
+$pdf->Image('logos/'.$logo, 170, 10, 30, 12.8,$extension[1], '', '', true, 150, '', false, false, 0, false, false, false);
+$pdf->Line(10, 25, 200, 25);
+$pdf->SetFont('Helvetica', '', 10);
+$pdf->Text(9, 26, 'Notas Financieras '.$nombre." a: " . retornames($mes). ' ' .$anno);  
+$pdf->SetFont('Helvetica', '', 7);
 
 $Y=40;
 

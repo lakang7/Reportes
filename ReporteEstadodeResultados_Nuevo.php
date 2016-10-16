@@ -98,7 +98,8 @@ $pdf->Cell(30, 4,"Acumulado", 0, 1, "R", 0, '', 0);
 $pdf->SetXY($X+155,$Y-5);                            
 $pdf->Cell(30, 4,"% Integrales", 0, 1, "R", 0, '', 0);
 
-
+$primeraFila="Si";
+$primeraFilaAcu = "Si";
 for ($idestructura=$minestructura;$idestructura<=$maxestructura;$idestructura++){
     $nombreestructura = fncnombreestructura($idestructura,$idestadofinanciero);
     $Y+=5;
@@ -123,9 +124,12 @@ function crearEstructura($pdf,$idempresa,$idestructura)
     global $sumahaberxagrupacioncuenta;
     global $totalsaldoxagrupacion;
     global $totalparcialxagrupacion;
+    global $primeraFila;
+    global $primeraFilaAcu;
     $IdTipoAgrupacionEst = fncIdTipoAgrupacionEst($idestructura);
     $minidtipoagrupacionest = fncminestructaasociacion($IdTipoAgrupacionEst);
     $maxidtipoagrupacionest = fncmaxestructaasociacion($IdTipoAgrupacionEst);
+    $contador=0;
     for ($idagrupacionest=$minidtipoagrupacionest; $idagrupacionest<=$maxidtipoagrupacionest; $idagrupacionest++ ){
         $sumaxagrupacioncuenta=0;
         $sumahaberxagrupacioncuenta=0;
@@ -133,26 +137,46 @@ function crearEstructura($pdf,$idempresa,$idestructura)
         $resultselectagrup=mysql_query($sqlselectagrup,$con) or die(mysql_error());
         $filaagrup = mysql_fetch_assoc($resultselectagrup);                            
         if(mysql_num_rows($resultselectagrup)>0){
-            do{
+            do{ 
+                $contador++;
                 $parcialcuenta=0;    
                 $codigocuenta   = $filaagrup["codigocuenta"];
                 $tipoa=$filaagrup["tipoa"];
                 $tipop=$filaagrup["tipop"];
+                $signo=$filaagrup["signo"];
                 $saldocuenta    = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],$tipoa) * $filaagrup["signo"];
                 $parcialcuenta  = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],$tipop) * $filaagrup["signo"];
-                if ($restaxagrupacion==0){
-                    $totalsaldoxagrupacion = $saldocuenta;
+                //echo " restaxagrupacion = " . $restaxagrupacion . "  / idagrupacionest " . $idagrupacionest . " idCuenta " . fncbuscaridcuenta($idempresa,$codigocuenta) . " Cuenta = " . $codigocuenta . " Saldo = " . $parcialcuenta . " - ";
+                if ($primeraFila=="Si"){
                     $totalparcialxagrupacion = $parcialcuenta;
-                };
+                    //echo "Saldo = " . $saldocuenta;
+                    $totalsaldoxagrupacion   = $saldocuenta;
+                    $primeraFila="No";
+                }
+                
                 if ($sumaxagrupacioncuenta==0){$sumaxagrupacioncuenta=$saldocuenta;}
                 else{$sumaxagrupacioncuenta=$sumaxagrupacioncuenta-$saldocuenta;}             
                 if ($sumahaberxagrupacioncuenta==0){$sumahaberxagrupacioncuenta=$parcialcuenta;}
-                else{$sumahaberxagrupacioncuenta=$sumahaberxagrupacioncuenta-$parcialcuenta;}                
+                else{
+                    if ($signo==1){
+                        $sumahaberxagrupacioncuenta=$sumahaberxagrupacioncuenta+$parcialcuenta;
+                    }else{
+                        $sumahaberxagrupacioncuenta=$sumahaberxagrupacioncuenta-$parcialcuenta;
+                    }
+                }                
                 if ($restahaberxagrupacion==0){$restahaberxagrupacion=$parcialcuenta;}
                 else{$restahaberxagrupacion=$restahaberxagrupacion-$parcialcuenta;}    
             } while ($filaagrup = mysql_fetch_assoc($resultselectagrup));
-            if ($restaxagrupacion==0){$restaxagrupacion=$totalsaldoxagrupacion;}
-            else{$restaxagrupacion=$restaxagrupacion-$totalsaldoxagrupacion;}    
+            
+            if ($primeraFilaAcu=="Si"){
+                //echo "Entro"; 
+                $restaxagrupacion=$sumaxagrupacioncuenta;
+                $primeraFilaAcu="No";
+            }
+            else{
+                //echo " / restaxagrupacion = " . $restaxagrupacion . " - " . $sumaxagrupacioncuenta;
+                $restaxagrupacion=$restaxagrupacion-$sumaxagrupacioncuenta;
+            }    
 
         }
         $Y+=5;
@@ -162,13 +186,11 @@ function crearEstructura($pdf,$idempresa,$idestructura)
         $pdf->Cell(30, 4,number_format($sumaxagrupacioncuenta,2), 0, 1, "R", 0, '', 0);
         $pdf->SetXY($X+80,$Y);                            
         $pdf->Cell(30, 4,number_format($sumahaberxagrupacioncuenta,2), 0, 1, "R", 0, '', 0);
-
-        $pdf->SetXY($X+105,$Y);                            
-        $pdf->Cell(30, 4,number_format( ($sumahaberxagrupacioncuenta*100)/$totalparcialxagrupacion,2). " %", 0, 1, "R", 0, '', 0);
-
-        $pdf->SetXY($X+155,$Y);                            
-        $pdf->Cell(30, 4,number_format(($sumaxagrupacioncuenta*100)/$totalsaldoxagrupacion,2). " %", 0, 1, "R", 0, '', 0);
         
+        $pdf->SetXY($X+105,$Y);    
+        $pdf->Cell(30, 4,number_format( ($sumahaberxagrupacioncuenta*100)/$totalparcialxagrupacion,2). " %", 0, 1, "R", 0, '', 0);
+        $pdf->SetXY($X+155,$Y);                            
+        $pdf->Cell(30, 4, number_format(($sumaxagrupacioncuenta*100)/$totalsaldoxagrupacion,2). " %", 0, 1, "R", 0, '', 0);
         
     }
 }
@@ -179,15 +201,17 @@ function crearTotales($pdf,$idtipoagrupacionest,$X,$Y){
     global $restaxagrupacion;
     global $restahaberxagrupacion;
     $pdf->SetFont('Helvetica', 'B', 8);
-    $pdf->Line($X+100, $Y-1, $X+190 , $Y-1);
+    $pdf->Line($X+90, $Y-1, $X+190 , $Y-1);
     $pdf->SetXY($X+5,$Y);
     $pdf->Cell(30, 4,fncNombreTipoAgrupacionEst($idtipoagrupacionest) , 0, 1, "L", 0, '', 0);
     $pdf->SetXY($X+130,$Y);                            
     $pdf->Cell(30, 4,number_format($restaxagrupacion,2), 0, 1, "R", 0, '', 0);
     $pdf->SetXY($X+80,$Y);                            
     $pdf->Cell(30, 4,number_format($restahaberxagrupacion,2), 0, 1, "R", 0, '', 0);
-    $pdf->SetXY($X+105,$Y);                            
+      
+    $pdf->SetXY($X+105,$Y);          
     $pdf->Cell(30, 4,number_format( ($restahaberxagrupacion*100)/$totalparcialxagrupacion,2). " %", 0, 1, "R", 0, '', 0);
+    
     $pdf->SetXY($X+155,$Y);                            
     $pdf->Cell(30, 4,number_format(($restaxagrupacion*100)/$totalsaldoxagrupacion,2)." %", 0, 1, "R", 0, '', 0);
     $pdf->SetFont('Helvetica', '', 7);

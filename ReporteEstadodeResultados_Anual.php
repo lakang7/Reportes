@@ -146,6 +146,7 @@ function crearEstructura($pdf,$idempresa,$idestructura,$cantMeses)
         $sumaPeriodo_x_Agrupacion=0;
         $pdf->SetXY($X,$Y);
         $pdf->Cell(30, 4,fncnombreagrupacionest($idagrupacionest) , 0, 1, "L", 0, '', 0);        
+        $sumaxagrupacioncuenta=0;
         for ($numes=1;$numes<=$cantMeses;$numes++){
             $sumaxagrupacioncuenta=0;
             $sumahaberxagrupacioncuenta=0;
@@ -185,10 +186,17 @@ function crearEstructura($pdf,$idempresa,$idestructura,$cantMeses)
                 $sumaPeriodo_x_Agrupacion = $sumaPeriodo_x_Agrupacion + $sumahaberxagrupacioncuenta;
                 $mes = retornames($numes); 
                 $pdf->SetXY($R,$Y);                           
-                $pdf->Cell(30, 4,"a".number_format($sumahaberxagrupacioncuenta,2), 0, 1, "R", 0, '', 0);
+                $pdf->Cell(30, 4,number_format($sumahaberxagrupacioncuenta,2), 0, 1, "R", 0, '', 0);
+                $R+= strlen($mes) + 9.5; 
+                $pdf->SetFont('Helvetica', '', 6);
+            }else{
+                $mes = retornames($numes); 
+                $pdf->SetXY($R,$Y);                           
+                $pdf->Cell(30, 4,number_format($sumahaberxagrupacioncuenta,2), 0, 1, "R", 0, '', 0);
                 $R+= strlen($mes) + 9.5; 
                 $pdf->SetFont('Helvetica', '', 6);
             }
+            
         }           
         $pdf->SetFont('Helvetica', 'B', 6);
         $pdf->SetXY($R+3,$Y);                           

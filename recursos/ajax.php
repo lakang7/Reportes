@@ -264,26 +264,50 @@
                     
                     echo "<div class='col-md-3' style='padding:0px'>";
                     if($aux[1]==1){
-                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
                     }
                     if($aux[1]==2){
-                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option></select>";
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
                     }
                     if($aux[1]==3){
-                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option></select>";
-                    }                                        
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }  
+                    if($aux[1]==4){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4' selected>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[1]==5){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5' selected>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[1]==6){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6' selected>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[1]==7){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7' selected>Tipo 7</option></select>";
+                    }                    
                     echo "</div>";
                     
                     echo "<div class='col-md-3' style='padding:0px'>";
                     if($aux[3]==1){
-                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
                     }
                     if($aux[3]==2){
-                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option></select>";
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
                     }
                     if($aux[3]==3){
-                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option></select>";
-                    }                                        
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }  
+                    if($aux[3]==4){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4' selected>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[3]==5){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5' selected>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[3]==6){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6' selected>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[3]==7){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7' selected>Tipo 7</option></select>";
+                    }                    
                     echo "</div>";                    
                     
                     
@@ -307,26 +331,50 @@
                     echo "</div>";                    
                     echo "<div class='col-md-3' style='padding:0px'>";
                     if($aux[1]==1){
-                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
                     }
                     if($aux[1]==2){
-                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option></select>";
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
                     }
                     if($aux[1]==3){
-                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option></select>";
-                    }                                        
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[1]==4){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4' selected>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[1]==5){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5' selected>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[1]==6){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6' selected>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[1]==7){
+                        echo "<select onchange=cambiatipo01(".$cuenta["idcuenta"].") name='tipop".$cuenta["idcuenta"]."' id='tipop".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7' selected>Tipo 7</option></select>";
+                    }                    
                     echo "</div>";
                     
                     echo "<div class='col-md-3' style='padding:0px'>";
                     if($aux[3]==1){
-                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option></select>";
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1' selected>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
                     }
                     if($aux[3]==2){
-                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option></select>";
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2' selected>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
                     }
                     if($aux[3]==3){
-                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option></select>";
-                    }                                        
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3' selected>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }    
+                    if($aux[3]==4){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4' selected>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[3]==5){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5' selected>Tipo 5</option><option value='6'>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[3]==6){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6' selected>Tipo 6</option><option value='7'>Tipo 7</option></select>";
+                    }
+                    if($aux[3]==7){
+                        echo "<select onchange=cambiatipo02(".$cuenta["idcuenta"].") name='tipoa".$cuenta["idcuenta"]."' id='tipoa".$cuenta["idcuenta"]."' style='float:left'><option value='1'>Cargos</option><option value='2'>Abonos</option><option value='3'>Saldos</option><option value='4'>Tipo 4</option><option value='5'>Tipo 5</option><option value='6'>Tipo 6</option><option value='7' selected>Tipo 7</option></select>";
+                    }                    
                     echo "</div>";                      
                     
                     echo "<div class='col-md-2' style=' padding:0px; margin-left:5px' onclick=subir(".$cuenta["idcuenta"].")>SUBIR</div>";

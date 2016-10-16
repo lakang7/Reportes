@@ -170,7 +170,7 @@
         }
     ?>
         <script type="text/javascript">            
-            window.open("../razonesfinancieras.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>",'_blank');            
+            window.open("../razonesfinancieras_nuevo.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>",'_blank');            
             alert("<?php echo $mensaje; ?>");
             location.href="../reporterazonesfinancieras.php?empresa=<?php echo $_POST["empresa"]; ?>&anno=<?php echo $_POST["anno"] ?>&mes=<?php echo $_POST["mes"] ?>&opcion=<?php echo $_POST["opcion"] ?>";                
         </script>            

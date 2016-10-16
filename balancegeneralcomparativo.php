@@ -139,106 +139,110 @@ function crearEstructura($pdf,$idempresa,$idestructura,$X,$Y){
     $minestructuraagrupacion=fncminestructuraagrupacion($idestructura);
     global $contador;
     for ($idtipoagrupacion=$minestructuraagrupacion;$idtipoagrupacion<=$maxestructuraagrupacion;$idtipoagrupacion++){
-        $i = 0;
-        $sumatotal =0;
-        $sumatotal2 =0;
-        $suma=0;
-        $suma2=0;        
-        $Y+=10;       
-        $pdf->SetFont('Helvetica', 'I', 7);
-        $pdf->SetXY($X,$Y);
-        $pdf->Cell(40, 4,fncnombresubagrupacion ($idtipoagrupacion), 0, 1, "L", 0, '', 0);
-        $pdf->SetFont('Helvetica', '', 7);
-        $sqlselect="select * from enasociacion where idempresa= " . $idempresa . " and idtipoagrupacion = " . $idtipoagrupacion . " order by posicion";                         
-        $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
-        $fila = mysql_fetch_assoc($resultselect);
-        if(mysql_num_rows($resultselect)>0){
-            do{
-                $sumaxagrupacion=0;
-                $sumaxagrupacion2=0;
-                $tipoelemento = $fila["tipoelemento"];
-                $idagrupacion = $fila["idagrupacion"];
-                if ($tipoelemento == "a"){
-                    $sqlselectagrup="select * from agrupacioncuentas where idempresa= " . $idempresa . " and idagrupacion = " . $idagrupacion;                         
-                    $resultselectagrup=mysql_query($sqlselectagrup,$con) or die(mysql_error());
-                    $filaagrup = mysql_fetch_assoc($resultselectagrup);                            
-                    if(mysql_num_rows($resultselectagrup)>0){
-                        do{                            
-                            $codigocuenta = $filaagrup["codigocuenta"];
-                            $saldocuenta = 0;
-                            $saldocuenta2 = 0;
-                            $saldocuenta  = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $filaagrup["signo"];
-                            $saldocuenta2 = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno2"]),$_GET["mes2"],1) * $filaagrup["signo"];
-                            if ($saldocuenta<>0 Or $saldocuenta2<>0) {
-                                $sumaxagrupacion+=$saldocuenta;
-                                $suma+=$saldocuenta;
-                                $sumatotalagrupacion+=$saldocuenta;
-                                $sumaxagrupacion2+=$saldocuenta2;
-                                $suma2+=$saldocuenta2;
-                                $sumatotalagrupacion2+=$saldocuenta2;                                
+        $tienesaldo=fncTieneSaldolaCategoria($idempresa,$idtipoagrupacion);
+        if ($tienesaldo==true)
+        {                
+            $i = 0;
+            $sumatotal =0;
+            $sumatotal2 =0;
+            $suma=0;
+            $suma2=0;        
+            $Y+=10;       
+            $pdf->SetFont('Helvetica', 'I', 7);
+            $pdf->SetXY($X,$Y);
+            $pdf->Cell(40, 4,fncnombresubagrupacion ($idtipoagrupacion), 0, 1, "L", 0, '', 0);
+            $pdf->SetFont('Helvetica', '', 7);
+            $sqlselect="select * from enasociacion where idempresa= " . $idempresa . " and idtipoagrupacion = " . $idtipoagrupacion . " order by posicion";                         
+            $resultselect=mysql_query($sqlselect,$con) or die(mysql_error());
+            $fila = mysql_fetch_assoc($resultselect);
+            if(mysql_num_rows($resultselect)>0){
+                do{
+                    $sumaxagrupacion=0;
+                    $sumaxagrupacion2=0;
+                    $tipoelemento = $fila["tipoelemento"];
+                    $idagrupacion = $fila["idagrupacion"];
+                    if ($tipoelemento == "a"){
+                        $sqlselectagrup="select * from agrupacioncuentas where idempresa= " . $idempresa . " and idagrupacion = " . $idagrupacion;                         
+                        $resultselectagrup=mysql_query($sqlselectagrup,$con) or die(mysql_error());
+                        $filaagrup = mysql_fetch_assoc($resultselectagrup);                            
+                        if(mysql_num_rows($resultselectagrup)>0){
+                            do{                            
+                                $codigocuenta = $filaagrup["codigocuenta"];
+                                $saldocuenta = 0;
+                                $saldocuenta2 = 0;
+                                $saldocuenta  = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $filaagrup["signo"];
+                                $saldocuenta2 = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno2"]),$_GET["mes2"],1) * $filaagrup["signo"];
+                                if ($saldocuenta<>0 Or $saldocuenta2<>0) {
+                                    $sumaxagrupacion+=$saldocuenta;
+                                    $suma+=$saldocuenta;
+                                    $sumatotalagrupacion+=$saldocuenta;
+                                    $sumaxagrupacion2+=$saldocuenta2;
+                                    $suma2+=$saldocuenta2;
+                                    $sumatotalagrupacion2+=$saldocuenta2;                                
+                                }
+                            } while ($filaagrup = mysql_fetch_assoc($resultselectagrup));
+                            if ($sumaxagrupacion>0 Or $sumaxagrupacion2>0){
+                                $Y+=5;
+                                $pdf->SetXY($X+5,$Y);
+                                $pdf->Cell(30, 4,fncnombreagrupacion($idagrupacion) , 0, 1, "L", 0, '', 0);
+                                $pdf->SetXY($X+35,$Y);                            
+                                $pdf->Cell(30, 4,number_format($sumaxagrupacion,2), 0, 1, "R", 0, '', 0);
+                                $pdf->SetXY($X+60,$Y);                            
+                                $pdf->Cell(30, 4,number_format($sumaxagrupacion2,2), 0, 1, "R", 0, '', 0);
+                                $i+=1;
+                                $vectorSaldo[$i] = $sumaxagrupacion;
+                                $vectorY[$i]     = $Y;
+                                $vectorX[$i]    = $X+55;
+                                $pdf->SetXY(120,$i*5);
                             }
-                        } while ($filaagrup = mysql_fetch_assoc($resultselectagrup));
-                        if ($sumaxagrupacion>0 Or $sumaxagrupacion2>0){
+                        }                          
+                    }elseif (($tipoelemento == "c")){
+                        $codigocuenta = $fila["codigocuenta"];
+                        $saldocuenta  = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $fila["signo"];
+                        $saldocuenta2 = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno2"]),$_GET["mes2"],1) * $fila["signo"];
+
+                            if ($saldocuenta<>0 Or $saldocuenta2<>0 ) {
                             $Y+=5;
-                            $pdf->SetXY($X+5,$Y);
-                            $pdf->Cell(30, 4,fncnombreagrupacion($idagrupacion) , 0, 1, "L", 0, '', 0);
-                            $pdf->SetXY($X+35,$Y);                            
-                            $pdf->Cell(30, 4,number_format($sumaxagrupacion,2), 0, 1, "R", 0, '', 0);
-                            $pdf->SetXY($X+60,$Y);                            
-                            $pdf->Cell(30, 4,number_format($sumaxagrupacion2,2), 0, 1, "R", 0, '', 0);
                             $i+=1;
-                            $vectorSaldo[$i] = $sumaxagrupacion;
-                            $vectorY[$i]     = $Y;
-                            $vectorX[$i]    = $X+55;
-                            $pdf->SetXY(120,$i*5);
+                            $sumatotalagrupacion+=$saldocuenta;
+                            $sumatotalagrupacion2+=$saldocuenta2;
+                            $vectorSaldo[$i] = $saldocuenta;
+                            $vectorX[$i] = $X+55;
+                            $vectorY[$i] = $Y;
+                            $pdf->SetXY($X+5,$Y);
+                            $pdf->Cell(30, 4,fncnombrecuenta(fncbuscaridcuenta($idempresa,$codigocuenta)) , 0, 1, "L", 0, '', 0);
+                            $pdf->SetXY($X+35,$Y);                            
+                            $pdf->Cell(30, 4,number_format($saldocuenta,2), 0, 1, "R", 0, '', 0);
+                            $pdf->SetXY($X+60,$Y);                            
+                            $pdf->Cell(30, 4,number_format($saldocuenta,2), 0, 1, "R", 0, '', 0);
+
+                            $suma+=$saldocuenta;
+                            $suma2+=$saldocuenta2;
                         }
-                    }                          
-                }elseif (($tipoelemento == "c")){
-                    $codigocuenta = $fila["codigocuenta"];
-                    $saldocuenta  = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno"]),$_GET["mes"],1) * $fila["signo"];
-                    $saldocuenta2 = fncbuscasaldocta($idempresa,fncbuscaridcuenta($idempresa,$codigocuenta),fncbuscaridejercicio($idempresa, $_GET["anno2"]),$_GET["mes2"],1) * $fila["signo"];
-                    
-                        if ($saldocuenta<>0 Or $saldocuenta2<>0 ) {
-                        $Y+=5;
-                        $i+=1;
-                        $sumatotalagrupacion+=$saldocuenta;
-                        $sumatotalagrupacion2+=$saldocuenta2;
-                        $vectorSaldo[$i] = $saldocuenta;
-                        $vectorX[$i] = $X+55;
-                        $vectorY[$i] = $Y;
-                        $pdf->SetXY($X+5,$Y);
-                        $pdf->Cell(30, 4,fncnombrecuenta(fncbuscaridcuenta($idempresa,$codigocuenta)) , 0, 1, "L", 0, '', 0);
-                        $pdf->SetXY($X+35,$Y);                            
-                        $pdf->Cell(30, 4,number_format($saldocuenta,2), 0, 1, "R", 0, '', 0);
-                        $pdf->SetXY($X+60,$Y);                            
-                        $pdf->Cell(30, 4,number_format($saldocuenta,2), 0, 1, "R", 0, '', 0);
+                    }                
+                } while ($fila = mysql_fetch_assoc($resultselect));
+            }
+            $Y+=8;
+            $pdf->Line($X+45, $Y, $X+90, $Y);
+            $Y+=2;
+            $pdf->SetFont('Helvetica', 'I', 7);
+            $pdf->SetXY($X,$Y);
+            $pdf->Cell(30, 4, "Total " . fncnombresubagrupacion  ($idtipoagrupacion), 0, 1, "L", 0, '', 0);
+            $pdf->SetXY($X+35,$Y);
+            $pdf->Cell(30, 4, number_format($suma,2), 0, 1, "R", 0, '', 0);
+            $pdf->SetXY($X+60,$Y);
+            $pdf->Cell(30, 4, number_format($suma2,2), 0, 1, "R", 0, '', 0);
+            $pdf->SetFont('Helvetica', '', 7);    
 
-                        $suma+=$saldocuenta;
-                        $suma2+=$saldocuenta2;
-                    }
-                }                
-            } while ($fila = mysql_fetch_assoc($resultselect));
-        }
-        $Y+=8;
-        $pdf->Line($X+45, $Y, $X+90, $Y);
-        $Y+=2;
-        $pdf->SetFont('Helvetica', 'I', 7);
-        $pdf->SetXY($X,$Y);
-        $pdf->Cell(30, 4, "Total " . fncnombresubagrupacion  ($idtipoagrupacion), 0, 1, "L", 0, '', 0);
-        $pdf->SetXY($X+35,$Y);
-        $pdf->Cell(30, 4, number_format($suma,2), 0, 1, "R", 0, '', 0);
-        $pdf->SetXY($X+60,$Y);
-        $pdf->Cell(30, 4, number_format($suma2,2), 0, 1, "R", 0, '', 0);
-        $pdf->SetFont('Helvetica', '', 7);    
-        
-        $contador++;              
-        $vectorTotalX[$contador]=$X;
-        $vectorTotalY[$contador]=$Y;
-        $vectorTotal[$contador]=$suma;
+            $contador++;              
+            $vectorTotalX[$contador]=$X;
+            $vectorTotalY[$contador]=$Y;
+            $vectorTotal[$contador]=$suma;
 
-        for($j=1;$j<=$i;$j++){
-            $sumatotal+=$vectorSaldo[$j];
-        }       
+            for($j=1;$j<=$i;$j++){
+                $sumatotal+=$vectorSaldo[$j];
+            }       
+        }   
     }
     return $Y;
 }
